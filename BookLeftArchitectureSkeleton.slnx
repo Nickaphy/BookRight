@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Project Path="BookLeft.Application.Tests/BookLeft.Application.Tests.csproj" />
+  <Project Path="BookLeft.Application/BookLeft.Application.csproj" />
+  <Project Path="BookLeft.Domain.Tests/BookLeft.Domain.Tests.csproj" />
+  <Project Path="BookLeft.Domain/BookLeft.Domain.csproj" />
+  <Project Path="BookLeft.Facade/BookLeft.Facade.csproj" />
+  <Project Path="BookLeft.Infrastructure/BookLeft.Infrastructure.csproj" />
+  <Project Path="BookLeft.UI/BookLeft.UI.csproj" />
+</Solution>

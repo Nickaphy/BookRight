@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "fPGjtm1f8cY=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.UI\\BookLeft.UI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\baser\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.7\\microsoft.aspnetcore.app.internal.assets.10.0.7.nupkg.sha512"
+  ],
+  "logs": []
+}

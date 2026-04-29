@@ -1,0 +1,26 @@
+﻿@* Blazor page
+Uses Facade interfaces to show or change booking data
+Must not contain business rules
+Must not use DbContext directly *@
+
+
+
+@*
+CreateBooking.razor
+↓
+IBookingFacade
+↓
+CreateBookingCommand
+↓
+CreateBookingCommandHandler
+↓
+Booking domain model
+↓
+IBookingRepository
+↓
+BookingRepository
+↓
+BookLeftDbContext
+↓
+SQL Server
+*@
