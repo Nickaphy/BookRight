@@ -1,5 +1,5 @@
 Hent den nyeste version:
-git pull 
+git pull origin main
 
 WorkFlow: (Push dit eget arbejde til din egen branch)
 git add filepath
