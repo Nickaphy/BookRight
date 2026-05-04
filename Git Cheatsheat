@@ -1,0 +1,6 @@
+
+WORKFLOW:
+git add filepath
+git commit -m "bla"
+git checkout -b ditBranchNavn
+git push -u origin ditBranchNavn
