@@ -1,5 +1,7 @@
+Hent den nyeste version:
+git pull 
 
-WORKFLOW:
+WorkFlow: (Push dit eget arbejde til din egen branch)
 git add filepath
 git commit -m "bla"
 git checkout -b ditBranchNavn
