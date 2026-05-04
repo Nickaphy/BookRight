@@ -26,12 +26,12 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
-namespace BookLeft.Infrastructure.Persistence;
+namespace BookRight.Infrastructure.Persistence;
 
-public class BookLeftDbContext : DbContext
+public class BookRightDbContext : DbContext
 {
     // Constructor (kommer senere)
-    public BookLeftDbContext(DbContextOptions<BookLeftDbContext> options)
+    public BookRightDbContext(DbContextOptions<BookRightDbContext> options)
         : base(options)
     {
     }

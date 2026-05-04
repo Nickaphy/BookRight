@@ -19,7 +19,7 @@ IBookingRepository
 ↓
 BookingRepository
 ↓
-BookLeftDbContext
+BookRightDbContext
 ↓
 SQL Server
 */

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BookLeft.UI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5282f5c7553729dd3f557bf052f4cb4d541c8ad3")]
 [assembly: System.Reflection.AssemblyProductAttribute("BookLeft.UI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BookLeft.UI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

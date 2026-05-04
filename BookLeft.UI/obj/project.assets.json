@@ -12,27 +12,40 @@
           "buildMultiTargeting/Microsoft.AspNetCore.App.Internal.Assets.targets": {}
         }
       },
-      "BookLeft.Application/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "compile": {
-          "bin/placeholder/BookLeft.Application.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BookLeft.Application.dll": {}
-        }
-      },
-      "BookLeft.Facade/1.0.0": {
+      "BookRight.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "BookLeft.Application": "1.0.0"
+          "BookRight.Domain": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/BookLeft.Facade.dll": {}
+          "bin/placeholder/BookRight.Application.dll": {}
         },
         "runtime": {
-          "bin/placeholder/BookLeft.Facade.dll": {}
+          "bin/placeholder/BookRight.Application.dll": {}
+        }
+      },
+      "BookRight.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/BookRight.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BookRight.Domain.dll": {}
+        }
+      },
+      "BookRight.Facade/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "BookRight.Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BookRight.Facade.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BookRight.Facade.dll": {}
         }
       }
     }
@@ -61,20 +74,25 @@
         "microsoft.aspnetcore.app.internal.assets.nuspec"
       ]
     },
-    "BookLeft.Application/1.0.0": {
+    "BookRight.Application/1.0.0": {
       "type": "project",
-      "path": "../BookLeft.Application/BookLeft.Application.csproj",
-      "msbuildProject": "../BookLeft.Application/BookLeft.Application.csproj"
+      "path": "../BookLeft.Application/BookRight.Application.csproj",
+      "msbuildProject": "../BookLeft.Application/BookRight.Application.csproj"
     },
-    "BookLeft.Facade/1.0.0": {
+    "BookRight.Domain/1.0.0": {
       "type": "project",
-      "path": "../BookLeft.Facade/BookLeft.Facade.csproj",
-      "msbuildProject": "../BookLeft.Facade/BookLeft.Facade.csproj"
+      "path": "../BookLeft.Domain/BookRight.Domain.csproj",
+      "msbuildProject": "../BookLeft.Domain/BookRight.Domain.csproj"
+    },
+    "BookRight.Facade/1.0.0": {
+      "type": "project",
+      "path": "../BookLeft.Facade/BookRight.Facade.csproj",
+      "msbuildProject": "../BookLeft.Facade/BookRight.Facade.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "BookLeft.Facade >= 1.0.0",
+      "BookRight.Facade >= 1.0.0",
       "Microsoft.AspNetCore.App.Internal.Assets >= 10.0.7"
     ]
   },
@@ -85,11 +103,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.UI\\BookLeft.UI.csproj",
-      "projectName": "BookLeft.UI",
-      "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.UI\\BookLeft.UI.csproj",
+      "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.UI\\BookRight.UI.csproj",
+      "projectName": "BookRight.UI",
+      "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.UI\\BookRight.UI.csproj",
       "packagesPath": "C:\\Users\\baser\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.UI\\obj\\",
+      "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.UI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -112,8 +130,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Facade\\BookLeft.Facade.csproj": {
-              "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Facade\\BookLeft.Facade.csproj"
+            "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Facade\\BookRight.Facade.csproj": {
+              "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Facade\\BookRight.Facade.csproj"
             }
           }
         }

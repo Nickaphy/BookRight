@@ -10,6 +10,6 @@
 // Example later:
 // IBookingRepository -> BookingRepository
 // ICustomerRepository -> CustomerRepository
-// BookLeftDbContext -> SQL Server database
+// BookRightDbContext -> SQL Server database
 //
 // This keeps Application independent from EF Core and database details.

@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Domain\\BookLeft.Domain.csproj",
-      "projectName": "BookLeft.Domain",
-      "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Domain\\BookLeft.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\BookRight.Domain.csproj",
+      "projectName": "BookRight.Domain",
+      "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\BookRight.Domain.csproj",
       "packagesPath": "C:\\Users\\baser\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Domain\\obj\\",
+      "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

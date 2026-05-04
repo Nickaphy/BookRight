@@ -1,4 +1,4 @@
-using BookLeft.UI.Components;
+using BookRight.UI.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 

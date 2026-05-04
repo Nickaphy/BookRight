@@ -1,4 +1,4 @@
-﻿namespace BookLeft.Application.Tests
+﻿namespace BookRight.Application.Tests
 {
     public class UnitTest1
     {

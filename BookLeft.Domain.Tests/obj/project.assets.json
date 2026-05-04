@@ -394,14 +394,14 @@
           "build/net8.0/xunit.runner.visualstudio.props": {}
         }
       },
-      "BookLeft.Domain/1.0.0": {
+      "BookRight.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
-          "bin/placeholder/BookLeft.Domain.dll": {}
+          "bin/placeholder/BookRight.Domain.dll": {}
         },
         "runtime": {
-          "bin/placeholder/BookLeft.Domain.dll": {}
+          "bin/placeholder/BookRight.Domain.dll": {}
         }
       }
     }
@@ -914,15 +914,15 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "BookLeft.Domain/1.0.0": {
+    "BookRight.Domain/1.0.0": {
       "type": "project",
-      "path": "../BookLeft.Domain/BookLeft.Domain.csproj",
-      "msbuildProject": "../BookLeft.Domain/BookLeft.Domain.csproj"
+      "path": "../BookLeft.Domain/BookRight.Domain.csproj",
+      "msbuildProject": "../BookLeft.Domain/BookRight.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "BookLeft.Domain >= 1.0.0",
+      "BookRight.Domain >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 17.14.1",
       "coverlet.collector >= 6.0.4",
       "xunit >= 2.9.3",
@@ -936,11 +936,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Domain.Tests\\BookLeft.Domain.Tests.csproj",
-      "projectName": "BookLeft.Domain.Tests",
-      "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Domain.Tests\\BookLeft.Domain.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain.Tests\\BookRight.Domain.Tests.csproj",
+      "projectName": "BookRight.Domain.Tests",
+      "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain.Tests\\BookRight.Domain.Tests.csproj",
       "packagesPath": "C:\\Users\\baser\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Domain.Tests\\obj\\",
+      "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -963,8 +963,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Domain\\BookLeft.Domain.csproj": {
-              "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Domain\\BookLeft.Domain.csproj"
+            "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\BookRight.Domain.csproj": {
+              "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\BookRight.Domain.csproj"
             }
           }
         }

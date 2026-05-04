@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aVniNWMfz6w=",
+  "dgSpecHash": "pWbg0rY908o=",
   "success": true,
-  "projectFilePath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookLeftArchitectureSkeleton\\BookLeft.Domain.Tests\\BookLeft.Domain.Tests.csproj",
+  "projectFilePath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain.Tests\\BookRight.Domain.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\baser\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",
     "C:\\Users\\baser\\.nuget\\packages\\microsoft.codecoverage\\17.14.1\\microsoft.codecoverage.17.14.1.nupkg.sha512",
