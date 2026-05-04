@@ -1,0 +1,61 @@
+# Build output
+bin/
+obj/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+project.lock.json
+project.fragment.lock.json
+packages/
+!**/packages/build/
+.nuget/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.pidb
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# MSBuild / dotnet tools
+.msbuild/
+*.binlog
+
+# Test results & coverage
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+*.cobertura.xml
+*.trx
+
+# Publish output
+publish/
+**/publish/
+
+# Blazor / ASP.NET
+**/wwwroot/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# User secrets (never commit)
+**/secrets.json
+**/appsettings.*.local.json

@@ -1,41 +1,34 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain.Tests\\BookRight.Domain.Tests.csproj": {}
+    "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain.Tests/BookRight.Domain.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain.Tests\\BookRight.Domain.Tests.csproj": {
+    "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain.Tests/BookRight.Domain.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain.Tests\\BookRight.Domain.Tests.csproj",
+        "projectUniqueName": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain.Tests/BookRight.Domain.Tests.csproj",
         "projectName": "BookRight.Domain.Tests",
-        "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain.Tests\\BookRight.Domain.Tests.csproj",
-        "packagesPath": "C:\\Users\\baser\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain.Tests\\obj\\",
+        "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain.Tests/BookRight.Domain.Tests.csproj",
+        "packagesPath": "/home/nicklasdc/.nuget/packages/",
+        "outputPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain.Tests/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\baser\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/nicklasdc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\BookRight.Domain.csproj": {
-                "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\BookRight.Domain.csproj"
+              "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj": {
+                "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj"
               }
             }
           }
@@ -50,11 +43,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
@@ -90,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -368,34 +360,27 @@
         }
       }
     },
-    "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\BookRight.Domain.csproj": {
+    "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\BookRight.Domain.csproj",
+        "projectUniqueName": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj",
         "projectName": "BookRight.Domain",
-        "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\BookRight.Domain.csproj",
-        "packagesPath": "C:\\Users\\baser\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRightArchitectureSkeleton\\BookLeft.Domain\\obj\\",
+        "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj",
+        "packagesPath": "/home/nicklasdc/.nuget/packages/",
+        "outputPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\baser\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/nicklasdc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -410,11 +395,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -432,7 +416,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
