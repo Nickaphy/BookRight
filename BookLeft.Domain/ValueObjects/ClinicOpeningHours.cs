@@ -1,1 +1,0 @@
-﻿// Represents opening hours per day
