@@ -1,51 +1,78 @@
-﻿// Represents a customer
+﻿using BookRight.Domain.Common;
+
 namespace Bookright.Domain.Customers;
 
 public class Customer : Entity
 {
-    public string Name { get; private set; } = null!;
-    public string ContactInfo { get; private set; } = null!;
-    public string LoyaltyLevel { get; private set; }
+    public string Name { get; private set; }
+    public string PhoneNumber { get; private set; }
+    public string Email { get; private set; }
+    public LoyaltyLevel LoyaltyLevel { get; private set; }
     public DateTime DateOfBirth { get; private set; }
-    public string? Address { get; private set; }
-    public string? Note { get; private set;  } = null!;
+    public string? Note { get; private set;  }
+    public string Street { get; private set; }
+    public string City { get; private set; }
+    public string Zipcode { get; private set; }
 
 
     private Customer() { }
 
-        public Customer(Guid id, string name, string contactInfo, string loyaltyLevel, DateTime dateOfBirth, string? address = null, string? note = null)
+        public Customer(string name, 
+            string phoneNumber, 
+            string email, 
+            LoyaltyLevel loyaltyLevel, 
+            DateTime dateOfBirth, 
+            string? note,
+            string? street,
+            string city,
+            string zipcode
+            )
         {   
+            //Not empty
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name cannot be empty.", nameof(name));
 
-            if (string.IsNullOrWhiteSpace(contactInfo))
-                throw new ArgumentException("ContactInfo cannot be empty.", nameof(contactInfo));
+            //Not empty
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Email cannot be empty.", nameof(email));
+            
+            //Not empty
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                throw new ArgumentException("Phone number cannot be empty.", nameof(phoneNumber));
+            
+            //Only digits
+            if (!phoneNumber.All(char.IsDigit))
+                throw new ArgumentException("Phone number can only contain digits.", nameof(phoneNumber));
 
-            if (string.IsNullOrWhiteSpace(loyaltyLevel))
-                throw new ArgumentException("LoyaltyLevel cannot be empty.", nameof(loyaltyLevel));
+            //Must be between 8 and 11 digits
+            if (phoneNumber.Length < 8 || phoneNumber.Length > 11)
+                throw new ArgumentException("Phone number must be between 8 and 11 digits.", nameof(phoneNumber));
 
-            if (dateOfBirth > DateTime.Now)
+            if (dateOfBirth > DateTime.Now) 
                 throw new ArgumentException("DateOfBirth cannot be in the future.", nameof(dateOfBirth));
+            
+            if (zipcode.Length != 4 )
+                throw new ArgumentException("Zipcode must be 4 digits.", nameof(zipcode));
+        
+            if (zipcode.All(char.IsDigit))
+                throw new ArgumentException("Zipcode must not contain only digits.", nameof(zipcode));
+            
+            if (string.IsNullOrWhiteSpace(city))
+                throw new ArgumentException("City cannot be empty.", nameof(city));
 
-            if (address != null) 
-            {
-                if (string.IsNullOrWhiteSpace(address))
-                    throw new ArgumentException("Address cannot be empty if provided.", nameof(address));
-            }
-
-            if (note != null) 
-            {
-                if (string.IsNullOrWhiteSpace(note))
-                    throw new ArgumentException("Note cannot be empty if provided.", nameof(note));
-            }
-
-            Id = Guid.NewGuid();
+            if (string.IsNullOrWhiteSpace(street))
+                throw new ArgumentException("Street cannot be empty.", nameof(street));
+                
+            
             Name = name;
-            ContactInfo = contactInfo;
+            PhoneNumber = phoneNumber;
+            Email = email;
             LoyaltyLevel = loyaltyLevel;
             DateOfBirth = dateOfBirth;
-            Address = address;
             Note = note;
+            Street = street;
+            City = city;
+            Zipcode = zipcode;
     }
 }
 
