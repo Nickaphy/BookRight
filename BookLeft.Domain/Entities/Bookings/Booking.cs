@@ -25,7 +25,7 @@ using BookRight.Domain.Common;
 
 namespace Bookright.Domain.Bookings;
 
-public class Booking : Entity
+public class Booking : AggregateRoot
 {
     public BookingStatus status { get; private set; }
     public DateTime createdDate { get; private set; }
