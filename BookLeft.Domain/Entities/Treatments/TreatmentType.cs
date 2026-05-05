@@ -1,4 +1,4 @@
-﻿// Represents a treatment type
+﻿    // Represents a treatment type
 
 // Rules:
 // - Has duration and base price
