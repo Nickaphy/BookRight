@@ -4,3 +4,42 @@
 // - Has duration and base price
 // - Requires specific authorization
 // - Some treatments can be combined
+
+using BookRight.Domain.Common;
+using BookRight.Domain.ValueObjects;
+
+public class TreatmentType : AggregateRoot
+{
+    public string Name { get; private set; }
+    public int Duration { get; private set; } // in minutes
+    public decimal BasePrice { get; private set; }
+    public AuthorisationType NeedsAuthorisation { get; private set; }
+    public int MaxParticipants { get; private set; }
+
+
+    private TreatmentType() { }
+
+    public TreatmentType(
+        string name,
+        int duration,
+        decimal basePrice,
+        AuthorisationType needsAuthorisation,
+        int maxParticipants
+        )
+    {
+        if ( name == null ) 
+            throw new ArgumentException( "Must choose a treatmenttype" );
+        if (duration <= 0)
+            throw new ArgumentException("Duration must be greater than 0.", nameof(duration));
+        if (basePrice < 0)
+            throw new ArgumentException("Base price cannot be negative.", nameof(basePrice));
+        if (maxParticipants <= 1)
+            throw new ArgumentException("Max participants must be greater than 1.", nameof(maxParticipants));
+
+        Name = name;
+        Duration = duration;
+        BasePrice = basePrice;
+        NeedsAuthorisation = needsAuthorisation;
+        MaxParticipants = maxParticipants;
+    }
+}
