@@ -8,29 +8,36 @@
     "net10.0": []
   },
   "packageFolders": {
-    "/home/nicklasdc/.nuget/packages/": {}
+    "C:\\Users\\milti\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj",
       "projectName": "BookRight.Domain",
-      "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj",
-      "packagesPath": "/home/nicklasdc/.nuget/packages/",
-      "outputPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/obj/",
+      "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj",
+      "packagesPath": "C:\\Users\\milti\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/nicklasdc/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\milti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {}
         }
@@ -45,10 +52,11 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "imports": [
           "net461",
@@ -66,7 +74,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
