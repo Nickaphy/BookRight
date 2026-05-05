@@ -2,7 +2,7 @@
 
 namespace Bookright.Domain.Customers;
 
-public class Customer : Entity
+public class Customer : AggregateRoot
 {
     public string Name { get; private set; }
     public string PhoneNumber { get; private set; }
