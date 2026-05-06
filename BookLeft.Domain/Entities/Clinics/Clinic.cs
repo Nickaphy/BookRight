@@ -2,7 +2,7 @@
 
 namespace BookRight.Domain.Entities.Clinics;
 
-public class Clinic : Entity
+public class Clinic : AggregateRoot
 {
     public string Name { get; private set; }
     public string Street { get; private set; }
