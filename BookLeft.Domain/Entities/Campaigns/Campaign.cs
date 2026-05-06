@@ -8,7 +8,7 @@ using BookRight.Domain.Common;
 
 namespace Bookright.Domain.Campaigns;
 
-public class Campaign : Entity
+public class Campaign : AggregateRoot
 {
     public string Name { get; private set; }
     public DateOnly StartDate { get; private set; }

@@ -1,6 +1,4 @@
-﻿// Enum:
-// None, Bronze, Silver, Gold
-
+﻿//Describes the customer
 public enum LoyaltyLevel
 {
     None,
