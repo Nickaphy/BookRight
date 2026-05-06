@@ -1,3 +1,4 @@
+//receives everything, picks best discount, outputs final price
 using BookRight.Domain.Enums;
 
 namespace BookRight.Domain.ValueObjects;
@@ -19,8 +20,7 @@ public class PriceCalculation
     // The final price the customer pays: BasePrice - DiscountAmount + Supplement
     public Money FinalPrice { get; private set; } = null!;
 
-    // Private constructor so EF Core can reconstruct this object from the database
-    // Cannot be called from outside this class
+    //EF core
     private PriceCalculation() { }
 
     // Static factory method — the only way to create a PriceCalculation from outside
@@ -43,32 +43,38 @@ public class PriceCalculation
         // Birthday discount is 25% if booking is in the customer's birth month, otherwise 0
         decimal birthdayPercent = isBirthdayMonth ? 25m : 0m;
         
-        // Loyalty discount depends on the customer's loyalty level
+        // Loyalty discount depends on the customer loyalty level
         decimal loyaltyPercent = loyaltyLevel switch
         {
             LoyaltyLevel.Bronze => 5m,   // 5% for Bronze
             LoyaltyLevel.Silver => 10m,  // 10% for Silver
             LoyaltyLevel.Gold   => 15m,  // 15% for Gold
-            _                   => 0m    // 0% for Standard (no discount)
+            _                   => 0m    // 0% for Standard
         };
         
         // Use campaign discount if one exists, otherwise 0
         decimal campaignPercent = campaignDiscountPercent ?? 0m;
 
-        // Find the highest discount percentage, only the best discount is applied, they do not stack
+        // Find the highest discount percentage.
         decimal maxPercent = Math.Max(birthdayPercent, Math.Max(loyaltyPercent, campaignPercent));
 
         // Determine which discount type won
-        // Priority if two discounts are equal: Birthday → Loyalty → Campaign
+        // Priority if two discounts are equal: Birthday - Loyalty - Campaign
         DiscountType appliedType;
         if (maxPercent == 0m)
-            appliedType = DiscountType.None;           // No discount applies
+            appliedType = DiscountType.None;
         else if (birthdayPercent == maxPercent)
-            appliedType = DiscountType.Birthday;       // Birthday gave the best discount
+            appliedType = DiscountType.BirthdayMonth;
         else if (loyaltyPercent == maxPercent)
-            appliedType = DiscountType.Loyalty;        // Loyalty gave the best discount
+            appliedType = loyaltyLevel switch
+            {
+                LoyaltyLevel.Bronze => DiscountType.Bronze,
+                LoyaltyLevel.Silver => DiscountType.Silver,
+                LoyaltyLevel.Gold   => DiscountType.Gold,
+                _                   => DiscountType.None
+            };
         else
-            appliedType = DiscountType.Campaign;       // Campaign gave the best discount
+            appliedType = DiscountType.Campaign;
 
         // Calculate the actual money amounts
         // Discount amount = BasePrice * winning discount percentage
