@@ -1,40 +1,34 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.UI\\BookRight.UI.csproj": {}
+    "/home/nicklasdc/Skrivebord/BookRight/BookLeft.UI/BookRight.UI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj": {
+    "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Application/BookRight.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj",
+        "projectUniqueName": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Application/BookRight.Application.csproj",
         "projectName": "BookRight.Application",
-        "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj",
-        "packagesPath": "C:\\Users\\milti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\obj\\",
+        "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Application/BookRight.Application.csproj",
+        "packagesPath": "/home/nicklasdc/.nuget/packages/",
+        "outputPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Application/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\milti\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/nicklasdc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj": {
-                "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj"
+              "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj": {
+                "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj"
               }
             }
           }
@@ -49,11 +43,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -71,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -349,33 +342,27 @@
         }
       }
     },
-    "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj": {
+    "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj",
+        "projectUniqueName": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj",
         "projectName": "BookRight.Domain",
-        "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj",
-        "packagesPath": "C:\\Users\\milti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\obj\\",
+        "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/BookRight.Domain.csproj",
+        "packagesPath": "/home/nicklasdc/.nuget/packages/",
+        "outputPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Domain/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\milti\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/nicklasdc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -390,11 +377,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -412,7 +398,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -690,37 +676,31 @@
         }
       }
     },
-    "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Facade\\BookRight.Facade.csproj": {
+    "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Facade/BookRight.Facade.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Facade\\BookRight.Facade.csproj",
+        "projectUniqueName": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Facade/BookRight.Facade.csproj",
         "projectName": "BookRight.Facade",
-        "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Facade\\BookRight.Facade.csproj",
-        "packagesPath": "C:\\Users\\milti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Facade\\obj\\",
+        "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Facade/BookRight.Facade.csproj",
+        "packagesPath": "/home/nicklasdc/.nuget/packages/",
+        "outputPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Facade/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\milti\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/nicklasdc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj": {
-                "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj"
+              "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Application/BookRight.Application.csproj": {
+                "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Application/BookRight.Application.csproj"
               }
             }
           }
@@ -735,11 +715,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -757,7 +736,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1035,37 +1014,31 @@
         }
       }
     },
-    "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.UI\\BookRight.UI.csproj": {
+    "/home/nicklasdc/Skrivebord/BookRight/BookLeft.UI/BookRight.UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.UI\\BookRight.UI.csproj",
+        "projectUniqueName": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.UI/BookRight.UI.csproj",
         "projectName": "BookRight.UI",
-        "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.UI\\BookRight.UI.csproj",
-        "packagesPath": "C:\\Users\\milti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.UI\\obj\\",
+        "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.UI/BookRight.UI.csproj",
+        "packagesPath": "/home/nicklasdc/.nuget/packages/",
+        "outputPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.UI/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\milti\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/nicklasdc/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Facade\\BookRight.Facade.csproj": {
-                "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Facade\\BookRight.Facade.csproj"
+              "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Facade/BookRight.Facade.csproj": {
+                "projectPath": "/home/nicklasdc/Skrivebord/BookRight/BookLeft.Facade/BookRight.Facade.csproj"
               }
             }
           }
@@ -1080,17 +1053,16 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.AspNetCore.App.Internal.Assets": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[10.0.7, )",
+              "version": "[10.0.0, )",
               "autoReferenced": true
             }
           },
@@ -1113,7 +1085,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
