@@ -4,6 +4,7 @@ using BookRight.Domain.Exceptions;
 using BookRight.Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+
 //Lucas - ville pushe op.. han ville se hvordan treatmenttype kunne få en relation til practitioner,
 //og hvordan practitioner kunne have en liste af treatmenttypes som de var autoriseret til at udføre.
 
@@ -16,7 +17,7 @@ public class Practitioner : AggregateRoot
     public AuthorizationType AuthorizationType { get; private set; }
     public IReadOnlyList<PractitionerClinicDay> ClinicDays => _clinicDays.AsReadOnly();
     private List<PractitionerClinicDay> _clinicDays = new();   //disse to gør at aggregatet Clinic days er skrive beskyttet gennem practitioner ONLY.
-    public List<TreatmentTypes> TreatmentTypes { get; private set; } = new();
+    public List<TreatmentType> TreatmentTypes { get; private set; } = new();
     public Guid ClinicId { get; private set; }
 
     private Practitioner() { }
@@ -48,13 +49,12 @@ public class Practitioner : AggregateRoot
         _clinicDays.Add(new PractitionerClinicDay(Id, clinicId, date));
     }
 
-    public void HasAuthorizationForTreatment(AuthorizationType authorizationtype, TreatmentTypes treatmentType)
+    public void HasAuthorizationForTreatment(AuthorizationType authorizationtype)
     {
 
        if (AuthorizationType != authorizationtype)
             throw new DomainException($"Practitioner does not have the required authorization type: {authorizationtype}.");
-        if (!TreatmentTypes.Contains(treatmentType))
-            throw new DomainException($"Practitioner is not authorized to perform treatment type: {treatmentType}.");
+        
 
     }
 

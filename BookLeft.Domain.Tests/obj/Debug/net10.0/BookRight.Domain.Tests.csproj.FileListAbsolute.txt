@@ -99,3 +99,14 @@ C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\Boo
 C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.pdb
 C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.genruntimeconfig.cache
 C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\BookLeft.Domain.Tests\obj\Debug\net10.0\ref\BookRight.Domain.Tests.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\bin\Debug\net10.0\.msCoverageSourceRootsMapping_BookRight.Domain.Tests
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\bin\Debug\net10.0\CoverletSourceRootsMapping_BookRight.Domain.Tests
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.csproj.AssemblyReference.cache
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.AssemblyInfoInputs.cache
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.AssemblyInfo.cs
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.csproj.CoreCompileInputs.cache
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.sourcelink.json
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\obj\Debug\net10.0\refint\BookRight.Domain.Tests.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain.Tests\obj\Debug\net10.0\BookRight.Domain.Tests.pdb

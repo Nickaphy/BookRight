@@ -10,3 +10,11 @@ C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\Boo
 C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\BookLeft.Domain\obj\Debug\net10.0\refint\BookRight.Domain.dll
 C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\BookLeft.Domain\obj\Debug\net10.0\BookRight.Domain.pdb
 C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\BookLeft.Domain\obj\Debug\net10.0\ref\BookRight.Domain.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain\obj\Debug\net10.0\BookRight.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain\obj\Debug\net10.0\BookRight.Domain.AssemblyInfoInputs.cache
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain\obj\Debug\net10.0\BookRight.Domain.AssemblyInfo.cs
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain\obj\Debug\net10.0\BookRight.Domain.csproj.CoreCompileInputs.cache
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain\obj\Debug\net10.0\BookRight.Domain.sourcelink.json
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain\obj\Debug\net10.0\BookRight.Domain.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain\obj\Debug\net10.0\refint\BookRight.Domain.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Domain\obj\Debug\net10.0\BookRight.Domain.pdb

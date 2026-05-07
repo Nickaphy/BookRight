@@ -15,6 +15,7 @@ public class PractitionerClinicDay : Entity
         ClinicId = clinicId;
         Date = date.Date; // Ensure only the date part is stored
     }
+    
 }
 // CRITICAL RULE:
 // A practitioner can only be assigned to ONE clinic per day
