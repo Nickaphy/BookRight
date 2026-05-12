@@ -1,4 +1,4 @@
-﻿// Data Transfer Object
+// Data Transfer Object
 // Used to move data between Facade and UI
 // UI should not work directly with Domain entities
 // DTOs keep the UI separated from internal business rules
@@ -14,3 +14,24 @@ Application
 
 Domain
 → protects business rules*/
+
+// Erik´s work
+
+using System.Runtime.Intrinsics.X86;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace BookRight.Facade.Dtos;
+
+public sealed record CreateBookingRequest(
+    Guid CustomerId,
+    Guid PractitionerId,
+    Guid ClinicId,
+    Guid TreatmentTypeId,
+    DateTime StartTime
+);
+
+//CreateBookingRequest
+//= data from UI to Facade.
+
+//CreateBookingCommand
+//= data from Facade to Application.
