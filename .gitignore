@@ -2,60 +2,40 @@
 bin/
 obj/
 
-# NuGet
-*.nupkg
-*.snupkg
-*.nuspec
-project.lock.json
-project.fragment.lock.json
-packages/
-!**/packages/build/
-.nuget/
-
 # Visual Studio
 .vs/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
-*.userprefs
-*.pidb
 
-# Visual Studio Code
-.vscode/
-
-# JetBrains Rider
+# Rider
 .idea/
-*.sln.iml
-
-# Resharper
-_ReSharper*/
 *.DotSettings.user
 
-# MSBuild / dotnet tools
-.msbuild/
-*.binlog
+# NuGet
+*.nupkg
+project.assets.json
+project.nuget.cache
+*.nuget.dgspec.json
+packages/
 
-# Test results & coverage
-TestResults/
-coverage/
-*.coverage
-*.coveragexml
-*.cobertura.xml
-*.trx
+# EF Core migrations snapshot (optional — remove if you want to track these)
+# **/Migrations/
 
-# Publish output
-publish/
-**/publish/
+# Sensitive config
+appsettings.Development.json
 
-# Blazor / ASP.NET
-**/wwwroot/dist/
-
-# OS files
+# OS
 .DS_Store
 Thumbs.db
-desktop.ini
 
-# User secrets (never commit)
-**/secrets.json
-**/appsettings.*.local.json
+# Test results
+TestResults/
+*.coverage
+*.coveragexml
+*msCoverageSourceRootsMapping*
+*CoverletSourceRootsMapping*
+
+# Logs
+*.log
