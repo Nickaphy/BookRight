@@ -7,46 +7,14 @@
   "targets": {
     ".NETCoreApp,Version=v10.0": {
       "BookRight.Facade/1.0.0": {
-        "dependencies": {
-          "BookRight.Application": "1.0.0"
-        },
         "runtime": {
           "BookRight.Facade.dll": {}
-        }
-      },
-      "BookRight.Application/1.0.0": {
-        "dependencies": {
-          "BookRight.Domain": "1.0.0"
-        },
-        "runtime": {
-          "BookRight.Application.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "BookRight.Domain/1.0.0": {
-        "runtime": {
-          "BookRight.Domain.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
         }
       }
     }
   },
   "libraries": {
     "BookRight.Facade/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "BookRight.Application/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "BookRight.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

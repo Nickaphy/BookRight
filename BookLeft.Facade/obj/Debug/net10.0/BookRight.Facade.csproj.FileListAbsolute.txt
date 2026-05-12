@@ -16,3 +16,15 @@ C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\Boo
 C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\BookLeft.Facade\obj\Debug\net10.0\refint\BookRight.Facade.dll
 C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\BookLeft.Facade\obj\Debug\net10.0\BookRight.Facade.pdb
 C:\Users\baser\source\repos\Kaj2semesterOpgaver\BookLeftArchitectureSkeleton\BookLeft.Facade\obj\Debug\net10.0\ref\BookRight.Facade.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\bin\Debug\net10.0\BookRight.Facade.deps.json
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\bin\Debug\net10.0\BookRight.Facade.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\bin\Debug\net10.0\BookRight.Facade.pdb
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\obj\Debug\net10.0\BookRight.Facade.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\obj\Debug\net10.0\BookRight.Facade.AssemblyInfoInputs.cache
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\obj\Debug\net10.0\BookRight.Facade.AssemblyInfo.cs
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\obj\Debug\net10.0\BookRight.Facade.csproj.CoreCompileInputs.cache
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\obj\Debug\net10.0\BookRight.Facade.sourcelink.json
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\obj\Debug\net10.0\BookRight.Facade.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\obj\Debug\net10.0\refint\BookRight.Facade.dll
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\obj\Debug\net10.0\BookRight.Facade.pdb
+C:\Users\milti\OneDrive\Skrivebord\personlige oplysninger\Datamatiker\2. Semester\EksamensOpgave\BookRight\BookLeft.Facade\obj\Debug\net10.0\ref\BookRight.Facade.dll

@@ -2,11 +2,48 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "Microsoft.Extensions.DependencyInjection/10.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.7"
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
       "BookRight.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "BookRight.Domain": "1.0.0"
+          "BookRight.Domain": "1.0.0",
+          "BookRight.Facade": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection": "10.0.7"
         },
         "compile": {
           "bin/placeholder/BookRight.Application.dll": {}
@@ -24,10 +61,82 @@
         "runtime": {
           "bin/placeholder/BookRight.Domain.dll": {}
         }
+      },
+      "BookRight.Facade/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/BookRight.Facade.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BookRight.Facade.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "Microsoft.Extensions.DependencyInjection/10.0.7": {
+      "sha512": "91F/o3emPV/+xY/ip3s2LqDNF14kjttlVtq0BXgg6p4MnCzeSZxnUJm+t6WRrtD3JdGo88/oX+z7OwK4y8PZuw==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection/10.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.targets",
+        "lib/net10.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net10.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net9.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net9.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.xml",
+        "microsoft.extensions.dependencyinjection.10.0.7.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.7": {
+      "sha512": "Z6mfFEaFcwCfSboxJwOLfu7/31npCY9q70WUamHW/vRQhDvBKOT4Vf9YkZj5J6hLvJpb0oDEYfHunQZj0xxvKw==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/10.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
+        "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "microsoft.extensions.dependencyinjection.abstractions.10.0.7.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "BookRight.Application/1.0.0": {
       "type": "project",
       "path": "../BookLeft.Application/BookRight.Application.csproj",
@@ -37,12 +146,18 @@
       "type": "project",
       "path": "../BookLeft.Domain/BookRight.Domain.csproj",
       "msbuildProject": "../BookLeft.Domain/BookRight.Domain.csproj"
+    },
+    "BookRight.Facade/1.0.0": {
+      "type": "project",
+      "path": "../BookLeft.Facade/BookRight.Facade.csproj",
+      "msbuildProject": "../BookLeft.Facade/BookRight.Facade.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "BookRight.Application >= 1.0.0",
-      "BookRight.Domain >= 1.0.0"
+      "BookRight.Domain >= 1.0.0",
+      "BookRight.Facade >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -83,6 +198,9 @@
             },
             "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj": {
               "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj"
+            },
+            "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Facade\\BookRight.Facade.csproj": {
+              "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Facade\\BookRight.Facade.csproj"
             }
           }
         }

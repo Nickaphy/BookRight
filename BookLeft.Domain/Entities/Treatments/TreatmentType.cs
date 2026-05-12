@@ -13,7 +13,7 @@ public class TreatmentType : AggregateRoot
     public string Name { get; private set; }
     public int Duration { get; private set; } // in minutes
     public decimal BasePrice { get; private set; }
-    public AuthorisationType NeedsAuthorisation { get; private set; }
+    public AuthorizationType NeedsAuthorisation { get; private set; } //Lucas ændret 09/05
     public int MaxParticipants { get; private set; }
 
 
@@ -23,7 +23,7 @@ public class TreatmentType : AggregateRoot
         string name,
         int duration,
         decimal basePrice,
-        AuthorisationType needsAuthorisation,
+        AuthorizationType needsAuthorisation, //Lucas ændret 09/05
         int maxParticipants
         )
     {

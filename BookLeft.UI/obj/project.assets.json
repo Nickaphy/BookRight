@@ -12,35 +12,9 @@
           "buildMultiTargeting/Microsoft.AspNetCore.App.Internal.Assets.targets": {}
         }
       },
-      "BookRight.Application/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "BookRight.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/BookRight.Application.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BookRight.Application.dll": {}
-        }
-      },
-      "BookRight.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "compile": {
-          "bin/placeholder/BookRight.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BookRight.Domain.dll": {}
-        }
-      },
       "BookRight.Facade/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "BookRight.Application": "1.0.0"
-        },
         "compile": {
           "bin/placeholder/BookRight.Facade.dll": {}
         },
@@ -73,16 +47,6 @@
         "microsoft.aspnetcore.app.internal.assets.10.0.7.nupkg.sha512",
         "microsoft.aspnetcore.app.internal.assets.nuspec"
       ]
-    },
-    "BookRight.Application/1.0.0": {
-      "type": "project",
-      "path": "../BookLeft.Application/BookRight.Application.csproj",
-      "msbuildProject": "../BookLeft.Application/BookRight.Application.csproj"
-    },
-    "BookRight.Domain/1.0.0": {
-      "type": "project",
-      "path": "../BookLeft.Domain/BookRight.Domain.csproj",
-      "msbuildProject": "../BookLeft.Domain/BookRight.Domain.csproj"
     },
     "BookRight.Facade/1.0.0": {
       "type": "project",

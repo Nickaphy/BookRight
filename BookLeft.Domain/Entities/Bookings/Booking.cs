@@ -30,7 +30,7 @@ public class Booking : AggregateRoot
     public BookingStatus status { get; private set; }
     public DateTime createdDate { get; private set; }
     public TimeSpan timeSpan { get; private set; }
-    public PriceCalculation priceCalculation { get; private set; }
+    //public PriceCalculation priceCalculation { get; private set; } // her ændre lucas
     public bool isTeam { get; private set; }
     public int amountParticipants { get; private set; }
     public Guid customerId { get; private set; }
@@ -44,7 +44,7 @@ public class Booking : AggregateRoot
         BookingStatus status,
         DateTime createdDate,
         TimeSpan timeSpan,
-        PriceCalculation priceCalculation,
+        //PriceCalculation priceCalculation, // her ændre lucas
         bool isTeam,
         int amountParticipants,
         Guid customerId,
@@ -53,13 +53,13 @@ public class Booking : AggregateRoot
         TreatmentType treatmentType
         )
     {
-        if int amountParticipants < 1)
+        if (amountParticipants < 1) // her ændre lucas 09-05
             throw new ArgumentException("Amount of participants must be at least 1.", nameof(amountParticipants));
 
         this.status = status;
         this.createdDate = createdDate;
         this.timeSpan = timeSpan;
-        this.priceCalculation = priceCalculation;
+        //this.priceCalculation = priceCalculation;
         this.isTeam = isTeam;
         this.amountParticipants = amountParticipants;
         this.customerId = customerId;

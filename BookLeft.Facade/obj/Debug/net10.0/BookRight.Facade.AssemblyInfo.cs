@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BookRight.Facade")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff2786fc7c33edf53335772507a7f162065862aa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+33f32e67fd60f56322cfa1619e41cda9726ceed4")]
 [assembly: System.Reflection.AssemblyProductAttribute("BookRight.Facade")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BookRight.Facade")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

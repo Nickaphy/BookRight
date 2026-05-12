@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BookLeft.Application\BookRight.Application.csproj" />
-
-  </ItemGroup>
-
 </Project>

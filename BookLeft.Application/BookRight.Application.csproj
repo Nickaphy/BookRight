@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookLeft.Domain\BookRight.Domain.csproj" />
+    <ProjectReference Include="..\BookLeft.Facade\BookRight.Facade.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
   </ItemGroup>
 
 </Project>
