@@ -1,5 +1,7 @@
-﻿// Links Practitioner to Clinic per day
+// Links Practitioner to Clinic per day
 using BookRight.Domain.Common;
+
+namespace BookRight.Domain.Entities.Practitioners;
 
 public class PractitionerClinicDay : Entity
 {
@@ -15,6 +17,7 @@ public class PractitionerClinicDay : Entity
         ClinicId = clinicId;
         Date = date.Date; // Ensure only the date part is stored
     }
+    
 }
 // CRITICAL RULE:
 // A practitioner can only be assigned to ONE clinic per day
