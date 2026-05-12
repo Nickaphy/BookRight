@@ -2,17 +2,13 @@
 // Defines what the Application layer needs from persistence
 // Implemented later in Infrastructure using EF Core
 // Application depends on abstraction, not concrete database code
-
 using BookRight.Domain.Entities.Practitioners;
-
-
-// Eriks work
-
 namespace BookRight.Application.Repositories;
 
 public interface IPractitionerRepository
 {
-    Task<Practitioner?> GetByIdAsync(
-        Guid practitionerId,
-        CancellationToken cancellationToken = default);
+    Task<Practitioner?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task AddAsync(Practitioner practitioner, CancellationToken cancellationToken = default);
+    Task UpdateAsync(Practitioner practitioner, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Practitioner practitioner, CancellationToken cancellationToken = default);
 }
