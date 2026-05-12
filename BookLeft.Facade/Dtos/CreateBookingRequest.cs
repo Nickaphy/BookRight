@@ -14,3 +14,24 @@ Application
 
 Domain
 → protects business rules*/
+
+// Erik´s work
+
+using System.Runtime.Intrinsics.X86;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace BookRight.Facade.Dtos;
+
+public sealed record CreateBookingRequest(
+    Guid CustomerId,
+    Guid PractitionerId,
+    Guid ClinicId,
+    Guid TreatmentTypeId,
+    DateTime StartTime
+);
+
+//CreateBookingRequest
+//= data from UI to Facade.
+
+//CreateBookingCommand
+//= data from Facade to Application.

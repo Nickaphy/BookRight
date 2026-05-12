@@ -24,3 +24,44 @@ BookRightDbContext
 ↓
 SQL Server
 *@
+
+@*Erik's Work.*@
+
+@page "/create-booking"
+@using BookRight.Facade.Dtos
+@using BookRight.Facade.Interfaces
+@inject IBookingFacade BookingFacade
+
+<h3>Create Booking</h3>
+
+<button @onclick="CreateTestBooking">Create test booking</button>
+
+@if (!string.IsNullOrWhiteSpace(_message))
+{
+    <p>@_message</p>
+}
+
+@code {
+    private string? _message;
+
+    private async Task CreateTestBooking()
+    {
+        try
+        {
+            var request = new CreateBookingRequest(
+                CustomerId: Guid.NewGuid(),
+                PractitionerId: Guid.NewGuid(),
+                ClinicId: Guid.NewGuid(),
+                TreatmentTypeId: Guid.NewGuid(),
+                StartTime: DateTime.Now.AddDays(1));
+
+            var bookingId = await BookingFacade.CreateBookingAsync(request);
+
+            _message = $"Booking created with id: {bookingId}";
+        }
+        catch (Exception ex)
+        {
+            _message = ex.Message;
+        }
+    }
+}

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj": {}
+    "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj": {
+    "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj",
         "projectName": "BookRight.Application.Tests",
-        "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj",
-        "packagesPath": "C:\\Users\\milti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application.Tests\\obj\\",
+        "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj",
+        "packagesPath": "C:\\Users\\baser\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\milti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\baser\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -33,11 +34,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj": {
-                "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj"
+              "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application\\BookRight.Application.csproj": {
+                "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application\\BookRight.Application.csproj"
               },
-              "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj": {
-                "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj"
+              "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj": {
+                "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj"
               }
             }
           }
@@ -370,20 +371,20 @@
         }
       }
     },
-    "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj": {
+    "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application\\BookRight.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj",
+        "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application\\BookRight.Application.csproj",
         "projectName": "BookRight.Application",
-        "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\BookRight.Application.csproj",
-        "packagesPath": "C:\\Users\\milti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application\\obj\\",
+        "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application\\BookRight.Application.csproj",
+        "packagesPath": "C:\\Users\\baser\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\milti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\baser\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -392,6 +393,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -399,8 +401,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj": {
-                "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj"
+              "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj": {
+                "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj"
               }
             }
           }
@@ -715,20 +717,20 @@
         }
       }
     },
-    "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj": {
+    "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj",
         "projectName": "BookRight.Domain",
-        "projectPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj",
-        "packagesPath": "C:\\Users\\milti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\obj\\",
+        "projectPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\BookRight.Domain.csproj",
+        "packagesPath": "C:\\Users\\baser\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\milti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\baser\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -737,6 +739,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

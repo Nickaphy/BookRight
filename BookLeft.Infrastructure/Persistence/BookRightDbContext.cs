@@ -68,3 +68,39 @@ the data-base, this way.
 
 
 */
+
+// Erik's Work.
+
+using BookRight.Domain.Entities.Bookings;
+using BookRight.Domain.Entities.Clinics;
+using BookRight.Domain.Entities.Customers;
+using BookRight.Domain.Entities.Practitioners;
+using BookRight.Domain.Entities.Treatments;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
+
+namespace BookRight.Infrastructure.Persistence;
+
+public class BookRightDbContext : DbContext
+{
+    public BookRightDbContext(DbContextOptions<BookRightDbContext> options)
+            : base(options)
+    {
+
+    }
+
+    public DbSet<Booking> Bookings => Set<Booking>();
+    public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<Clinic> Clinics => Set<Clinic>();
+    public DbSet<Practitioner> Practitioners => Set<Practitioner>();
+    public DbSet<TreatmentType> TreatmentTypes => Set<TreatmentType>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Applies EF Core configuration from this assembly.
+        // Keeps mapping rules separated from Domain classes.
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookRightDbContext).Assembly);
+
+        base.OnModelCreating(modelBuilder);
+    }
+}

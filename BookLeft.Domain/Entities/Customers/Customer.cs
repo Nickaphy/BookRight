@@ -1,6 +1,6 @@
 ﻿using BookRight.Domain.Common;
 
-namespace Bookright.Domain.Customers;
+namespace BookRight.Domain.Entities.Customers;
 
 public class Customer : AggregateRoot
 {
@@ -54,7 +54,7 @@ public class Customer : AggregateRoot
             if (zipcode.Length != 4 )
                 throw new ArgumentException("Zipcode must be 4 digits.", nameof(zipcode));
         
-            if (zipcode.All(char.IsDigit))
+            if (!zipcode.All(char.IsDigit))
                 throw new ArgumentException("Zipcode must not contain only digits.", nameof(zipcode));
             
             if (string.IsNullOrWhiteSpace(city))

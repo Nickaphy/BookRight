@@ -24,3 +24,18 @@ BookRightDbContext
 ↓
 SQL Server
 */
+
+// Erik´s work.
+
+using BookRight.Facade.Dtos;
+
+namespace BookRight.Facade.Interfaces;
+
+public interface IBookingFacade
+{
+    Task<Guid> CreateBookingAsync(
+        CreateBookingRequest request,
+        CancellationToken cancellationToken = default);
+}
+
+// UI calls IBookingFacade -> Facade tranlates request into a command -> Application executes the Use Case.

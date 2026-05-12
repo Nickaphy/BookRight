@@ -1,30 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\",
+  "WorkspaceRootPath": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|c:\\users\\milti\\onedrive\\skrivebord\\personlige oplysninger\\datamatiker\\2. semester\\eksamensopgave\\bookright\\bookleft.domain\\entities\\practitioners\\practitioner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|solutionrelative:bookleft.domain\\entities\\practitioners\\practitioner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{000593A9-73C4-F087-737E-974D94980363}|BookLeft.Infrastructure\\BookRight.Infrastructure.csproj|c:\\users\\baser\\source\\repos\\kaj2semesteropgaver\\bookright\\bookleft.infrastructure\\persistence\\repositories\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{000593A9-73C4-F087-737E-974D94980363}|BookLeft.Infrastructure\\BookRight.Infrastructure.csproj|solutionrelative:bookleft.infrastructure\\persistence\\repositories\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|c:\\users\\milti\\onedrive\\skrivebord\\personlige oplysninger\\datamatiker\\2. semester\\eksamensopgave\\bookright\\bookleft.domain\\entities\\practitioners\\practitionerclinicday.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|solutionrelative:bookleft.domain\\entities\\practitioners\\practitionerclinicday.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{000593A9-73C4-F087-737E-974D94980363}|BookLeft.Infrastructure\\BookRight.Infrastructure.csproj|c:\\users\\baser\\source\\repos\\kaj2semesteropgaver\\bookright\\bookleft.infrastructure\\persistence\\bookrightdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{000593A9-73C4-F087-737E-974D94980363}|BookLeft.Infrastructure\\BookRight.Infrastructure.csproj|solutionrelative:bookleft.infrastructure\\persistence\\bookrightdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|c:\\users\\milti\\onedrive\\skrivebord\\personlige oplysninger\\datamatiker\\2. semester\\eksamensopgave\\bookright\\bookleft.domain\\enums\\authorizationtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|solutionrelative:bookleft.domain\\enums\\authorizationtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5913F060-F1C0-E35E-82AA-3D6C8B20240A}|BookLeft.Application\\BookRight.Application.csproj|c:\\users\\baser\\source\\repos\\kaj2semesteropgaver\\bookright\\bookleft.application\\repositories\\ibookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5913F060-F1C0-E35E-82AA-3D6C8B20240A}|BookLeft.Application\\BookRight.Application.csproj|solutionrelative:bookleft.application\\repositories\\ibookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|c:\\users\\milti\\onedrive\\skrivebord\\personlige oplysninger\\datamatiker\\2. semester\\eksamensopgave\\bookright\\bookleft.domain\\exceptions\\domainexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|solutionrelative:bookleft.domain\\exceptions\\domainexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B6A51560-97A6-0CFA-E064-C4DB07AA584F}|BookLeft.UI\\BookRight.UI.csproj|c:\\users\\baser\\source\\repos\\kaj2semesteropgaver\\bookright\\bookleft.ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6A51560-97A6-0CFA-E064-C4DB07AA584F}|BookLeft.UI\\BookRight.UI.csproj|solutionrelative:bookleft.ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B6A51560-97A6-0CFA-E064-C4DB07AA584F}|BookLeft.UI\\BookRight.UI.csproj|c:\\users\\milti\\onedrive\\skrivebord\\personlige oplysninger\\datamatiker\\2. semester\\eksamensopgave\\bookright\\bookleft.ui\\bookright.ui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{B6A51560-97A6-0CFA-E064-C4DB07AA584F}|BookLeft.UI\\BookRight.UI.csproj|solutionrelative:bookleft.ui\\bookright.ui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{B6A51560-97A6-0CFA-E064-C4DB07AA584F}|BookLeft.UI\\BookRight.UI.csproj|c:\\users\\baser\\source\\repos\\kaj2semesteropgaver\\bookright\\bookleft.ui\\connectionstring.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6A51560-97A6-0CFA-E064-C4DB07AA584F}|BookLeft.UI\\BookRight.UI.csproj|solutionrelative:bookleft.ui\\connectionstring.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A0F7FDD7-F433-F117-C4D1-FF591EE3CD95}|BookLeft.Application.Tests\\BookRight.Application.Tests.csproj|c:\\users\\milti\\onedrive\\skrivebord\\personlige oplysninger\\datamatiker\\2. semester\\eksamensopgave\\bookright\\bookleft.application.tests\\bookright.application.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{A0F7FDD7-F433-F117-C4D1-FF591EE3CD95}|BookLeft.Application.Tests\\BookRight.Application.Tests.csproj|solutionrelative:bookleft.application.tests\\bookright.application.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{B6A51560-97A6-0CFA-E064-C4DB07AA584F}|BookLeft.UI\\BookRight.UI.csproj|c:\\users\\baser\\source\\repos\\kaj2semesteropgaver\\bookright\\bookleft.ui\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B6A51560-97A6-0CFA-E064-C4DB07AA584F}|BookLeft.UI\\BookRight.UI.csproj|solutionrelative:bookleft.ui\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|c:\\users\\baser\\source\\repos\\kaj2semesteropgaver\\bookright\\bookleft.domain\\valueobjects\\timerange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|solutionrelative:bookleft.domain\\valueobjects\\timerange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|c:\\users\\baser\\source\\repos\\kaj2semesteropgaver\\bookright\\bookleft.domain\\entities\\bookings\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D24173D-AA2A-352E-4919-258FF13AFE53}|BookLeft.Domain\\BookRight.Domain.csproj|solutionrelative:bookleft.domain\\entities\\bookings\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,84 +42,104 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "DomainException.cs",
-              "DocumentMoniker": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\Exceptions\\DomainException.cs",
-              "RelativeDocumentMoniker": "BookLeft.Domain\\Exceptions\\DomainException.cs",
-              "ToolTip": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\Exceptions\\DomainException.cs",
-              "RelativeToolTip": "BookLeft.Domain\\Exceptions\\DomainException.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.UI\\Program.cs",
+              "RelativeDocumentMoniker": "BookLeft.UI\\Program.cs",
+              "ToolTip": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.UI\\Program.cs",
+              "RelativeToolTip": "BookLeft.UI\\Program.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-05T09:27:00.429Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PractitionerClinicDay.cs",
-              "DocumentMoniker": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\Entities\\Practitioners\\PractitionerClinicDay.cs",
-              "RelativeDocumentMoniker": "BookLeft.Domain\\Entities\\Practitioners\\PractitionerClinicDay.cs",
-              "ToolTip": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\Entities\\Practitioners\\PractitionerClinicDay.cs",
-              "RelativeToolTip": "BookLeft.Domain\\Entities\\Practitioners\\PractitionerClinicDay.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-05T09:03:56.53Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AuthorizationType.cs",
-              "DocumentMoniker": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\Enums\\AuthorizationType.cs",
-              "RelativeDocumentMoniker": "BookLeft.Domain\\Enums\\AuthorizationType.cs",
-              "ToolTip": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\Enums\\AuthorizationType.cs",
-              "RelativeToolTip": "BookLeft.Domain\\Enums\\AuthorizationType.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-05T08:55:50.529Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Practitioner.cs",
-              "DocumentMoniker": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\Entities\\Practitioners\\Practitioner.cs",
-              "RelativeDocumentMoniker": "BookLeft.Domain\\Entities\\Practitioners\\Practitioner.cs",
-              "ToolTip": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Domain\\Entities\\Practitioners\\Practitioner.cs",
-              "RelativeToolTip": "BookLeft.Domain\\Entities\\Practitioners\\Practitioner.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-05T08:54:42.73Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-12T07:20:32.283Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "BookRight.Application.Tests.csproj",
-              "DocumentMoniker": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj",
-              "RelativeDocumentMoniker": "BookLeft.Application.Tests\\BookRight.Application.Tests.csproj",
-              "ToolTip": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.Application.Tests\\BookRight.Application.Tests.csproj",
-              "RelativeToolTip": "BookLeft.Application.Tests\\BookRight.Application.Tests.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-04T08:21:24.106Z"
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.UI\\appsettings.json",
+              "RelativeDocumentMoniker": "BookLeft.UI\\appsettings.json",
+              "ToolTip": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.UI\\appsettings.json",
+              "RelativeToolTip": "BookLeft.UI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-12T07:16:14.392Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "BookRight.UI.csproj",
-              "DocumentMoniker": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.UI\\BookRight.UI.csproj",
-              "RelativeDocumentMoniker": "BookLeft.UI\\BookRight.UI.csproj",
-              "ToolTip": "C:\\Users\\milti\\OneDrive\\Skrivebord\\personlige oplysninger\\Datamatiker\\2. Semester\\EksamensOpgave\\BookRight\\BookLeft.UI\\BookRight.UI.csproj",
-              "RelativeToolTip": "BookLeft.UI\\BookRight.UI.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-04T08:21:24.074Z"
+              "Title": "ConnectionString.cs",
+              "DocumentMoniker": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.UI\\ConnectionString.cs",
+              "RelativeDocumentMoniker": "BookLeft.UI\\ConnectionString.cs",
+              "ToolTip": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.UI\\ConnectionString.cs",
+              "RelativeToolTip": "BookLeft.UI\\ConnectionString.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-11T10:48:24.993Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TimeRange.cs",
+              "DocumentMoniker": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\ValueObjects\\TimeRange.cs",
+              "RelativeDocumentMoniker": "BookLeft.Domain\\ValueObjects\\TimeRange.cs",
+              "ToolTip": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\ValueObjects\\TimeRange.cs",
+              "RelativeToolTip": "BookLeft.Domain\\ValueObjects\\TimeRange.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-11T10:19:01.945Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Booking.cs",
+              "DocumentMoniker": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\Entities\\Bookings\\Booking.cs",
+              "RelativeDocumentMoniker": "BookLeft.Domain\\Entities\\Bookings\\Booking.cs",
+              "ToolTip": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Domain\\Entities\\Bookings\\Booking.cs",
+              "RelativeToolTip": "BookLeft.Domain\\Entities\\Bookings\\Booking.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAIBJwE8AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-11T10:07:42.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IBookingRepository.cs",
+              "DocumentMoniker": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application\\Repositories\\IBookingRepository.cs",
+              "RelativeDocumentMoniker": "BookLeft.Application\\Repositories\\IBookingRepository.cs",
+              "ToolTip": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Application\\Repositories\\IBookingRepository.cs",
+              "RelativeToolTip": "BookLeft.Application\\Repositories\\IBookingRepository.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA8AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-11T10:05:04.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BookingRepository.cs",
+              "DocumentMoniker": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Infrastructure\\Persistence\\Repositories\\BookingRepository.cs",
+              "RelativeDocumentMoniker": "BookLeft.Infrastructure\\Persistence\\Repositories\\BookingRepository.cs",
+              "ToolTip": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Infrastructure\\Persistence\\Repositories\\BookingRepository.cs",
+              "RelativeToolTip": "BookLeft.Infrastructure\\Persistence\\Repositories\\BookingRepository.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAYwFQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-11T09:07:52.048Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BookRightDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Infrastructure\\Persistence\\BookRightDbContext.cs",
+              "RelativeDocumentMoniker": "BookLeft.Infrastructure\\Persistence\\BookRightDbContext.cs",
+              "ToolTip": "C:\\Users\\baser\\source\\repos\\Kaj2semesterOpgaver\\BookRight\\BookLeft.Infrastructure\\Persistence\\BookRightDbContext.cs",
+              "RelativeToolTip": "BookLeft.Infrastructure\\Persistence\\BookRightDbContext.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAEcAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-11T08:57:48.961Z"
             }
           ]
         }
