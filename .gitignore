@@ -1,6 +1,6 @@
 # Build output
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
 
 # Visual Studio
 .vs/
@@ -8,6 +8,7 @@ obj/
 *.suo
 *.userosscache
 *.sln.docstates
+*.userprefs
 
 # Rider
 .idea/
@@ -18,6 +19,8 @@ obj/
 project.assets.json
 project.nuget.cache
 *.nuget.dgspec.json
+*.nuget.g.props
+*.nuget.g.targets
 packages/
 
 # EF Core migrations snapshot (optional — remove if you want to track these)
@@ -25,10 +28,13 @@ packages/
 
 # Sensitive config
 appsettings.Development.json
+appsettings.Local.json
+secrets.json
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Test results
 TestResults/
@@ -36,6 +42,16 @@ TestResults/
 *.coveragexml
 *msCoverageSourceRootsMapping*
 *CoverletSourceRootsMapping*
+coverage-reports/
 
 # Logs
 *.log
+
+# Publish output
+publish/
+[Pp]ublish/
+
+# SQLite (local dev databases)
+*.db
+*.db-shm
+*.db-wal
