@@ -1,4 +1,4 @@
-﻿// Aggregate Root
+// Aggregate Root
 // Responsible for creating and managing bookings
 
 // Rules:
@@ -21,9 +21,13 @@
 // - Price calculation
 // - Status
 
-using BookRight.Domain.Common;
 
-namespace Bookright.Domain.Bookings;
+
+
+
+/*using BookRight.Domain.Common;
+
+namespace BookRight.Domain.Bookings;
 
 public class Booking : AggregateRoot
 {
@@ -53,7 +57,7 @@ public class Booking : AggregateRoot
         TreatmentType treatmentType
         )
     {
-        if int amountParticipants < 1)
+        if (amountParticipants < 1)
             throw new ArgumentException("Amount of participants must be at least 1.", nameof(amountParticipants));
 
         this.status = status;
