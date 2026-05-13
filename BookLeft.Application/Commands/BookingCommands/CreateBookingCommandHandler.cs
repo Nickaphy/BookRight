@@ -51,14 +51,17 @@ CreateBookingCommandHandler
 // Erik´s work
 
 
+using Bookright.Domain.Bookings;
 using BookRight.Application.Repositories;
-using BookRight.Domain.Entities.Bookings;
+//using BookRight.Domain.Entities.Bookings; kaster fejl Lucas Rettet.
 using BookRight.Domain.Enums;
 using BookRight.Domain.ValueObjects;
+using BookRight.Facade.Commands;
+using BookRight.Facade.Dtos;
 
 namespace BookRight.Application.Commands.BookingCommands;
 
-public sealed class CreateBookingCommandHandler
+public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handleren er nu Usecasen, som har interfacet som refferance
 {
     private readonly IBookingRepository _bookingRepository;
     private readonly ICustomerRepository _customerRepository;
@@ -83,44 +86,44 @@ public sealed class CreateBookingCommandHandler
         _treatmentTypeRepository = treatmentTypeRepository;
     }
 
-    public async Task<Guid> HandleAsync(
-        CreateBookingCommand command,
+    public async Task<Guid> CreateBookingAsync( //rettet Lucas - tidligere: HandleAsync
+        CreateBookingRequest request,           //med request i stedet for command, da det er det requesten hedder i Facade laget
         CancellationToken cancellationToken = default)
     {
-        var customer = await _customerRepository.GetByIdAsync(command.CustomerId, cancellationToken);
+        var customer = await _customerRepository.GetByIdAsync(request.CustomerId, cancellationToken);
 
         if (customer is null)
         {
             throw new InvalidOperationException("Customer was not found.");
         }
 
-        var practitioner = await _practitionerRepository.GetByIdAsync(command.PractitionerId, cancellationToken);
+        var practitioner = await _practitionerRepository.GetByIdAsync(request.PractitionerId, cancellationToken);
 
         if (practitioner is null)
         {
             throw new InvalidOperationException("Practitioner was not found.");
         }
 
-        var clinic = await _clinicRepository.GetByIdAsync(command.ClinicId, cancellationToken);
+        var clinic = await _clinicRepository.GetByIdAsync(request.ClinicId, cancellationToken);
 
         if (clinic is null)
         {
             throw new InvalidOperationException("Clinic was not found.");
         }
 
-        var treatmentType = await _treatmentTypeRepository.GetByIdAsync(command.TreatmentTypeId, cancellationToken);
+        var treatmentType = await _treatmentTypeRepository.GetByIdAsync(request.TreatmentTypeId, cancellationToken);
 
         if (treatmentType is null)
         {
             throw new InvalidOperationException("Treatment type was not found.");
         }
 
-        var endTime = command.StartTime.AddMinutes(treatmentType.DurationMinutes);
-        var timeRange = new TimeRange(command.StartTime, endTime);
+        var endTime = request.StartTime.AddMinutes(treatmentType.DurationMinutes);
+        var timeRange = new TimeRange(request.StartTime, endTime);
 
         var practitionerHasOverlap =
             await _bookingRepository.HasOverlappingBookingForPractitionerAsync(
-                command.PractitionerId,
+                request.PractitionerId,
                 timeRange,
                 cancellationToken);
 
@@ -131,7 +134,7 @@ public sealed class CreateBookingCommandHandler
 
         var clinicHasOverlap =
             await _bookingRepository.HasOverlappingBookingForClinicAsync(
-                command.ClinicId,
+                request.ClinicId,
                 timeRange,
                 cancellationToken);
 
@@ -148,10 +151,10 @@ public sealed class CreateBookingCommandHandler
             campaignDiscountPercent: null);
 
         var booking = Booking.Create(
-            command.CustomerId,
-            command.PractitionerId,
-            command.ClinicId,
-            command.TreatmentTypeId,
+            request.CustomerId,
+            request.PractitionerId,
+            request.ClinicId,
+            request.TreatmentTypeId,
             timeRange,
             priceCalculation);
 

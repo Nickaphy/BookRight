@@ -3,12 +3,12 @@
 // Uses EF Core DbContext internally
 // Keeps database access separated from Application and Domain
 
-using System;
-using System.Threading.Tasks;
+using Bookright.Domain.Entities.Customers;
 using BookRight.Application.Repositories;
-using BookRight.Domain.Customers;
 using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace BookRight.Infrastructure.Persistence.Repositories
 {

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookLeft.Domain\BookRight.Domain.csproj" />
+    <ProjectReference Include="..\BookLeft.Facade\BookRight.Facade.csproj" />
   </ItemGroup>
 
 </Project>
