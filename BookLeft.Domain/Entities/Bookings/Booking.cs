@@ -21,11 +21,9 @@
 // - Price calculation
 // - Status
 
-
-
-
-
-/*using BookRight.Domain.Common;
+using BookRight.Domain.Common;
+using BookRight.Domain.ValueObjects;
+using BookRight.Domain.Entities.Treatments;
 
 namespace BookRight.Domain.Bookings;
 
@@ -71,5 +69,4 @@ public class Booking : AggregateRoot
         this.clinicId = clinicId;
         this.treatmentType = treatmentType;
     }
-
 }
