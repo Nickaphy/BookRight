@@ -40,7 +40,7 @@ public class PractitionerTests
             var authorization = "AUTH123";
             var authType = AuthorizationType.Physiotherapist;
             var clinicId = Guid.NewGuid();
-            var date = new DateTime(2025, 6, 10);
+            var date = DateTime.Today.AddDays(2);
 
             // Act
             var practitioner = new Practitioner(
@@ -88,7 +88,7 @@ public class PractitionerTests
         {
             // Arrange
             var clinicId = Guid.NewGuid();
-            var date = new DateTime(2025, 6, 10);
+            var date = DateTime.Today.AddDays(2);
             var practitioner = new Practitioner(
                 "Jane Doe", "jane@clinic.dk", "12345678",
                 "AUTH-001", AuthorizationType.Physiotherapist);
@@ -106,7 +106,7 @@ public class PractitionerTests
         {
             // Arrange
             var clinicId = Guid.Empty;
-            var date = new DateTime(2025, 6, 10);
+            var date = DateTime.Today.AddDays(2);
             var practitioner = new Practitioner(
                 "Jane Doe", "jane@clinic.dk", "12345678",
                 "AUTH-001", AuthorizationType.Physiotherapist);
@@ -137,7 +137,7 @@ public class PractitionerTests
             // Arrange
             var practitioner = CreatePractitioner();
             var clinicId = Guid.NewGuid();
-            var date = new DateTime(2025, 6, 10);
+            var date = DateTime.Today.AddDays(2);
 
             // Act
             practitioner.AssignToClinic(clinicId, date);
@@ -154,7 +154,7 @@ public class PractitionerTests
             // Arrange
             var practitioner = CreatePractitioner();
             var clinicId = Guid.NewGuid();
-            var date = new DateTime(2025, 6, 10);
+            var date = DateTime.Today.AddDays(2);
             practitioner.AssignToClinic(clinicId, date);
 
             // Act
@@ -169,10 +169,10 @@ public class PractitionerTests
             // Arrange
             var practitioner = CreatePractitioner();
             var clinicId = Guid.NewGuid();
-            practitioner.AssignToClinic(clinicId, new DateTime(2025, 6, 10, 8, 0, 0));
+            practitioner.AssignToClinic(clinicId, DateTime.Today.AddDays(2));
 
             // Act
-            var act = () => practitioner.AssignToClinic(Guid.NewGuid(), new DateTime(2025, 6, 10, 15, 0, 0));
+            var act = () => practitioner.AssignToClinic(Guid.NewGuid(), DateTime.Today.AddDays(2).AddHours(15));
 
             // Assert 
             Assert.Throws<DomainException>(act);
@@ -182,7 +182,7 @@ public class PractitionerTests
         {
             // Arrange
             var practitioner = CreatePractitioner();
-            var dateWithTime = new DateTime(2025, 6, 10, 14, 30, 0); // 14:30
+            var dateWithTime = DateTime.Today.AddDays(2).AddHours(14).AddMinutes(30); // 14:30
 
             // Act
             practitioner.AssignToClinic(Guid.NewGuid(), dateWithTime);
@@ -197,8 +197,8 @@ public class PractitionerTests
             // Arrange
             var practitioner = CreatePractitioner();
             var clinicId = Guid.NewGuid();
-            var monday = new DateTime(2025, 6, 9);
-            var tuesday = new DateTime(2025, 6, 10);
+            var monday = DateTime.Today.AddDays(1);
+            var tuesday = DateTime.Today.AddDays(2);
             practitioner.AssignToClinic(clinicId, monday);
 
             // Act
@@ -218,8 +218,8 @@ public class PractitionerTests
             var clinic2 = Guid.NewGuid();
 
             // Act
-            practitioner.AssignToClinic(clinic1, new DateTime(2025, 6, 9));
-            practitioner.AssignToClinic(clinic2, new DateTime(2025, 6, 10));
+            practitioner.AssignToClinic(clinic1, DateTime.Today.AddDays(1));
+            practitioner.AssignToClinic(clinic2, DateTime.Today.AddDays(2));
 
             // Assert
             Assert.Equal(2, practitioner.ClinicDays.Count);
