@@ -3,6 +3,4 @@
 // Implemented later in Infrastructure using EF Core
 // Application depends on abstraction, not concrete database code
 
- 
-
-namespace BookRight.Application.Repositories;
+namespace BookRight.Application.UseCases.Pricing;
