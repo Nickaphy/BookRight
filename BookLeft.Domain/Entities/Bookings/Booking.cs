@@ -70,3 +70,6 @@ public class Booking : AggregateRoot
         this.treatmentType = treatmentType;
     }
 }
+
+
+

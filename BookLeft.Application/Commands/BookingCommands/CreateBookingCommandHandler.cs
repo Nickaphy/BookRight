@@ -51,13 +51,15 @@ CreateBookingCommandHandler
 // Erik´s work
 
 
-using Bookright.Domain.Bookings;
 using BookRight.Application.Repositories;
-//using BookRight.Domain.Entities.Bookings; kaster fejl Lucas Rettet.
+using BookRight.Domain.Bookings;
+//using BookRight.Domain.Entities.Bookings; //kaster fejl Lucas Rettet.
 using BookRight.Domain.Enums;
 using BookRight.Domain.ValueObjects;
 using BookRight.Facade.Commands;
+using BookRight.Facade.Commands.Booking;
 using BookRight.Facade.Dtos;
+using BookRight.Facade.Dtos.BookingCommand;
 
 namespace BookRight.Application.Commands.BookingCommands;
 
@@ -90,7 +92,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         CreateBookingRequest request,           //med request i stedet for command, da det er det requesten hedder i Facade laget
         CancellationToken cancellationToken = default)
     {
-        var customer = await _customerRepository.GetByIdAsync(request.CustomerId, cancellationToken);
+        var customer = await _customerRepository.GetCustomerByIdAsync(request.CustomerId, cancellationToken);
 
         if (customer is null)
         {
