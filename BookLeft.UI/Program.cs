@@ -2,8 +2,6 @@
 
 using BookRight.UI.Components;
 using BookRight.Application.Commands.BookingCommands;
-using BookRight.Facade.Interfaces;
-using BookRight.Facade.Services;
 using BookRight.Application.Repositories;
 // Below we have the DB context usings:
 using BookRight.Infrastructure.Persistence.Repositories;
@@ -11,6 +9,7 @@ using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 // Below we have the using we need in order to have the Fake-files in TestDoubles to be active.
 using BookRight.UI.TestDoubles;
+using BookRight.Facade.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +39,7 @@ builder.Services.AddDbContext<BookRightDbContext>(options =>
 // before the real EF Core repositories are implemented.
 
 builder.Services.AddScoped<CreateBookingCommandHandler>();
-builder.Services.AddScoped<IBookingFacade, BookingFacade>();
+builder.Services.AddScoped<ICreateBookingUseCase, BookingFacade>();
 
 var app = builder.Build();
 

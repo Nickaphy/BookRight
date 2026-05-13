@@ -3,7 +3,9 @@
 // Implemented later in Infrastructure using EF Core
 // Application depends on abstraction, not concrete database code
 
-using BookRight.Domain.Entities.Customers;
+
+using Bookright.Domain.Entities.Customers;
+
 
 
 // Eriks work
@@ -12,7 +14,8 @@ namespace BookRight.Application.Repositories;
 
 public interface ICustomerRepository
 {
-    Task<Customer?> GetByIdAsync(
-        Guid customerId,
-        CancellationToken cancellationToken = default);
+    Task AddCustomerAsync(Customer customer);
+    Task<Customer?> GetCustomerByIdAsync(Guid id);
+
+    Task<Customer?> GetCustomerByPhoneNumberAsync(string phoneNumber);
 }

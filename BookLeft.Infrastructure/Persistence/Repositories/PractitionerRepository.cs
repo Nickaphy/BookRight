@@ -2,18 +2,18 @@
 // Implements Application repository interfaces
 // Uses EF Core DbContext internally
 // Keeps database access separated from Application and Domain
+using BookRight.Application.Repositories;
+using BookRight.Domain.Entities.Practitioners;
+using BookRight.Infrastructure.Persistence;
 using System.Numerics;
 using System.Threading;
-using BookRight.Application.Repositories;
-
-using BookRight.Domain.Entities.Practitioners;
 
 namespace BookRight.Infrastructure.Persistece.Repository;
 public class PractitionerRepository : IPractitionerRepository
 {
-    private readonly DbContext _context;
+    private readonly AppDbContext _context;
 
-    public PractitionerRepository(DbContext context)
+    public PractitionerRepository(AppDbContext context)
     {
         _context = context;
     }

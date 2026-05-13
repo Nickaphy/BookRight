@@ -29,9 +29,9 @@ namespace BookRight.Infrastructure.Persistence.Repositories;
 
 public sealed class BookingRepository : IBookingRepository
 {
-    private readonly BookRightDbContext _dbContext;
+    private readonly AppDbContext _dbContext;
 
-    public BookingRepository(BookRightDbContext dbContext)
+    public BookingRepository(AppDbContext dbContext)
     {
         _dbContext = dbContext;
     }
