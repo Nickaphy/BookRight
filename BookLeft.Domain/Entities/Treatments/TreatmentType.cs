@@ -33,10 +33,9 @@ public class TreatmentType : AggregateRoot
             throw new ArgumentException( "Must choose a treatmenttype" );
         if (duration <= 0)
             throw new ArgumentException("Duration must be greater than 0.", nameof(duration));
-        
-        ArgumentNullException.ThrowIfNull(basePrice);
-
-        
+            
+       if (string.IsNullOrWhiteSpace(name))
+       
         if (maxParticipants <= 0)
             throw new ArgumentException("Max participants must be greater than 1.", nameof(maxParticipants));
 
