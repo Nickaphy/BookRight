@@ -137,6 +137,10 @@ public class CustomerRepository : ICustomerRepository
         if (customer == null)
             return;
 
+        public async Task<Customer?> GetCustomerByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            return await _context.Customers.FindAsync(id);
+        }
         // Remove() marks the entity as "Deleted". EF Core will generate a
         // DELETE statement when SaveChangesAsync() is called.
         _context.Customers.Remove(customer);

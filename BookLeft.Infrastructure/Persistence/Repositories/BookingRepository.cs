@@ -21,7 +21,8 @@
 // Erik's work
 
 using BookRight.Application.Repositories;
-using BookRight.Domain.Entities.Bookings;
+using BookRight.Domain.Bookings;
+//using BookRight.Domain.Entities.Bookings; //Lucas rettet
 using BookRight.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,5 +82,16 @@ public sealed class BookingRepository : IBookingRepository
         CancellationToken cancellationToken = default)
     {
         await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<Booking?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Bookings.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+    }
+
+    public Task UpdateAsync(Booking booking, CancellationToken cancellationToken = default)
+    {
+        _dbContext.Bookings.Update(booking);
+        return Task.CompletedTask;
     }
 }

@@ -3,7 +3,7 @@
 // Implemented later in Infrastructure using EF Core
 // Application depends on abstraction, not concrete database code
 
-using BookRight.Domain.Entities.Bookings;
+using BookRight.Domain.Bookings;
 using BookRight.Domain.ValueObjects;
 
 
@@ -31,4 +31,9 @@ public interface IBookingRepository
 
     Task SaveChangesAsync(
         CancellationToken cancellationToken = default);
+
+    Task<Booking?> GetByIdAsync(                                            //Lucas rettet - 13/5 - 13.55
+        Guid id, CancellationToken cancellationToken = default);
+    Task UpdateAsync(
+        Booking booking, CancellationToken cancellationToken = default);    //Lucas rettet - 13/5 - 13.55
 }
