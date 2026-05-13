@@ -67,4 +67,5 @@ public class Booking : AggregateRoot
         this.clinicId = clinicId;
         this.treatmentType = treatmentType;
     }
+
 }

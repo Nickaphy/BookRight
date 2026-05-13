@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookRight.Infrastructure.Persistence.Configurations;
 
-public class TreatmentConfiguration : IEntityTypeConfiguration<TreatmentType>
+/*public class TreatmentConfiguration : IEntityTypeConfiguration<TreatmentType>
 {
     public void Configure(EntityTypeBuilder<TreatmentType> builder)
     {
@@ -38,5 +38,5 @@ public class TreatmentConfiguration : IEntityTypeConfiguration<TreatmentType>
             money.Property(m => m.Amount)
                 .IsRequired();
         });
-    }
-}
+    }*/
+//}

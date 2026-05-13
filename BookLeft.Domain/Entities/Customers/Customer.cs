@@ -1,6 +1,6 @@
 ﻿using BookRight.Domain.Common;
 
-namespace Bookright.Domain.Customers;
+namespace Bookright.Domain.Entities.Customers;
 
 public class Customer : AggregateRoot
 {
