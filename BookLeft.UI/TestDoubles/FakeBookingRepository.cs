@@ -4,7 +4,7 @@
 // They allow us to test the application flow before implementing EF Core persistence.
 
 using BookRight.Application.Repositories;
-using BookRight.Domain.Entities.Bookings;
+using BookRight.Domain.Bookings;
 using BookRight.Domain.ValueObjects;
 
 namespace BookRight.UI.TestDoubles;
@@ -44,5 +44,16 @@ public sealed class FakeBookingRepository : IBookingRepository
         CancellationToken cancellationToken = default)
     {
         return Task.CompletedTask;
+    }
+
+    public Task<Booking?> GetByIdAsync(                                            //Lucas rettet - 13/5 - 13.55
+        Guid id, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+    public Task UpdateAsync(                                                        //Lucas rettet - 13/5 - 13.55
+        Booking booking, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -15,7 +15,7 @@ namespace BookRight.Application.Repositories;
 public interface ICustomerRepository
 {
     Task AddCustomerAsync(Customer customer);
-    Task<Customer?> GetCustomerByIdAsync(Guid id);
+    Task<Customer?> GetCustomerByIdAsync(Guid id, CancellationToken cancellationToken);
 
     Task<Customer?> GetCustomerByPhoneNumberAsync(string phoneNumber);
 }

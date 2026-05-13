@@ -6,13 +6,17 @@
 //Til sidst opdateres bookingen i databasen og ændringerne gemmes.
 
 
+using BookRight.Application.Repositories;
+using BookRight.Facade.Commands.Booking;
+using BookRight.Facade.Dtos.BookingCommand;
+
 namespace BookRight.Application.Commands.BookingCommands;
 
 public class CancelBookingCommandHandler : ICancelBookingFacade
 {   
     private readonly IBookingRepository _bookingRepo; //Repository for booking, bruges til at validere om bookingen findes
     private readonly ICustomerRepository _customerRepo; //Repository for customer, bruges til at validere om kunden findes
-
+    
     public CancelBookingCommandHandler(        
         IBookingRepository bookingRepo, 
         ICustomerRepository customerRepo)

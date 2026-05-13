@@ -27,7 +27,7 @@ namespace BookRight.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Customer?> GetCustomerByIdAsync(Guid id)
+        public async Task<Customer?> GetCustomerByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _context.Customers.FindAsync(id);
         }
