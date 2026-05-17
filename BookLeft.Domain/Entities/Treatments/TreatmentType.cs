@@ -14,7 +14,7 @@ public class TreatmentType : AggregateRoot
 {
     public string Name { get; private set; }
     public int DurationMinutes { get; private set; } // in minutes
-    public decimal BasePrice { get; private set; }
+    public Money BasePrice { get; private set; }
     public AuthorizationType NeedsAuthorisation { get; private set; } //Lucas ændret 09/05
     public int MaxParticipants { get; private set; }
 
@@ -41,7 +41,7 @@ public class TreatmentType : AggregateRoot
 
         Name = name;
         DurationMinutes = duration;
-        BasePrice = basePrice;
+        BasePrice = basePrice;  
         NeedsAuthorisation = needsAuthorisation;
         MaxParticipants = maxParticipants;
     }
