@@ -1,7 +1,7 @@
-using Bookright.Domain.Bookings;
-using Bookright.Domain.Customers;
-using Bookright.Domain.Entities.Customers;
+
+using BookRight.Domain.Bookings;
 using BookRight.Domain.Entities.Clinics;
+using BookRight.Domain.Entities.Customers;
 using BookRight.Domain.Entities.Practitioners;
 using BookRight.Domain.Entities.Treatments;
 using Microsoft.EntityFrameworkCore;
