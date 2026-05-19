@@ -18,7 +18,7 @@ public class TreatmentTypeTests
         var treatment = new TreatmentType(
             "Fysioterapi", 45, ValidPrice, AuthorizationType.Physiotherapist, 1);
         Assert.Equal("Fysioterapi", treatment.Name);
-        Assert.Equal(45, treatment.Duration);
+        Assert.Equal(45, treatment.DurationMinutes);
         Assert.Equal(ValidPrice, treatment.BasePrice);
         Assert.Equal(AuthorizationType.Physiotherapist, treatment.NeedsAuthorisation);
         Assert.Equal(1, treatment.MaxParticipants);
