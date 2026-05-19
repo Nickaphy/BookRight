@@ -53,6 +53,7 @@ CreateBookingCommandHandler
 
 using BookRight.Application.Repositories;
 using BookRight.Application.Services;
+using BookRight.Application.UseCases.Services.DiscountService;
 using BookRight.Domain.Entities.Bookings;
 using BookRight.Domain.Enums;
 using BookRight.Domain.ValueObjects;
@@ -72,6 +73,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
     private readonly IClinicRepository _clinicRepository;
     private readonly ITreatmentTypeRepository _treatmentTypeRepository;
     private readonly IBookingConflictChecker _bookingConflictChecker;
+    private readonly IDiscountService _discountService;
 
     public CreateBookingCommandHandler(
         IBookingRepository bookingRepository,
@@ -80,7 +82,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         //ICampaignRepository campaignRepository,
         IClinicRepository clinicRepository,
         ITreatmentTypeRepository treatmentTypeRepository,
-        IBookingConflictChecker bookingConflictChecker)
+        IBookingConflictChecker bookingConflictChecker,
+        IDiscountService discountservice) 
     {
         _bookingRepository = bookingRepository;
         _customerRepository = customerRepository;
@@ -89,6 +92,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         _clinicRepository = clinicRepository;
         _treatmentTypeRepository = treatmentTypeRepository;
         _bookingConflictChecker = bookingConflictChecker;
+        _discountService = discountservice;
     }
 
     public async Task<Guid> CreateBookingAsync(
@@ -167,16 +171,19 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         // Create value objects
         // ====================
 
-        var priceCalculation = PriceCalculation.Create(
-            treatmentType.BasePrice,  //Lucas Ændret! 16/05
-            LoyaltyLevel.None,
-            isBirthdayMonth: false,
-            isEveningOrWeekend: false,
-            campaignDiscountPercent: null);
+        /*var basePrice = treatmentType.BasePrice;  //Mudder luder lucas har rettet
+
+        var discountResult = await _discountService.GetBestDiscountAsync(
+            basePrice,
+            cancellationToken);
+
+        var finalPrice = new Money(basePrice.Amount - discountResult.BestDiscount);*/
 
         // ====================
         // Create aggregate
         // ====================
+
+        var basePrice = treatmentType.BasePrice;
 
         var booking = Booking.Create(
             request.CustomerId,
@@ -184,7 +191,14 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
             request.ClinicId,
             request.TreatmentTypeId,
             timeRange,
-            priceCalculation);
+            basePrice);
+
+        //Lucas har rettet
+        var bestDiscount = await _discountService.GetBestDiscountAsync(booking, cancellationToken);
+        var finalPrice = new Money(basePrice.Amount - bestDiscount);  
+
+        booking.SetFinalPrice(finalPrice);
+
 
         // ====================
         // Persist aggregate
