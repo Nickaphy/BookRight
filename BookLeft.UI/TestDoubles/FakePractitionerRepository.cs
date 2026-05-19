@@ -8,7 +8,7 @@ namespace BookRight.UI.TestDoubles;
 
 // Fake repository used to simulate practitioner lookup.
 // Returns a valid test practitioner instead of querying a database.
-public sealed class FakePractitionerRepository : IPractitionerRepository
+/*public sealed class FakePractitionerRepository : IPractitionerRepository  //UDKOMMENTERET LUCAS d. 17.5
 {
     public Task<Practitioner?> GetByIdAsync(
         Guid practitionerId,
@@ -24,4 +24,4 @@ public sealed class FakePractitionerRepository : IPractitionerRepository
 
         return Task.FromResult<Practitioner?>(practitioner);
     }
-}
+}*/

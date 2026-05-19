@@ -8,7 +8,7 @@ namespace BookRight.UI.TestDoubles;
 
 // Fake repository used to simulate clinic lookup.
 // Returns a valid test clinic instead of querying a database.
-public sealed class FakeClinicRepository : IClinicRepository
+/*public sealed class FakeClinicRepository : IClinicRepository  //UDKOMMENTERET LUCAS 17.5 
 {
     public Task<Clinic?> GetByIdAsync(
         Guid clinicId,
@@ -23,4 +23,4 @@ public sealed class FakeClinicRepository : IClinicRepository
 
         return Task.FromResult<Clinic?>(clinic);
     }
-}
+}*/

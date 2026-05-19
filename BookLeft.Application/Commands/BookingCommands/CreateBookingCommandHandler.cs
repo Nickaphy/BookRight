@@ -146,7 +146,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         }
 
         var priceCalculation = PriceCalculation.Create(
-            new Money(treatmentType.BasePrice),
+            treatmentType.BasePrice,  //Lucas Ændret! 16/05
             LoyaltyLevel.None,
             isBirthdayMonth: false,
             isEveningOrWeekend: false,

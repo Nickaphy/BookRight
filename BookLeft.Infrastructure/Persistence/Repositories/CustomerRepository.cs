@@ -14,7 +14,7 @@ namespace BookRight.Infrastructure.Persistence.Repositories;
 // so that the dependencies only point inwards (Clean Architecture/Onion).
 // Infrastructure layer can know about EF Core and database details,
 // but Application can't and shall be focused on business logic.
-public class CustomerRepository : ICustomerRepository
+/*public class CustomerRepository : ICustomerRepository                                 //UDKOMMENTERET LUCAS d. 17.5 FEJL
 {
     private readonly AppDbContext _context;
 
@@ -83,8 +83,8 @@ public class CustomerRepository : ICustomerRepository
             .OrderBy(c => c.Name)
             .ToListAsync(cancellationToken);
     }
-
-    public async Task<bool> GetCustomerByPhoneNumberAsync(
+     
+    public async Task<bool> GetCustomerByPhoneNumberAsync(                        //UDKOMMENTERET LUCAS d. 17.5 FEJL
         string phoneNumber,
         CancellationToken cancellationToken = default)
     {
@@ -147,4 +147,4 @@ public class CustomerRepository : ICustomerRepository
 
         // SaveChangesAsync must be called by the Use Case.
     }
-}
+}*/
