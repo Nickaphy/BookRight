@@ -9,7 +9,7 @@ namespace BookRight.UI.TestDoubles;
 
 // Fake repository used to simulate treatment lookup.
 // Returns a valid treatment type instead of querying a database.
-public sealed class FakeTreatmentTypeRepository : ITreatmentTypeRepository
+/*public sealed class FakeTreatmentTypeRepository : ITreatmentTypeRepository  //UDKOMMENTERET LUCAS d. 17.5
 {
     public Task<TreatmentType?> GetByIdAsync(
         Guid treatmentTypeId,
@@ -24,4 +24,4 @@ public sealed class FakeTreatmentTypeRepository : ITreatmentTypeRepository
 
         return Task.FromResult<TreatmentType?>(treatmentType);
     }
-}
+}*/

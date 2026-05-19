@@ -36,6 +36,7 @@ public class PractitionerTests
             new Practitioner("Hans Andersen", email, "12345678", "AUTH123",
                 AuthorizationType.Physiotherapist));
     }
+}
 
     // Phone number must contain only digits
     // and be at least 8 characters long.

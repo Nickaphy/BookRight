@@ -8,7 +8,7 @@ namespace BookRight.UI.TestDoubles;
 
 // Fake repository used to simulate customer lookup.
 // Returns a valid test customer instead of querying a database.
-public sealed class FakeCustomerRepository : ICustomerRepository
+/*public sealed class FakeCustomerRepository : ICustomerRepository   //UDKOMMENTERET LUCAS d. 17.5
 {
     public Task<Customer?> GetByIdAsync(
         Guid customerId,
@@ -27,4 +27,4 @@ public sealed class FakeCustomerRepository : ICustomerRepository
 
         return Task.FromResult<Customer?>(customer);
     }
-}
+}*/

@@ -1,6 +1,6 @@
 // Erik's work.
 
-using BookRight.UI.Components;
+using BookRight.UI.Components;                //UDKOMMENTERET LUCAS d. 17.5 klokken 11.41
 using BookRight.Application.Commands.BookingCommands;
 using BookRight.Application.Repositories;
 using BookRight.Application.Services;
@@ -65,3 +65,5 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+
