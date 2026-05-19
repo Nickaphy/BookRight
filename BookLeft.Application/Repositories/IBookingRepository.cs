@@ -3,7 +3,7 @@
 // Implemented later in Infrastructure using EF Core
 // Application depends on abstraction, not concrete database code
 
-using BookRight.Domain.Bookings;
+using BookRight.Domain.Entities.Bookings;
 using BookRight.Domain.ValueObjects;
 
 
