@@ -4,7 +4,7 @@
 // Application depends on abstraction, not concrete database code
 
 
-using Bookright.Domain.Entities.Customers;
+using BookRight.Domain.Entities.Customers;
 
 namespace BookRight.Application.Repositories;
 
@@ -14,18 +14,13 @@ public interface ICustomerRepository
     // Search/fetching operations
     // -----
 
+    Task SaveAsync(CancellationToken cancellationToken = default);
     // Retrieves a single customer by their unique identifier.
     // Returns null if no customer with the given ID exists.
     Task<Customer?> GetCustomerByIdAsync(Guid customerId, CancellationToken cancellationToken = default);
 
     // Retrieves a single customer by their phone number.
-    Task<Customer?> GetCustomerByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken = default);
-
-    // Returns ALL customers as a read-only list.
-    Task<IReadOnlyList<Customer>> GetAllCustomersAsync(CancellationToken cancellationToken = default);
-
-    // Searches customers by a free-text term matched against name, phone, or e-mail.
-    Task<IReadOnlyList<Customer>> SearchCustomersAsync(string searchTerm, CancellationToken cancellationToken = default);
+    
 
 
     // -----
