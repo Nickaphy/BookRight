@@ -2,6 +2,7 @@
 using BookRight.Domain.Entities.Clinics;
 using BookRight.Facade.Commands.Clinic;
 using BookRight.Facade.Dtos.ClinicCommand;
+using BookRight.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
