@@ -4,7 +4,7 @@
 //Den validerer først, om bookingen og kunden findes,
 //og derefter kalder den cancel metoden på booking entiteten for at ændre status til annulleret.
 //Til sidst opdateres bookingen i databasen og ændringerne gemmes.
-
+using BookRight.Application.Repositories;
 
 namespace BookRight.Application.Commands.BookingCommands;
 
