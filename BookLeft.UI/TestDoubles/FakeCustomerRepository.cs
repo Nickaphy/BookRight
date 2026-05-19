@@ -1,7 +1,7 @@
 ﻿// Erik's work
 
 using BookRight.Application.Repositories;
-using BookRight.Domain.Entities.Customers;
+using Bookright.Domain.Entities.Customers;
 using BookRight.Domain.Enums;
 
 namespace BookRight.UI.TestDoubles;

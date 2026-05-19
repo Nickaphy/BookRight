@@ -37,8 +37,19 @@ public class PractitionerTests
                 AuthorizationType.Physiotherapist));
     }
 
-    // Phone number must be digits only and at least 8 characters
+    // Phone number must contain only digits
+    // and be at least 8 characters long.
     [Theory]
     [InlineData("1234")]          // fewer than 8 digits
     [InlineData("abc12345678")]   // contains letters
-    public v
+    public void Constructor_InvalidPhone_ThrowsDomainException(string phone)
+    {
+        Assert.Throws<DomainException>(() =>
+            new Practitioner(
+                "Hans Andersen",
+                "hans@klinik.dk",
+                phone,
+                "AUTH123",
+                AuthorizationType.Physiotherapist));
+    }
+}

@@ -4,7 +4,7 @@
 // They allow us to test the application flow before implementing EF Core persistence.
 
 using BookRight.Application.Repositories;
-using BookRight.Domain.Bookings;
+using BookRight.Domain.Entities.Bookings;
 using BookRight.Domain.ValueObjects;
 
 namespace BookRight.UI.TestDoubles;
