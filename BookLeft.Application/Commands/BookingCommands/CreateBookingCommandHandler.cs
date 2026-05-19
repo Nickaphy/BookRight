@@ -52,8 +52,8 @@ CreateBookingCommandHandler
 
 
 using BookRight.Application.Repositories;
-using BookRight.Domain.Bookings;
-//using BookRight.Domain.Entities.Bookings; //kaster fejl Lucas Rettet.
+using BookRight.Application.Services;
+using BookRight.Domain.Entities.Bookings;
 using BookRight.Domain.Enums;
 using BookRight.Domain.ValueObjects;
 using BookRight.Facade.Commands;
@@ -71,6 +71,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
     //private readonly ICampaignRepository _campaignRepository;
     private readonly IClinicRepository _clinicRepository;
     private readonly ITreatmentTypeRepository _treatmentTypeRepository;
+    private readonly IBookingConflictChecker _bookingConflictChecker;
 
     public CreateBookingCommandHandler(
         IBookingRepository bookingRepository,
@@ -78,7 +79,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         IPractitionerRepository practitionerRepository,
         //ICampaignRepository campaignRepository,
         IClinicRepository clinicRepository,
-        ITreatmentTypeRepository treatmentTypeRepository)
+        ITreatmentTypeRepository treatmentTypeRepository,
+        IBookingConflictChecker bookingConflictChecker)
     {
         _bookingRepository = bookingRepository;
         _customerRepository = customerRepository;
@@ -86,64 +88,84 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         //_campaignRepository = campaignRepository;
         _clinicRepository = clinicRepository;
         _treatmentTypeRepository = treatmentTypeRepository;
+        _bookingConflictChecker = bookingConflictChecker;
     }
 
-    public async Task<Guid> CreateBookingAsync( //rettet Lucas - tidligere: HandleAsync
-        CreateBookingRequest request,           //med request i stedet for command, da det er det requesten hedder i Facade laget
-        CancellationToken cancellationToken = default)
+    public async Task<Guid> CreateBookingAsync(
+    CreateBookingRequest request,
+    CancellationToken cancellationToken = default)
     {
-        var customer = await _customerRepository.GetCustomerByIdAsync(request.CustomerId, cancellationToken);
+        // ====================
+        // Load aggregates
+        // ====================
+
+        var customer = await _customerRepository.GetCustomerByIdAsync(
+            request.CustomerId,
+            cancellationToken);
 
         if (customer is null)
         {
             throw new InvalidOperationException("Customer was not found.");
         }
 
-        var practitioner = await _practitionerRepository.GetByIdAsync(request.PractitionerId, cancellationToken);
+        var practitioner = await _practitionerRepository.GetByIdAsync(
+            request.PractitionerId,
+            cancellationToken);
 
         if (practitioner is null)
         {
             throw new InvalidOperationException("Practitioner was not found.");
         }
 
-        var clinic = await _clinicRepository.GetByIdAsync(request.ClinicId, cancellationToken);
+        var clinic = await _clinicRepository.GetByIdAsync(
+            request.ClinicId,
+            cancellationToken);
 
         if (clinic is null)
         {
             throw new InvalidOperationException("Clinic was not found.");
         }
 
-        var treatmentType = await _treatmentTypeRepository.GetByIdAsync(request.TreatmentTypeId, cancellationToken);
+        var treatmentType = await _treatmentTypeRepository.GetByIdAsync(
+            request.TreatmentTypeId,
+            cancellationToken);
 
         if (treatmentType is null)
         {
             throw new InvalidOperationException("Treatment type was not found.");
         }
 
-        var endTime = request.StartTime.AddMinutes(treatmentType.DurationMinutes);
-        var timeRange = new TimeRange(request.StartTime, endTime);
+        // ====================
+        // Business rule validation
+        // ====================
 
-        var practitionerHasOverlap =
-            await _bookingRepository.HasOverlappingBookingForPractitionerAsync(
-                request.PractitionerId,
-                timeRange,
-                cancellationToken);
+        // Verify that the practitioner is allowed
+        // to perform the selected treatment.
+        practitioner.HasAuthorizationForTreatment(
+            treatmentType.NeedsAuthorisation);
 
-        if (practitionerHasOverlap)
-        {
-            throw new InvalidOperationException("The practitioner already has a booking in this time range.");
-        }
+        var endTime = request.StartTime.AddMinutes(
+            treatmentType.DurationMinutes);
 
-        var clinicHasOverlap =
-            await _bookingRepository.HasOverlappingBookingForClinicAsync(
+        var timeRange = new TimeRange(
+            request.StartTime,
+            endTime);
+
+        await _bookingConflictChecker
+    .EnsurePractitionerAvailabilityAsync(
+        request.PractitionerId,
+        timeRange,
+        cancellationToken);
+
+        await _bookingConflictChecker
+            .EnsureClinicAvailabilityAsync(
                 request.ClinicId,
                 timeRange,
                 cancellationToken);
 
-        if (clinicHasOverlap)
-        {
-            throw new InvalidOperationException("The clinic has no available room in this time range.");
-        }
+        // ====================
+        // Create value objects
+        // ====================
 
         var priceCalculation = PriceCalculation.Create(
             treatmentType.BasePrice,  //Lucas Ændret! 16/05
@@ -151,6 +173,10 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
             isBirthdayMonth: false,
             isEveningOrWeekend: false,
             campaignDiscountPercent: null);
+
+        // ====================
+        // Create aggregate
+        // ====================
 
         var booking = Booking.Create(
             request.CustomerId,
@@ -160,8 +186,16 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
             timeRange,
             priceCalculation);
 
-        await _bookingRepository.AddAsync(booking, cancellationToken);
-        await _bookingRepository.SaveChangesAsync(cancellationToken);
+        // ====================
+        // Persist aggregate
+        // ====================
+
+        await _bookingRepository.AddAsync(
+            booking,
+            cancellationToken);
+
+        await _bookingRepository.SaveChangesAsync(
+            cancellationToken);
 
         return booking.Id;
     }

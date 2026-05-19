@@ -40,6 +40,11 @@ public class Clinic : AggregateRoot
         string name,
         int amountTreatmentRooms,
         
+        if (!zipcode.All(char.IsDigit))
+            throw new ArgumentException("Zipcode must not contain only digits.", nameof(zipcode));
+            
+        if (string.IsNullOrWhiteSpace(city))
+            throw new ArgumentException("City cannot be empty.", nameof(city));
         string street,
         string city,
         string zipcode,
@@ -93,6 +98,39 @@ public class Clinic : AggregateRoot
         Zipcode = zipcode;
         Validate();
         ReplaceOpeningHours(openingHours.ToList());
+g BookRight.Domain.ValueObjects;
+28
+ 
+=======
+29
+ 
+​
+30
+ 
+​
+31
+ 
+​
+32
+ 
+/*using BookRight.Domain.Common;*/
+33
+ 
+​
+34
+ 
+using BookRight.Domain.Common;
+35
+ 
+using BookRight.Domain.Entities.Treatments;
+36
+ 
+using BookRight.Domain.Exceptions;
+37
+ 
+using BookRight.Domain.ValueObjects;
+38
+ 
     }
 
 

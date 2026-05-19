@@ -53,11 +53,11 @@ public class Customer : AggregateRoot
             
             if (zipcode.Length != 4 )
                 throw new ArgumentException("Zipcode must be 4 digits.", nameof(zipcode));
-
-        //if (zipcode.All(!char.IsDigit))
-        //throw new ArgumentException("Zipcode must not contain only digits.", nameof(zipcode)); //UDKOMMENTERET LUCAS - 2024-06-17: Det er en fejl i kravene, at zipcode skal
-
-        if (string.IsNullOrWhiteSpace(city))
+        
+            if (!zipcode.All(char.IsDigit))
+                throw new ArgumentException("Zipcode must not contain only digits.", nameof(zipcode));
+            
+            if (string.IsNullOrWhiteSpace(city))
                 throw new ArgumentException("City cannot be empty.", nameof(city));
 
             if (string.IsNullOrWhiteSpace(street))
