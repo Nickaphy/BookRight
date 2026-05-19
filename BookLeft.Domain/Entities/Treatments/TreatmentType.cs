@@ -41,7 +41,7 @@ public class TreatmentType : AggregateRoot
 
         Name = name;
         DurationMinutes = duration;
-        BasePrice = basePrice;
+        BasePrice = basePrice;  
         NeedsAuthorisation = needsAuthorisation;
         MaxParticipants = maxParticipants;
     }
