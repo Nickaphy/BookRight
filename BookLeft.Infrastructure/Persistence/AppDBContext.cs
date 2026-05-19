@@ -1,5 +1,6 @@
 
-using BookRight.Domain.Bookings;
+using Bookright.Domain.Entities.Customers;
+using BookRight.Domain.Entities.Bookings;
 using BookRight.Domain.Entities.Clinics;
 using BookRight.Domain.Entities.Customers;
 using BookRight.Domain.Entities.Practitioners;

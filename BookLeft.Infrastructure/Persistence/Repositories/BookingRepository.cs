@@ -82,4 +82,15 @@ public sealed class BookingRepository : IBookingRepository
     {
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<Booking?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Bookings.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+    }
+
+    public Task UpdateAsync(Booking booking, CancellationToken cancellationToken = default)
+    {
+        _dbContext.Bookings.Update(booking);
+        return Task.CompletedTask;
+    }
 }

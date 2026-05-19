@@ -19,132 +19,62 @@ public class Customer : AggregateRoot
 
     private Customer() { }
 
-    public Customer(string name,
-        string phoneNumber,
-        string email,
-        LoyaltyLevel loyaltyLevel,
-        DateTime dateOfBirth,
-        string? note,
-        string? street,
-        string city,
-        string zipcode
-        )
-    {
-        Name = name;
-        PhoneNumber = phoneNumber;
-        Email = email;
-        LoyaltyLevel = loyaltyLevel;
-        DateOfBirth = dateOfBirth;
-        Note = note;
-        Street = street;
-        City = city;
-        Zipcode = zipcode;
-        Validate();
-    }
+        public Customer(string name, 
+            string phoneNumber, 
+            string email, 
+            LoyaltyLevel loyaltyLevel, 
+            DateTime dateOfBirth, 
+            string? note,
+            string? street,
+            string city,
+            string zipcode
+            )
+        {   
+            //Not empty
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Name cannot be empty.", nameof(name));
 
-    public static Customer Create(string name,
-        string phoneNumber,
-        string email,
-        LoyaltyLevel loyaltyLevel,
-        DateTime dateOfBirth,
-        string? note,
-        string? street,
-        string city,
-        string zipcode
-        )
-    {
-        var customer = new Customer(name, phoneNumber, email, loyaltyLevel, dateOfBirth, note, street, city, zipcode);
-        return customer;
-    }
+            //Not empty
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Email cannot be empty.", nameof(email));
+            
+            //Not empty
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                throw new ArgumentException("Phone number cannot be empty.", nameof(phoneNumber));
+            
+            //Only digits
+            if (!phoneNumber.All(char.IsDigit))
+                throw new ArgumentException("Phone number can only contain digits.", nameof(phoneNumber));
 
-    public void Validate()
-    {
-        //Not empty
-        if (string.IsNullOrWhiteSpace(Name))
-            throw new DomainException("Name cannot be empty.");
+            //Must be between 8 and 11 digits
+            if (phoneNumber.Length < 8 || phoneNumber.Length > 11)
+                throw new ArgumentException("Phone number must be between 8 and 11 digits.", nameof(phoneNumber));
 
-        //Not empty
-        if (string.IsNullOrWhiteSpace(Email))
-            throw new DomainException("Email cannot be empty.");
+            if (dateOfBirth > DateTime.Now) 
+                throw new ArgumentException("DateOfBirth cannot be in the future.", nameof(dateOfBirth));
+            
+            if (zipcode.Length != 4 )
+                throw new ArgumentException("Zipcode must be 4 digits.", nameof(zipcode));
+        
+            if (!zipcode.All(char.IsDigit))
+                throw new ArgumentException("Zipcode must not contain only digits.", nameof(zipcode));
+            
+            if (string.IsNullOrWhiteSpace(city))
+                throw new ArgumentException("City cannot be empty.", nameof(city));
 
-        //Not empty
-        if (string.IsNullOrWhiteSpace(PhoneNumber))
-            throw new DomainException("Phone number cannot be empty.");
-
-        //Only digits
-        if (!PhoneNumber.All(char.IsDigit))
-            throw new DomainException("Phone number can only contain digits.");
-
-        //Must be between 8 and 11 digits
-        if (PhoneNumber.Length < 8 || PhoneNumber.Length > 11)
-            throw new DomainException("Phone number must be between 8 and 11 digits.");
-        if (DateOfBirth > DateTime.Now)
-            throw new DomainException("DateOfBirth cannot be in the future.");
-
-        if (Zipcode.Length != 4)
-            throw new DomainException("Zipcode must be 4 digits.");
-
-        if (!Zipcode.All(char.IsDigit))
-            throw new DomainException("Zipcode must contain only digits.");
-
-        if (string.IsNullOrWhiteSpace(City))
-            throw new DomainException("City cannot be empty.");
-
-        if (string.IsNullOrWhiteSpace(Street))
-            throw new DomainException("Street cannot be empty.");
-    }
-
-    public void UpdateLoyaltyLevel(LoyaltyLevel newLevel)
-    {
-        LoyaltyLevel = newLevel;
-        Validate();
-    }
-    public void UpdateNote(string? newNote)
-    {
-        Note = newNote;
-        Validate();
-    }
-
-    public void UpdatePhoneNumber(string newPhoneNumber)
-    {
-        PhoneNumber = newPhoneNumber;
-        Validate();
-    }
-
-    public void UpdateEmail(string newEmail)
-    {
-        Email = newEmail;
-        Validate();
-    }
-
-    public void UpdateStreet(string newStreet)
-    {
-        Street = newStreet;
-        Validate();
-    }
-
-    public void UpdateCity(string newCity)
-    {
-        City = newCity;
-        Validate();
-    }
-
-    public void UpdateZipcode(string newZipcode)
-    {
-        Zipcode = newZipcode;
-        Validate();
-    }
-
-    public void UpdateName(string newName)
-    {
-        Name = newName;
-        Validate();
-    }
-
-    public void updateDateOfBirth(DateTime newDateOfBirth)
-    {
-        DateOfBirth = newDateOfBirth;
-        Validate();
+            if (string.IsNullOrWhiteSpace(street))
+                throw new ArgumentException("Street cannot be empty.", nameof(street));
+                
+            
+            Name = name;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            LoyaltyLevel = loyaltyLevel;
+            DateOfBirth = dateOfBirth;
+            Note = note;
+            Street = street;
+            City = city;
+            Zipcode = zipcode;
     }
 }
 

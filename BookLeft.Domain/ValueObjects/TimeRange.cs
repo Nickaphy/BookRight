@@ -2,7 +2,7 @@
 // Represents Start and End time
 // Used for overlap validation
 
-namespace BookRight.Domain.ValueObjects.TimeRange;
+namespace BookRight.Domain.ValueObjects;
 
 public sealed class TimeRange
 {

@@ -1,9 +1,35 @@
-namespace BookRight.Domain.Entities.Clinics
+﻿using BookRight.Domain.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BookRight.Domain.ValueObjects
 {
-    public class ClinicOpeningHour
+    public class ClinicOpeningHour : ValueObject
     {
-        public DayOfWeek WeekDay { get; private set; }
-        public DateTime OpeningTime { get; private set; }
-        public DateTime ClosingTime { get; private set; }
+        public DayOfWeek WeekDay { get; init; }
+        public TimeOnly OpeningTime { get; init; }
+        public TimeOnly ClosingTime { get; init; }
+        public ClinicOpeningHour(DayOfWeek weekDay, TimeOnly openingTime, TimeOnly closingTime)
+        {
+            WeekDay = weekDay;
+            OpeningTime = openingTime;
+            ClosingTime = closingTime;
+            ValidateOpeningHours();
+        }
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return WeekDay;
+            yield return OpeningTime;
+            yield return ClosingTime;
+        }
+        public void ValidateOpeningHours()
+        {
+            if (OpeningTime >= ClosingTime)
+            {
+                throw new DomainException("Opening time must be before closing time.");
+            }
+        }
+
     }
 }
