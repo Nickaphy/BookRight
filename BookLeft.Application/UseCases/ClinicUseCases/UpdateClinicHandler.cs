@@ -1,8 +1,10 @@
 ﻿using BookRight.Application.Repositories;
+using BookRight.Application.UseCaseExceptions;
+using BookRight.Domain.Entities.Clinics;
 using BookRight.Domain.Entities.Practitioners;
 using BookRight.Facade.Commands.Clinic;
 using BookRight.Facade.Dtos.ClinicCommand;
-using BookRight.Application.UseCaseExceptions;
+using BookRight.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,21 +21,26 @@ namespace BookRight.Application.UseCases.ClinicUseCases
             _clinicRepository = clinicRepository;
         }
 
-        public Task HandleAsync(UpdateClinicRequest request, CancellationToken cancellationToken = default)
+        public async Task HandleAsync(UpdateClinicRequest request, CancellationToken cancellationToken = default)
         {
-            var clinic = _clinicRepository.GetByIdAsync(request.Id, cancellationToken).Result;
+            var clinic = await _clinicRepository.GetByIdAsync(request.Id, cancellationToken);
             if (clinic == null)
-            {
                 throw new UseCaseException("Clinic not found");
-            }
 
-            // Update clinic properties
-            clinic.UpdateClinic(request.Name, request.AmountTreatmentRooms, request.City, request.Zipcode,request.Street);
-            
+            var openingHours = request.OpeningHours
+                .Select(oh => new ClinicOpeningHour(oh.WeekDay, oh.OpeningTime, oh.ClosingTime))
+                .ToList();
 
-            
+            clinic.UpdateClinic(
+                request.Name,
+                request.AmountTreatmentRooms,
+                request.Street,
+                request.City,
+                request.Zipcode,
+                openingHours
+            );
 
-            return _clinicRepository.UpdateAsync(clinic, cancellationToken);
+            await _clinicRepository.UpdateAsync(clinic, cancellationToken);
         }
     }
 }
