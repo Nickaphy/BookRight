@@ -35,6 +35,7 @@ namespace BookRight.Facade.Dtos.BookingCommand
         Guid ClinicId,
         Guid TreatmentTypeId,
         DateTime StartTime
+        
     );
 
     //CreateBookingRequest

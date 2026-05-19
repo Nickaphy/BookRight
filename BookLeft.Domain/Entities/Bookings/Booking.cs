@@ -34,7 +34,7 @@ using BookRight.Domain.Entities.Treatments;
 using BookRight.Domain.Exceptions;
 using BookRight.Domain.ValueObjects;
 
-namespace BookRight.Domain.Bookings;
+namespace BookRight.Domain.Entities.Bookings;
 
 // Aggregate Root
 // Responsible for creating and managing bookings
@@ -72,7 +72,7 @@ public class Booking : AggregateRoot
     public BookingStatus Status { get; private set; }
     public DateTime CreatedDate { get; private set; }
     public TimeRange TimeRange { get; private set; }
-    public PriceCalculation PriceCalculation { get; private set; }
+    public   { get; private set; }
     public bool IsTeam { get; private set; }
     public int AmountParticipants { get; private set; }
     public Guid CustomerId { get; private set; }
@@ -91,15 +91,15 @@ public class Booking : AggregateRoot
         Guid clinicId,
         Guid treatmentTypeId,
         TimeRange timeRange,
-        PriceCalculation priceCalculation,
+         ,
         bool isTeam,
         int amountParticipants)
     {
         if (timeRange is null)
             throw new ArgumentNullException(nameof(timeRange));
 
-        if (priceCalculation is null)
-            throw new ArgumentNullException(nameof(priceCalculation));
+        if ( is null)
+            throw new ArgumentNullException(nameof());
 
         if (amountParticipants < 1)
             throw new ArgumentException("Amount of participants must be at least 1.", nameof(amountParticipants));
@@ -109,7 +109,7 @@ public class Booking : AggregateRoot
         ClinicId = clinicId;
         TreatmentTypeId = treatmentTypeId;
         TimeRange = timeRange;
-        PriceCalculation = priceCalculation;
+         = ;
         IsTeam = isTeam;
         AmountParticipants = amountParticipants;
 
@@ -123,7 +123,7 @@ public class Booking : AggregateRoot
         Guid clinicId,
         Guid treatmentTypeId,
         TimeRange timeRange,
-        PriceCalculation priceCalculation)
+         )
     {
         return new Booking(
             customerId,
@@ -131,7 +131,7 @@ public class Booking : AggregateRoot
             clinicId,
             treatmentTypeId,
             timeRange,
-            priceCalculation,
+            ,
             isTeam: false,
             amountParticipants: 1);
     }
@@ -185,10 +185,11 @@ public class Booking : AggregateRoot
 
 public class Booking : AggregateRoot
 {
+    public Money BasePrice { get; private set; }
+    public Money FinalPrice { get; private set; }
     public BookingStatus Status { get; private set; }
     public DateTime CreatedDate { get; private set; }
     public TimeRange TimeRange { get; private set; }
-    public PriceCalculation PriceCalculation { get; private set; }
     public bool IsTeam { get; private set; }
     public int AmountParticipants { get; private set; }
     public Guid CustomerId { get; private set; }
@@ -201,21 +202,19 @@ public class Booking : AggregateRoot
         // Required by EF Core
     }
 
-    private Booking(
+    public Booking(
         Guid customerId,
         Guid practitionerId,
         Guid clinicId,
         Guid treatmentTypeId,
         TimeRange timeRange,
-        PriceCalculation priceCalculation,
         bool isTeam,
-        int amountParticipants)
+        int amountParticipants,
+        Money basePrice)
     {
         if (timeRange is null)
             throw new ArgumentNullException(nameof(timeRange));
 
-        if (priceCalculation is null)
-            throw new ArgumentNullException(nameof(priceCalculation));
 
         if (amountParticipants < 1)
             throw new ArgumentException("Amount of participants must be at least 1.", nameof(amountParticipants));
@@ -225,9 +224,10 @@ public class Booking : AggregateRoot
         ClinicId = clinicId;
         TreatmentTypeId = treatmentTypeId;
         TimeRange = timeRange;
-        PriceCalculation = priceCalculation;
         IsTeam = isTeam;
         AmountParticipants = amountParticipants;
+        BasePrice = basePrice;
+        
 
         Status = BookingStatus.Created;
         CreatedDate = DateTime.UtcNow;
@@ -239,7 +239,7 @@ public class Booking : AggregateRoot
         Guid clinicId,
         Guid treatmentTypeId,
         TimeRange timeRange,
-        PriceCalculation priceCalculation)
+        Money basePrice)
     {
         return new Booking(
             customerId,
@@ -247,9 +247,9 @@ public class Booking : AggregateRoot
             clinicId,
             treatmentTypeId,
             timeRange,
-            priceCalculation,
             isTeam: false,
-            amountParticipants: 1);
+            amountParticipants: 1,
+            basePrice);
     }
 
     public void Cancel()
@@ -259,8 +259,18 @@ public class Booking : AggregateRoot
 
         Status = BookingStatus.Cancelled;
     }
-}
 
+    //Lucas har rettet.
+    public void SetFinalPrice(Money finalPrice)
+    {
+        if (finalPrice is null)
+            throw new DomainException(nameof(finalPrice));
+
+        if (finalPrice.Amount > BasePrice.Amount)
+            throw new DomainException("Final price cannot be higher than base price.");
+
+        FinalPrice = finalPrice;
+    }
 
     // Marks the booking as no-show.
     // Completed or cancelled bookings cannot become no-show.
