@@ -13,7 +13,7 @@ namespace BookRight.Domain.Entities.Treatments;
 public class TreatmentType : AggregateRoot
 {
     public string Name { get; private set; }
-    public int Duration { get; private set; } // in minutes
+    public int DurationMinutes { get; private set; } // in minutes
     public Money BasePrice { get; private set; }
     public AuthorizationType NeedsAuthorisation { get; private set; } //Lucas ændret 09/05
     public int MaxParticipants { get; private set; }
@@ -40,8 +40,8 @@ public class TreatmentType : AggregateRoot
             throw new ArgumentException("Max participants must be greater than 1.", nameof(maxParticipants));
 
         Name = name;
-        Duration = duration;
-        BasePrice = basePrice;
+        DurationMinutes = duration;
+        BasePrice = basePrice;  
         NeedsAuthorisation = needsAuthorisation;
         MaxParticipants = maxParticipants;
     }

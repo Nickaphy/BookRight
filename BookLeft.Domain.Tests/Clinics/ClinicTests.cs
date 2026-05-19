@@ -1,3 +1,5 @@
+using BookRight.Domain.Exceptions;
+
 namespace BookRight.Domain.Tests.Clinics;
 
 using BookRight.Domain.Entities.Clinics;
@@ -27,9 +29,9 @@ public class ClinicTests
     [Theory]
     [InlineData(0)]
     [InlineData(-1)]
-    public void Constructor_ZeroOrNegativeRooms_ThrowsArgumentException(int rooms)
+    public void Constructor_ZeroOrNegativeRooms_ThrowsDomainException(int rooms)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Clinic("Vejle Klinik", rooms, "Testgade 1", "Vejle", "7100"));
     }
 
@@ -37,9 +39,9 @@ public class ClinicTests
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
-    public void Constructor_EmptyName_ThrowsArgumentException(string name)
+    public void Constructor_EmptyName_ThrowsDomainException(string name)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Clinic(name, 1, "Testgade 1", "Vejle", "7100"));
     }
 
@@ -47,9 +49,9 @@ public class ClinicTests
     [Theory]
     [InlineData("123")]     // 3 digits — too short
     [InlineData("12345")]   // 5 digits — too long
-    public void Constructor_ZipcodeNotFourDigits_ThrowsArgumentException(string zipcode)
+    public void Constructor_ZipcodeNotFourDigits_ThrowsDomainException(string zipcode)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Clinic("Vejle Klinik", 1, "Testgade 1", "Vejle", zipcode));
     }
 
@@ -57,9 +59,9 @@ public class ClinicTests
     [Theory]
     [InlineData("710A")]
     [InlineData("AB12")]
-    public void Constructor_ZipcodeContainingNonDigits_ThrowsArgumentException(string zipcode)
+    public void Constructor_ZipcodeContainingNonDigits_ThrowsDomainException(string zipcode)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Clinic("Vejle Klinik", 1, "Testgade 1", "Vejle", zipcode));
     }
 
@@ -67,9 +69,9 @@ public class ClinicTests
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
-    public void Constructor_EmptyCity_ThrowsArgumentException(string city)
+    public void Constructor_EmptyCity_ThrowsDomainException (string city)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Clinic("Vejle Klinik", 1, "Testgade 1", city, "7100"));
     }
 
@@ -77,9 +79,9 @@ public class ClinicTests
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
-    public void Constructor_EmptyStreet_ThrowsArgumentException(string street)
+    public void Constructor_EmptyStreet_ThrowsDomainException(string street)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Clinic("Vejle Klinik", 1, street, "Vejle", "7100"));
     }
 

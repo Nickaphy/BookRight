@@ -1,14 +1,15 @@
 // Erik's work.
 
-using BookRight.UI.Components;
+using BookRight.UI.Components;                //UDKOMMENTERET LUCAS d. 17.5 klokken 11.41
 using BookRight.Application.Commands.BookingCommands;
 using BookRight.Application.Repositories;
+using BookRight.Application.Services;
 // Below we have the DB context usings:
 using BookRight.Infrastructure.Persistence.Repositories;
 using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 // Below we have the using we need in order to have the Fake-files in TestDoubles to be active.
-using BookRight.UI.TestDoubles;
+//using BookRight.UI.TestDoubles;
 using BookRight.Facade.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,16 +18,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// Service to BookingConflictChecker - builder
+builder.Services.AddScoped<IBookingConflictChecker,BookingConflictChecker>();
+
+
 // Fake repository builder.
-builder.Services.AddScoped<IBookingRepository, FakeBookingRepository>();
+//builder.Services.AddScoped<IBookingRepository, FakeBookingRepository>();
 
 //"Real" DB builder.
 //builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
-builder.Services.AddScoped<ICustomerRepository, FakeCustomerRepository>();
-builder.Services.AddScoped<IPractitionerRepository, FakePractitionerRepository>();
-builder.Services.AddScoped<IClinicRepository, FakeClinicRepository>();
-builder.Services.AddScoped<ITreatmentTypeRepository, FakeTreatmentTypeRepository>();
+//builder.Services.AddScoped<ICustomerRepository, FakeCustomerRepository>();
+//builder.Services.AddScoped<IPractitionerRepository, FakePractitionerRepository>();
+//builder.Services.AddScoped<IClinicRepository, FakeClinicRepository>();
+//builder.Services.AddScoped<ITreatmentTypeRepository, FakeTreatmentTypeRepository>();
 
 
 builder.Services.AddDbContext<BookRightDbContext>(options =>
@@ -60,3 +65,5 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+

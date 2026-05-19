@@ -24,7 +24,7 @@ namespace BookRight.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        /*public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)  //UDKOMMENTERET LUCAS d. 17.5
         {
             // Register DbContext with SQL Server provider
             services.AddDbContext<AppDbContext>(options =>

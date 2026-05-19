@@ -45,4 +45,15 @@ public sealed class FakeBookingRepository : IBookingRepository
     {
         return Task.CompletedTask;
     }
+
+    public Task<Booking?> GetByIdAsync(                                            //Lucas rettet - 13/5 - 13.55
+        Guid id, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+    public Task UpdateAsync(                                                        //Lucas rettet - 13/5 - 13.55
+        Booking booking, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }
