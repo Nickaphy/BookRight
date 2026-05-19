@@ -1,6 +1,8 @@
 ﻿using BookRight.Domain.Common;
+using System.Net.Http.Headers;
+using BookRight.Domain.Exceptions;
 
-namespace Bookright.Domain.Entities.Customers;
+namespace BookRight.Domain.Entities.Customers;
 
 public class Customer : AggregateRoot
 {
