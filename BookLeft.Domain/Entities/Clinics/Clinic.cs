@@ -13,7 +13,7 @@ public class Clinic : AggregateRoot
     public int AmountTreatmentRooms { get; private set; }
 
     private List<ClinicOpeningHour> _openingHours = new();                      //skrivebeskyttet liste over åbningstider, da det ikke skal være muligt at tilføje eller fjerne åbningstider direkte
-    public IReadOnlyList<ClinicOpeningHour> OpeningHours => _openingHours.AsReadOnly(); 
+    public IReadOnlyList<ClinicOpeningHour> OpeningHours => _openingHours.AsReadOnly();
 
     public int MaxSimultaneousBookings => AmountTreatmentRooms;
 
@@ -39,12 +39,7 @@ public class Clinic : AggregateRoot
     public static Clinic Create(
         string name,
         int amountTreatmentRooms,
-        
-        if (!zipcode.All(char.IsDigit))
-            throw new ArgumentException("Zipcode must not contain only digits.", nameof(zipcode));
-            
-        if (string.IsNullOrWhiteSpace(city))
-            throw new ArgumentException("City cannot be empty.", nameof(city));
+
         string street,
         string city,
         string zipcode,
@@ -55,7 +50,7 @@ public class Clinic : AggregateRoot
         clinic.ReplaceOpeningHours(openingHours.ToList()); //tilføjer de angivne åbningstider til klinikken, gennem ReplaceOpeningHours metoden som også validerer åbningstiderne.
         return clinic;
     }
-    
+
 
     public void Validate()
     {
@@ -73,13 +68,13 @@ public class Clinic : AggregateRoot
             throw new DomainException("Street cannot be empty.");
     }
     public void ReplaceOpeningHours(List<ClinicOpeningHour> openingHours)
-        {
-            if (openingHours == null || !openingHours.Any())
-                throw new DomainException("Opening hours cannot be null or empty.");
-            if (openingHours.GroupBy(oh => oh.WeekDay).Any(g => g.Count() > 1))                 //sorts the opening hours by week day and checks if there are multiple opening hours for the same week day
-                throw new DomainException("Duplicate opening hours for the same day of the week are not allowed.");
-            _openingHours = openingHours;
-        }
+    {
+        if (openingHours == null || !openingHours.Any())
+            throw new DomainException("Opening hours cannot be null or empty.");
+        if (openingHours.GroupBy(oh => oh.WeekDay).Any(g => g.Count() > 1))                 //sorts the opening hours by week day and checks if there are multiple opening hours for the same week day
+            throw new DomainException("Duplicate opening hours for the same day of the week are not allowed.");
+        _openingHours = openingHours;
+    }
 
 
 
@@ -98,43 +93,10 @@ public class Clinic : AggregateRoot
         Zipcode = zipcode;
         Validate();
         ReplaceOpeningHours(openingHours.ToList());
-g BookRight.Domain.ValueObjects;
-28
- 
-=======
-29
- 
-​
-30
- 
-​
-31
- 
-​
-32
- 
-/*using BookRight.Domain.Common;*/
-33
- 
-​
-34
- 
-using BookRight.Domain.Common;
-35
- 
-using BookRight.Domain.Entities.Treatments;
-36
- 
-using BookRight.Domain.Exceptions;
-37
- 
-using BookRight.Domain.ValueObjects;
-38
- 
     }
 
 
-    
+
 
 
 
