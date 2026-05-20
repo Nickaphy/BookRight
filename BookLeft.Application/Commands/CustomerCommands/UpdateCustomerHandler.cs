@@ -5,6 +5,7 @@ using System.Text;
 using BookRight.Facade.Dtos.CustomerCommands;
 using BookRight.Facade.Commands.CustomerCommands;
 using BookRight.Application.Repositories;
+using BookRight.Application.UseCaseExceptions;
 
 namespace BookRight.Application.Commands.CustomerCommands
 {
@@ -18,20 +19,22 @@ namespace BookRight.Application.Commands.CustomerCommands
         }
         public async Task HandleAsync(UpdateCustomerRequest command, CancellationToken cancellationToken = default)
         {
-            var customer = await _customerRepository.GetCustomerByIdAsync(command.CustomerId, cancellationToken)
-                ?? throw new InvalidOperationException("Customer not found");
+            var customer = await _customerRepository.GetCustomerByIdAsync(command.Id, cancellationToken)
+            ?? throw new UseCaseException($"Customer with id {command.Id} was not found.");
 
-            customer.UpdateName(command.Name);
-            customer.UpdatePhoneNumber(command.PhoneNumber);
-            customer.UpdateEmail(command.Email);
-            customer.UpdateNote(command.Note);
-            customer.UpdateStreet(command.Street);
-            customer.UpdateCity(command.City);
-            customer.UpdateZipcode(command.Zipcode);
-            customer.updateDateOfBirth(command.DateOfBirth);
+            customer.Update(
+                command.Name,
+                command.PhoneNumber,
+                command.Email,
+                command.Street,
+                command.City,
+                command.Zipcode,
+                command.DateOfBirth
+            );
 
             await _customerRepository.UpdateCustomerAsync(customer, cancellationToken);
-            await _customerRepository.SaveAsync(cancellationToken);
+
+
         }
     }
 }

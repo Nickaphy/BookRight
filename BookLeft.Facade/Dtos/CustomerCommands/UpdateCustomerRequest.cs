@@ -5,7 +5,7 @@ using System.Text;
 namespace BookRight.Facade.Dtos.CustomerCommands
 {
     public record UpdateCustomerRequest(
-        Guid CustomerId,
+        Guid Id,
         string Name,
         string PhoneNumber,
         string Email,
