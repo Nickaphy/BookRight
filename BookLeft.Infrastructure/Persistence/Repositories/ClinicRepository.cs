@@ -20,7 +20,7 @@ public class ClinicRepository : IClinicRepository
     public async Task AddAsync(Clinic clinic, CancellationToken cancellationToken = default)
     {
         _context.Clinics.Add(clinic);
-        await _context.SaveChangesAsync(cancellationToken);
+        
     }
 
     public async Task<Clinic?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -31,12 +31,18 @@ public class ClinicRepository : IClinicRepository
     public async Task UpdateAsync(Clinic clinic, CancellationToken cancellationToken = default)
     {
         _context.Clinics.Update(clinic);
-        await _context.SaveChangesAsync(cancellationToken);
+        
     }
 
     public async Task DeleteAsync(Clinic clinic, CancellationToken cancellationToken = default)
     {
         _context.Clinics.Remove(clinic);
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+            
     }
+
+    public async Task SaveAsync(Clinic clinic, CancellationToken cancellationToken = default)
+    {
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
+}

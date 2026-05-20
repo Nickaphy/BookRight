@@ -21,5 +21,7 @@ public interface IClinicRepository
     
     Task UpdateAsync(Clinic clinic, CancellationToken cancellationToken = default);
 
-    Task DeleteAsync(Clinic clinic, CancellationToken cancellationToken = default);  
+    Task DeleteAsync(Clinic clinic, CancellationToken cancellationToken = default);
+
+    Task SaveAsync(Clinic clinic, CancellationToken cancellationToken = default);
 }
