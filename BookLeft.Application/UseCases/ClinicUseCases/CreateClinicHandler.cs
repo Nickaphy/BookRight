@@ -34,6 +34,7 @@ namespace BookRight.Application.UseCases.ClinicUseCases
 
 
             await _clinicRepository.AddAsync(clinic, cancellationToken);
+            await _clinicRepository.SaveAsync(clinic,cancellationToken);
         }
     }
 }

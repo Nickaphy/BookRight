@@ -62,26 +62,23 @@ public class CustomerRepository : ICustomerRepository                           
         await _context.Customers.AddAsync(customer, cancellationToken);
     }
 
-    public Task UpdateCustomerAsync(Customer customer, CancellationToken cancellationToken = default)
+    public async Task UpdateCustomerAsync(Customer customer, CancellationToken cancellationToken = default)
     {
         _context.Customers.Update(customer);
-        return Task.CompletedTask;
+        
     }
 
     public async Task DeleteCustomerAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var customer = await _context.Customers.FindAsync(new object[] { id }, cancellationToken);
+        var customer = await _context.Customers
+            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
-        if (customer == null)
-            return;
-    }
-        public async Task<Customer?> GetCustomerByIdAsync(Guid id, CancellationToken cancellationToken)
-        {
-            return await _context.Customers.FindAsync(id);
-        }
-        // Remove() marks the entity as "Deleted". EF Core will generate a
-        // DELETE statement when SaveChangesAsync() is called.
+        
         _context.Customers.Remove(customer);
-    
-      
+    }
+
+
+
+
+
 }
