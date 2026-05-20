@@ -32,41 +32,6 @@ public class Customer : AggregateRoot
         string zipcode
         )
     {
-        //Not empty
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Name cannot be empty.", nameof(name));
-
-        //Not empty
-        if (string.IsNullOrWhiteSpace(email))
-            throw new ArgumentException("Email cannot be empty.", nameof(email));
-
-        //Not empty
-        if (string.IsNullOrWhiteSpace(phoneNumber))
-            throw new ArgumentException("Phone number cannot be empty.", nameof(phoneNumber));
-
-        //Only digits
-        if (!phoneNumber.All(char.IsDigit))
-            throw new ArgumentException("Phone number can only contain digits.", nameof(phoneNumber));
-
-        //Must be between 8 and 11 digits
-        if (phoneNumber.Length < 8 || phoneNumber.Length > 11)
-            throw new ArgumentException("Phone number must be between 8 and 11 digits.", nameof(phoneNumber));
-
-        if (dateOfBirth > DateTime.Now)
-            throw new ArgumentException("DateOfBirth cannot be in the future.", nameof(dateOfBirth));
-
-        if (zipcode.Length != 4)
-            throw new ArgumentException("Zipcode must be 4 digits.", nameof(zipcode));
-
-        if (!zipcode.All(char.IsDigit))
-            throw new ArgumentException("Zipcode must not contain only digits.", nameof(zipcode));
-
-        if (string.IsNullOrWhiteSpace(city))
-            throw new ArgumentException("City cannot be empty.", nameof(city));
-
-        if (string.IsNullOrWhiteSpace(street))
-            throw new ArgumentException("Street cannot be empty.", nameof(street));
-
 
         Name = name;
         PhoneNumber = phoneNumber;
@@ -77,6 +42,7 @@ public class Customer : AggregateRoot
         Street = street;
         City = city;
         Zipcode = zipcode;
+        Validate();
     }
     public void Validate()
     {
@@ -114,26 +80,18 @@ public class Customer : AggregateRoot
         if (string.IsNullOrWhiteSpace(Street))
             throw new DomainException("Street cannot be empty.");
     }
-    public void UpdateCustomerName(string name)
+    public void Update(string name, string phoneNumber, string email,
+                   string? street, string city, string zipcode,
+                   DateTime dateOfBirth)
     {
         Name = name;
-        Validate();
-    }
-    public void UpdateCustomerEmail(string email)
-    {
+        PhoneNumber = phoneNumber;
         Email = email;
-        Validate();
-    }
-    public void UpdateCustomerPhonenumber(string phonenumber)
-    {
-        PhoneNumber = phonenumber;
-        Validate();
-    }
-    public void UpdateCustomerAdress(string city, string street, string zipcode)
-    {
-        City = city;
         Street = street;
+        City = city;
         Zipcode = zipcode;
+        DateOfBirth = dateOfBirth;
+        Validate();
     }
 
     public void UpdateLoyaltyLevel(decimal totalSpentLastYear)
@@ -146,6 +104,29 @@ public class Customer : AggregateRoot
             _ => LoyaltyLevel.None
         };
     }
+
+    public static Customer Create(
+    string name,
+    string phoneNumber,
+    string email,
+    LoyaltyLevel loyaltyLevel,
+    DateTime dateOfBirth,
+    string? note,
+    string? street,
+    string city,
+    string zipcode)
+    {
+        return new Customer(name, 
+                            phoneNumber, 
+                            email, 
+                            loyaltyLevel,
+                            dateOfBirth, 
+                            note, 
+                            street, 
+                            city, 
+                            zipcode);
+    }
+
 }
 
 // Rules:
