@@ -3,8 +3,10 @@
 // Uses EF Core DbContext internally
 // Keeps database access separated from Application and Domain
 using BookRight.Application.Repositories;
+using BookRight.Domain.Entities.Customers;
 using BookRight.Domain.Entities.Practitioners;
 using BookRight.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 using System.Threading;
 
@@ -28,20 +30,24 @@ public class PractitionerRepository : IPractitionerRepository
                      CancellationToken cancellationToken = default)
     {
         await _context.AddAsync(practitioner, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+        
     }
-
     public async Task UpdateAsync(Practitioner practitioner,
                      CancellationToken cancellationToken = default)
     {
-        _context.Set<Practitioner>().Update(practitioner);  //hvad er dette!!!!
-        await _context.SaveChangesAsync(cancellationToken);
+        _context.Practitioners.Update(practitioner);  //hvad er dette!!!!
+
     }
 
     public async Task DeleteAsync(Practitioner practitioner,
                       CancellationToken cancellationToken = default)
     {
+        
         _context.Practitioners.Remove(practitioner);
-        await _context.SaveChangesAsync(cancellationToken);
+       
+    }
+    public async Task SaveAsync(Practitioner practitioner, CancellationToken cancellationToken)
+    {
+            await _context.SaveChangesAsync(cancellationToken);
     }
 }

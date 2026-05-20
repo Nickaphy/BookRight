@@ -37,6 +37,7 @@ namespace BookRight.Application.UseCases.PractitionerUseCases
             practitioner.UpdateAuthorization(command.AuthorizationCode, authorizationType);
 
             await _practitionerRepository.UpdateAsync(practitioner, cancellationToken);
+            await _practitionerRepository.SaveAsync(practitioner, cancellationToken);
         }
     }
 }

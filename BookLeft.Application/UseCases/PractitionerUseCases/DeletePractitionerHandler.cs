@@ -29,6 +29,7 @@ namespace BookRight.Application.UseCases.PractitionerUseCases
             }
 
             await _practitionerRepository.DeleteAsync(practitioner, cancellationToken);
+            await _practitionerRepository.SaveAsync(practitioner, cancellationToken);
         }
 
     }
