@@ -15,7 +15,7 @@ namespace BookRight.Infrastructure.Persistence.Repositories;
 // so that the dependencies only point inwards (Clean Architecture/Onion).
 // Infrastructure layer can know about EF Core and database details,
 // but Application can't and shall be focused on business logic.
-/*public class CustomerRepository : ICustomerRepository                                 //UDKOMMENTERET LUCAS d. 17.5 FEJL
+public class CustomerRepository : ICustomerRepository                                 //UDKOMMENTERET LUCAS d. 17.5 FEJL
 {
     private readonly AppDbContext _context;
 
@@ -74,7 +74,7 @@ namespace BookRight.Infrastructure.Persistence.Repositories;
 
         if (customer == null)
             return;
-
+    }
         public async Task<Customer?> GetCustomerByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _context.Customers.FindAsync(id);
@@ -82,5 +82,6 @@ namespace BookRight.Infrastructure.Persistence.Repositories;
         // Remove() marks the entity as "Deleted". EF Core will generate a
         // DELETE statement when SaveChangesAsync() is called.
         _context.Customers.Remove(customer);
-    }
-}*/
+    
+      
+}
