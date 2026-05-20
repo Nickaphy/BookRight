@@ -1,5 +1,6 @@
 
-using Bookright.Domain.Entities.Customers;
+
+using BookRight.Domain.Common;
 using BookRight.Domain.Entities.Bookings;
 using BookRight.Domain.Entities.Clinics;
 using BookRight.Domain.Entities.Customers;
@@ -11,9 +12,11 @@ namespace BookRight.Infrastructure.Persistence;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
+    private readonly IDomainEventDispatcher _domainEventDispatcher;
+    public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher domainEventDispatcher)
         : base(options)
     {
+        _domainEventDispatcher = domainEventDispatcher;
     }
 
     public DbSet<Clinic> Clinics { get; set; }
@@ -30,5 +33,30 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new CustomerConfiguration());*/
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        // 1. Hent events FØR vi gemmer
+        var aggregates = ChangeTracker.Entries<AggregateRoot>()
+            .Where(a => a.Entity.DomainEvents.Any())
+            .Select(a => a.Entity)
+            .ToList();
+
+        // 2. Gem data
+        var result = await base.SaveChangesAsync(cancellationToken);
+
+        // 3. Dispatch events EFTER data er gemt
+        foreach (var aggregate in aggregates)
+        {
+            foreach (var domainEvent in aggregate.DomainEvents)
+            {
+                await _domainEventDispatcher.Dispatch(domainEvent, cancellationToken);
+            }
+
+            aggregate.ClearDomainEvents();
+        }
+
+        return result;
     }
 } 
