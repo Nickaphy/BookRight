@@ -93,4 +93,15 @@ public sealed class BookingRepository : IBookingRepository
         _dbContext.Bookings.Update(booking);
         return Task.CompletedTask;
     }
+
+    public async Task<decimal> GetTotalSpentLastYearAsync(Guid customerId, CancellationToken cancellationToken = default)
+    {
+        var oneYearAgo = DateTime.UtcNow.AddYears(-1);
+
+        return await _dbContext.Bookings
+            .Where(b => b.CustomerId == customerId
+                     && b.CreatedDate >= oneYearAgo
+                     && b.Status == BookingStatus.Completed)
+            .SumAsync(b => b.FinalPrice.Amount, cancellationToken);
+    }
 }

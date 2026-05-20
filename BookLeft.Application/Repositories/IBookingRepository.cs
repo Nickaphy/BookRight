@@ -36,4 +36,6 @@ public interface IBookingRepository
         Guid id, CancellationToken cancellationToken = default);
     Task UpdateAsync(
         Booking booking, CancellationToken cancellationToken = default);    //Lucas rettet - 13/5 - 13.55
+
+    Task<decimal> GetTotalSpentLastYearAsync(Guid customerId, CancellationToken cancellationToken = default);
 }

@@ -171,13 +171,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         // Create value objects
         // ====================
 
-        /*var basePrice = treatmentType.BasePrice;  //Mudder luder lucas har rettet
-
-        var discountResult = await _discountService.GetBestDiscountAsync(
-            basePrice,
-            cancellationToken);
-
-        var finalPrice = new Money(basePrice.Amount - discountResult.BestDiscount);*/
+        
 
         // ====================
         // Create aggregate

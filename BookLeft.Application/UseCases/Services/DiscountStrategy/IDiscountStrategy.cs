@@ -9,6 +9,6 @@ namespace BookRight.Application.UseCases.Services.DiscountStrategy
     {
         // Calculate the discount for a given booking
         // Returns the discount amount (e.g., 0.10 for 10% off)
-        decimal CalculateDiscount(Booking booking);
+        Task<decimal> CalculateDiscount(Booking booking);
     }
 }

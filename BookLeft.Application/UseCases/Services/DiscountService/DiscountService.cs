@@ -21,15 +21,19 @@ namespace BookRight.Application.UseCases.Services.DiscountService
         {
             ArgumentNullException.ThrowIfNull(booking);
 
-            var tasks = _strategies.Select(s => Task.Run(() =>
+            var result = new BestDiscountResult();
+
+            var tasks = _strategies.Select(s => Task.Run(async () =>
             {
                 ct.ThrowIfCancellationRequested();
-                return s.CalculateDiscount(booking);
+                var discount = await s.CalculateDiscount(booking);
+                result.OfferDiscount(s.GetType().Name, discount);
+                //return s.CalculateDiscount(booking);
             }, ct))
             .ToArray();
 
-            var discounts = await Task.WhenAll(tasks);
-            return discounts.Max();
+            await Task.WhenAll(tasks);
+            return result.BestDiscount;
         }
     }
 }
