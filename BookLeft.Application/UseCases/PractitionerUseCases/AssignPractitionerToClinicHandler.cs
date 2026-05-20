@@ -25,6 +25,7 @@ namespace BookRight.Application.UseCases.PractitionerUseCases
             }
             practitioner.AssignToClinic(command.ClinicId, command.Date);
             await _practitionerRepository.UpdateAsync(practitioner, cancellationToken);
+            await _practitionerRepository.SaveAsync(practitioner, cancellationToken); 
         }
     }
 }
