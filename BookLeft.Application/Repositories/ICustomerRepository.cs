@@ -43,4 +43,6 @@ public interface ICustomerRepository
     //Jeg er ikke sikker på denne, da den foreslår at det skal være Customer customer i stedet for ID.
     //Skal dog matche med CustomerRepository.cs implementationen.
     Task DeleteCustomerAsync(Guid id, CancellationToken cancellationToken = default);
+
+    
 }

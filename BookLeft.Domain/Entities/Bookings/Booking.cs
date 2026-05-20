@@ -297,6 +297,17 @@ public class Booking : AggregateRoot
         Status = BookingStatus.NoShow;
     }
 
+    public void Complete()
+    {
+        if (Status == BookingStatus.Completed)
+            throw new DomainException("Booking is already completed.");
+
+        Status = BookingStatus.Completed;
+
+        // Fyrer en event
+        AddDomainEvent(new BookingCompletedEvent(CustomerId, FinalPrice.Amount));
+    }
+
 
     // Future business rules:
     //
