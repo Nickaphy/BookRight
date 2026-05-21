@@ -1,4 +1,4 @@
-using BookRight.Domain.Campaigns;
+using BookRight.Domain.Entities.Campaigns;
 
 namespace BookRight.Application.Repositories;
 
