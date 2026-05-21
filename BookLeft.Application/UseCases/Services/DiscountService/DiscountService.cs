@@ -1,39 +1,50 @@
 ﻿using BookRight.Application.UseCases.Services.DiscountStrategy;
-using BookRight.Domain.Entities.Bookings;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BookRight.Application.UseCases.Services.DiscountService
+namespace BookRight.Application.UseCases.Services.DiscountService;
+
+// Coordinates all registered discount strategies
+// and selects the best available discount.
+public class DiscountService : IDiscountService
 {
-    public class DiscountService : IDiscountService
+    private readonly IEnumerable<IDiscountStrategy> _strategies;
+
+    public DiscountService(
+        IEnumerable<IDiscountStrategy> strategies)
     {
-        private readonly IEnumerable<IDiscountStrategy> _strategies;
+        _strategies = strategies;
+    }
 
-        public DiscountService(IEnumerable<IDiscountStrategy> strategies)
-        {
-            _strategies = strategies;
-        }
-
-        public async Task<BestDiscountResult> GetBestDiscountAsync(Booking booking, 
+    public async Task<BestDiscountResult>
+        GetBestDiscountAsync(
+            BookingPricingContext context,
             CancellationToken ct = default)
+    {
+        if (context is null)
+            throw new ArgumentNullException(nameof(context));
+
+        var result = new BestDiscountResult();
+
+        // Evaluate all discount strategies in parallel.
+        //
+        // Example:
+        // - Loyalty discount
+        // - Birthday discount
+        // - Campaign discount
+        var tasks = _strategies.Select(async strategy =>
         {
-            if (booking is null)
-                throw new ArgumentNullException(nameof(booking));
+            ct.ThrowIfCancellationRequested();
 
-            var result = new BestDiscountResult();
+            var discount =
+                await strategy.CalculateDiscountAsync(
+                    context);
 
-            var tasks = _strategies.Select(s => Task.Run(async () =>
-            {
-                ct.ThrowIfCancellationRequested();
-                var discount = await s.CalculateDiscount(booking);
-                var strategyName = s.GetType().Name;
-                result.OfferDiscount(strategyName, discount);
-            }, ct))
-            .ToArray();
+            result.OfferDiscount(
+                strategy.DiscountType,
+                discount);
+        });
 
-            await Task.WhenAll(tasks);
-            return result;
-        }
+        await Task.WhenAll(tasks);
+
+        return result;
     }
 }

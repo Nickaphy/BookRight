@@ -1,32 +1,27 @@
-﻿using BookRight.Application.Repositories;
-using BookRight.Domain.Entities.Bookings;
+﻿using BookRight.Application.UseCases.Services.DiscountService;
 using BookRight.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BookRight.Application.UseCases.Services.DiscountStrategy
+namespace BookRight.Application.UseCases.Services.DiscountStrategy;
+
+// No loyalty discount strategy.
+//
+// Rules:
+// - Applies only to customers without loyalty status.
+// - Returns zero discount.
+public sealed class LoyaltyLevelNone : IDiscountStrategy
 {
-    public class LoyaltyLevelNone : IDiscountStrategy
+
+    // Identifies this strategy as no loyalty discount.
+    public DiscountType DiscountType =>
+        DiscountType.None;
+
+    public Task<decimal> CalculateDiscountAsync(
+        BookingPricingContext context)
     {
-        private readonly decimal _percentage;
-        private readonly ICustomerRepository _customerRepository;
+        if (context is null)
+            throw new ArgumentNullException(nameof(context));
 
-        public LoyaltyLevelNone(ICustomerRepository customerRepisitory, decimal percentage = 0m)
-        {
-            _percentage = percentage;
-            _customerRepository = customerRepisitory;
-        }
-
-        public async Task<decimal> CalculateDiscount(Booking booking)
-        {
-            var customer = await _customerRepository.GetCustomerByIdAsync(booking.CustomerId);
-            if (customer == null)
-                return 0m;
-            var isNoneLoyalty = customer.LoyaltyLevel == LoyaltyLevel.None;
-            return isNoneLoyalty ? booking.BasePrice.Amount * _percentage : 0;
-
-
-        }
+        // No discount is given for LoyaltyLevel.None.
+        return Task.FromResult(0m);
     }
 }

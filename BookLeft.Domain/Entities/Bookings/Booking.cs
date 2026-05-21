@@ -23,13 +23,9 @@
 
 
 using BookRight.Domain.Common;
-/*using BookRight.Domain.Common;*/
-
-using BookRight.Domain.Common;
 using BookRight.Domain.Entities.Treatments;
 using BookRight.Domain.Enums;
 using BookRight.Domain.Exceptions;
-using BookRight.Domain.ValueObjects;
 using BookRight.Domain.ValueObjects;
 
 namespace BookRight.Domain.Entities.Bookings;
@@ -185,6 +181,9 @@ public class Booking : AggregateRoot
 {
     public Money BasePrice { get; private set; }
     public Money FinalPrice { get; private set; }
+    // Stores which discount type won
+    // during booking price calculation.
+    public DiscountType DiscountType { get; private set; }
     public BookingStatus Status { get; private set; }
     public DateTime CreatedDate { get; private set; }
     public TimeRange TimeRange { get; private set; }
@@ -226,8 +225,8 @@ public class Booking : AggregateRoot
         IsTeam = isTeam;
         AmountParticipants = amountParticipants;
         BasePrice = basePrice;
-        
 
+        DiscountType = DiscountType.None;
         Status = BookingStatus.Created;
         CreatedDate = DateTime.UtcNow;
     }
@@ -260,7 +259,7 @@ public class Booking : AggregateRoot
     }
 
     //Lucas har rettet.
-    public void SetFinalPrice(Money finalPrice, string? appliedDiscount)
+    public void SetFinalPrice(Money finalPrice, DiscountType discountType)
     {
         if (finalPrice is null)
             throw new DomainException("Final price cant be null");
@@ -269,7 +268,7 @@ public class Booking : AggregateRoot
             throw new DomainException("Final price cannot be higher than base price.");
 
         FinalPrice = finalPrice;
-        AppliedDiscount = appliedDiscount;
+        DiscountType = discountType;
     }
 
     // Marks the booking as no-show.

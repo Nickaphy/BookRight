@@ -1,32 +1,46 @@
-﻿using BookRight.Domain.Entities.Bookings;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using BookRight.Domain.ValueObjects;
-using BookRight.Application.Repositories;
+﻿using BookRight.Application.UseCases.Services.DiscountService;
+using BookRight.Domain.Enums;
 
-namespace BookRight.Application.UseCases.Services.DiscountStrategy
+namespace BookRight.Application.UseCases.Services.DiscountStrategy;
+
+// Birthday month discount strategy.
+//
+// Rules:
+// - Customer receives birthday discount
+//   during birth month.
+// - Discount may only be used once per year.
+// - Returns discount amount in currency.
+public sealed class BirthMonthDiscount : IDiscountStrategy
 {
-    public class BirthMonthDiscount : IDiscountStrategy
+    private readonly decimal _percentage;
+
+    public BirthMonthDiscount(decimal percentage = 0.25m)
     {
-        private readonly ICustomerRepository _customerRepository;
-        private readonly decimal _percentage;
+        _percentage = percentage;
+    }
 
-        public BirthMonthDiscount(ICustomerRepository customerRepository, decimal percentage = 0.25m)
-        {
-            _customerRepository = customerRepository;
-            _percentage = percentage;
-        }
+    // Identifies this strategy as birthday discount.
+    public DiscountType DiscountType =>
+        DiscountType.BirthdayMonth;
 
-        public async Task<decimal> CalculateDiscount(Booking booking)
-        {
-            var customer = await _customerRepository.GetCustomerByIdAsync(booking.CustomerId);
-            if (customer == null)
-                return 0m;
-            var isBirthMonth = customer.DateOfBirth.Month == DateTime.UtcNow.Month;
+    public Task<decimal> CalculateDiscountAsync(
+        BookingPricingContext context)
+    {
+        if (context is null)
+            throw new ArgumentNullException(nameof(context));
 
-            return isBirthMonth ? booking.BasePrice.Amount - (booking.BasePrice.Amount * _percentage) : 0m;  //bool der tjekker om det er fødselsdags måneden ellers returnerer den 0
-            
-        }
+        // Customer is not in birthday month.
+        if (!context.IsBirthdayMonth)
+            return Task.FromResult(0m);
+
+        // Customer already used birthday discount this year.
+        if (context.HasUsedBirthdayDiscountThisYear)
+            return Task.FromResult(0m);
+
+        // Calculate discount amount.
+        var discount =
+            context.Booking.BasePrice.Amount * _percentage;
+
+        return Task.FromResult(discount);
     }
 }

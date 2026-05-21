@@ -1,29 +1,45 @@
 ﻿using BookRight.Application.UseCases.Services.DiscountService;
-using BookRight.Domain.Entities.Bookings;
+using BookRight.Domain.Enums;
 using BookRight.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BookRight.Application.UseCases.Services.PriceCalculator
+namespace BookRight.Application.UseCases.Services.PriceCalculator;
+
+// Responsible for calculating
+// the final booking price after discounts.
+public class PriceCalculator : IPriceCalculator
 {
-    public class PriceCalculator : IPriceCalculator
+    private readonly IDiscountService _discountService;
+
+    public PriceCalculator(
+        IDiscountService discountService)
     {
-        private readonly IDiscountService _discountService;
+        _discountService = discountService;
+    }
 
-        public PriceCalculator(IDiscountService discountService)
-        {
-            _discountService = discountService;
-        }
-
-        public async Task<(Money FinalPrice, string? WinningStrategy)> CalculateFinalPriceAsync(
-            Booking booking,
+    public async Task<(
+        Money FinalPrice,
+        DiscountType WinningDiscountType)>
+        CalculateFinalPriceAsync(
+            BookingPricingContext context,
             CancellationToken ct = default)
-        {
-            var discountResult = await _discountService.GetBestDiscountAsync(booking, ct);
-            var finalPrice = new Money(booking.BasePrice.Amount - discountResult.BestDiscount);
+    {
+        if (context is null)
+            throw new ArgumentNullException(nameof(context));
 
-            return (finalPrice, discountResult.WinningStrategy);
-        }
+        // Execute all discount strategies
+        // and determine the winning discount.
+        var discountResult =
+            await _discountService.GetBestDiscountAsync(
+                context,
+                ct);
+
+        // Final price = BasePrice - DiscountAmount
+        var finalPrice = new Money(
+            context.Booking.BasePrice.Amount -
+            discountResult.BestDiscount);
+
+        return (
+            finalPrice,
+            discountResult.WinningDiscountType);
     }
 }

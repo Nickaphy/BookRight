@@ -1,13 +1,12 @@
-﻿using BookRight.Domain.Entities.Bookings;
-using BookRight.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BookRight.Domain.ValueObjects;
 
-namespace BookRight.Application.UseCases.Services.DiscountService
+namespace BookRight.Application.UseCases.Services.DiscountService;
+
+// Coordinates all discount strategies
+// and selects the best available discount.
+public interface IDiscountService
 {
-    public interface IDiscountService
-    {
-        Task<BestDiscountResult> GetBestDiscountAsync(Booking booking, CancellationToken ct = default);
-    }
+    Task<BestDiscountResult> GetBestDiscountAsync(
+        BookingPricingContext context,
+        CancellationToken ct = default);
 }
