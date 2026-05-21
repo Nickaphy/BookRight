@@ -1,5 +1,6 @@
 ﻿using BookRight.Application.Repositories;
 using BookRight.Domain.Entities.Customers;
+using BookRight.Domain.Enums;
 using BookRight.Facade.Commands.CustomerCommands;
 using BookRight.Facade.Dtos.CustomerCommands;
 using System;

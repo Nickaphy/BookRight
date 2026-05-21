@@ -2,6 +2,7 @@
 using BookRight.Domain.Common;
 using BookRight.Domain.Exceptions;
 using System.Text.RegularExpressions;
+using BookRight.Domain.Enums;
 
 //Lucas - ville pushe op.. han ville se hvordan treatmenttype kunne få en relation til practitioner,
 //og hvordan practitioner kunne have en liste af treatmenttypes som de var autoriseret til at udføre.

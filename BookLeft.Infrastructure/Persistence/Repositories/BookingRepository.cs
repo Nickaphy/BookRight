@@ -24,6 +24,7 @@ using BookRight.Application.Repositories;
 using BookRight.Domain.Entities.Bookings;
 using BookRight.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
+using BookRight.Domain.Enums;
 
 namespace BookRight.Infrastructure.Persistence.Repositories;
 
@@ -100,8 +101,9 @@ public sealed class BookingRepository : IBookingRepository
 
         return await _dbContext.Bookings
             .Where(b => b.CustomerId == customerId
-                     && b.CreatedDate >= oneYearAgo
-                     && b.Status == BookingStatus.Completed)
+                   && b.CreatedDate >= oneYearAgo
+                   && (b.Status == BookingStatus.Completed
+                   || b.Status == BookingStatus.Created))
             .SumAsync(b => b.FinalPrice.Amount, cancellationToken);
     }
 }

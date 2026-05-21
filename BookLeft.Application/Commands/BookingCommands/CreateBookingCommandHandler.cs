@@ -54,6 +54,7 @@ CreateBookingCommandHandler
 using BookRight.Application.Repositories;
 using BookRight.Application.Services;
 using BookRight.Application.UseCases.Services.DiscountService;
+using BookRight.Application.UseCases.Services.PriceCalculator;
 using BookRight.Domain.Entities.Bookings;
 using BookRight.Domain.Enums;
 using BookRight.Domain.ValueObjects;
@@ -74,6 +75,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
     private readonly ITreatmentTypeRepository _treatmentTypeRepository;
     private readonly IBookingConflictChecker _bookingConflictChecker;
     private readonly IDiscountService _discountService;
+    private readonly IPriceCalculator _priceCalculator;
 
     public CreateBookingCommandHandler(
         IBookingRepository bookingRepository,
@@ -83,7 +85,9 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         IClinicRepository clinicRepository,
         ITreatmentTypeRepository treatmentTypeRepository,
         IBookingConflictChecker bookingConflictChecker,
-        IDiscountService discountservice) 
+        IDiscountService discountservice,
+        IPriceCalculator priceCalculator) 
+
     {
         _bookingRepository = bookingRepository;
         _customerRepository = customerRepository;
@@ -93,6 +97,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         _treatmentTypeRepository = treatmentTypeRepository;
         _bookingConflictChecker = bookingConflictChecker;
         _discountService = discountservice;
+        _priceCalculator = priceCalculator;
     }
 
     public async Task<Guid> CreateBookingAsync(
@@ -188,11 +193,11 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
             basePrice);
 
         //Lucas har rettet
-        var bestDiscount = await _discountService.GetBestDiscountAsync(booking, cancellationToken);
-        var finalPrice = new Money(basePrice.Amount - bestDiscount);  
+        var discountResult = await _discountService.GetBestDiscountAsync(booking, cancellationToken);
 
-        booking.SetFinalPrice(finalPrice);
 
+        var (finalPrice, winningStrategy) = await _priceCalculator.CalculateFinalPriceAsync(booking, cancellationToken);
+        booking.SetFinalPrice(finalPrice, winningStrategy);
 
         // ====================
         // Persist aggregate

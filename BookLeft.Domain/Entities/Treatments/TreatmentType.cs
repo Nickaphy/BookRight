@@ -6,6 +6,7 @@
 // - Some treatments can be combined
 
 using BookRight.Domain.Common;
+using BookRight.Domain.Enums;
 using BookRight.Domain.ValueObjects;
 
 namespace BookRight.Domain.Entities.Treatments;

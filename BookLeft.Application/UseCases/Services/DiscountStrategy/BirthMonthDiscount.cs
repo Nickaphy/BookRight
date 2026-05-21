@@ -25,7 +25,7 @@ namespace BookRight.Application.UseCases.Services.DiscountStrategy
                 return 0m;
             var isBirthMonth = customer.DateOfBirth.Month == DateTime.UtcNow.Month;
 
-            return isBirthMonth ? booking.BasePrice.Amount * _percentage : 0m;  //bool der tjekker om det er fødselsdags måneden ellers returnerer den 0
+            return isBirthMonth ? booking.BasePrice.Amount - (booking.BasePrice.Amount * _percentage) : 0m;  //bool der tjekker om det er fødselsdags måneden ellers returnerer den 0
             
         }
     }
