@@ -4,6 +4,7 @@
 using BookRight.Domain.Entities.Clinics;
 using BookRight.Domain.Exceptions;
 using BookRight.Domain.Entities.Practitioners;
+using BookRight.Domain.Enums;
 
 
 //ARRANGE

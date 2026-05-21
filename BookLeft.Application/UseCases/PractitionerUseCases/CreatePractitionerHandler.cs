@@ -2,6 +2,7 @@
 using BookRight.Domain.Entities.Practitioners;
 using BookRight.Facade.Commands.Practitioner;
 using BookRight.Facade.Dtos.PractitionerCommand;
+using BookRight.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
