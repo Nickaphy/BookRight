@@ -34,7 +34,7 @@ builder.Services.AddScoped<IBookingConflictChecker,BookingConflictChecker>();
 //builder.Services.AddScoped<ITreatmentTypeRepository, FakeTreatmentTypeRepository>();
 
 
-builder.Services.AddDbContext<BookRightDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("BookRightDb")));
 
