@@ -1,5 +1,6 @@
 ﻿using BookRight.Application.Repositories;
 using BookRight.Domain.Entities.Bookings;
+using BookRight.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;

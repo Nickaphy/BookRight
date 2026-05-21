@@ -33,6 +33,17 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new CustomerConfiguration());*/
 
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Booking>()
+            .OwnsOne(b => b.FinalPrice, money =>
+            {
+                money.Property(m => m.Amount).HasColumnName("FinalPrice");
+            });
+
+        modelBuilder.Entity<Booking>()
+            .OwnsOne(b => b.BasePrice, money =>
+            {
+                money.Property(m => m.Amount).HasColumnName("BasePrice");
+            });
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

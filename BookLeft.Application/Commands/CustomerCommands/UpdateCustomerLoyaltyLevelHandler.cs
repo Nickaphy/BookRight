@@ -12,6 +12,14 @@ namespace BookRight.Application.Commands.CustomerCommands
         private readonly IBookingRepository _bookingRepository;
         private readonly ICustomerRepository _customerRepository;
 
+        public UpdateCustomerLoyaltyLevelHandler(
+            IBookingRepository bookingRepository,
+            ICustomerRepository customerRepository)
+        {
+            _bookingRepository = bookingRepository;
+            _customerRepository = customerRepository;
+        }
+
         public async Task Handle(BookingCompletedEvent domainEvent, CancellationToken cancellationToken = default)
         {
             var totalSpent = await _bookingRepository

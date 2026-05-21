@@ -1,4 +1,5 @@
 ﻿// Enum:
+namespace BookRight.Domain.Enums;
 public enum BookingStatus
 {
 

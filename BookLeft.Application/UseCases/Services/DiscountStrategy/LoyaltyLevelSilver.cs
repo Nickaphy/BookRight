@@ -1,5 +1,6 @@
 ﻿using BookRight.Application.Repositories;
 using BookRight.Domain.Entities.Bookings;
+using BookRight.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,8 +25,6 @@ namespace BookRight.Application.UseCases.Services.DiscountStrategy
                 return 0m;
             var loyaltyLevel = customer.LoyaltyLevel == LoyaltyLevel.Silver;
             return loyaltyLevel ? booking.BasePrice.Amount * _percentage : 0;
-
-
         }
     }
 }

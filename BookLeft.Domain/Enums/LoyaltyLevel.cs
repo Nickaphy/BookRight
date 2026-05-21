@@ -1,4 +1,5 @@
 ﻿//Describes the customer
+namespace BookRight.Domain.Enums;
 public enum LoyaltyLevel
 {
     None,
