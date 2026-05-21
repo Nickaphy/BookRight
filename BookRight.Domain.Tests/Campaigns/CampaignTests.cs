@@ -1,6 +1,6 @@
 namespace BookRight.Domain.Tests.Campaigns;
 
-using BookRight.Domain.Campaigns;
+using BookRight.Domain.Entities.Campaigns;
 
 // Theory: being used to run multiple tests with different input data made possible by the inline data attribute.
 // Fact: a single test with single input data.
