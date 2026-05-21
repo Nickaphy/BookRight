@@ -1,5 +1,5 @@
 using BookRight.Application.Repositories;
-using BookRight.Domain.Campaigns;
+using BookRight.Domain.Entities.Campaigns;
 using BookRight.Facade.Commands.Campaign;
 using BookRight.Facade.Dtos.CampaignCommand;
 
