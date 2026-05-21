@@ -2,6 +2,7 @@ namespace BookRight.Domain.Tests.Treatments;
 
 using BookRight.Domain.Entities.Treatments;
 using BookRight.Domain.ValueObjects;
+using BookRight.Domain.Enums;
 
 // Theory: being used to run multiple tests with different input data made possible by the inline data attribute.
 // Fact: a single test with single input data.

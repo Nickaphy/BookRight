@@ -20,7 +20,7 @@ public class CampaignTests
         Assert.Equal("Sommertilbud", campaign.Name);
         Assert.Equal(start, campaign.StartDate);
         Assert.Equal(end, campaign.EndDate);
-        Assert.Equal(20, campaign.discountPercent);
+        Assert.Equal(20, campaign.DiscountPercent);
     }
 
     // Campaign name is required — empty string and whitespace should both throw
@@ -66,7 +66,7 @@ public class CampaignTests
     public void Constructor_ZeroDiscountPercent_IsValid()
     {
         var campaign = new Campaign("Test", Today, Today.AddDays(30), 0);
-        Assert.Equal(0, campaign.discountPercent);
+        Assert.Equal(0, campaign.DiscountPercent);
     }
 
     // 100% is a valid discount — e.g. a fully free promotional campaign
@@ -74,6 +74,6 @@ public class CampaignTests
     public void Constructor_100DiscountPercent_IsValid()
     {
         var campaign = new Campaign("Test", Today, Today.AddDays(30), 100);
-        Assert.Equal(100, campaign.discountPercent);
+        Assert.Equal(100, campaign.DiscountPercent);
     }
 }
