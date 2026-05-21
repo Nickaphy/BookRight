@@ -8,7 +8,6 @@ namespace BookRight.Application.UseCases.Services.DiscountService
 {
     public interface IDiscountService
     {
-        Task<decimal> GetBestDiscountAsync(Booking booking,
-            CancellationToken ct = default);
+        Task<BestDiscountResult> GetBestDiscountAsync(Booking booking, CancellationToken ct = default);
     }
 }

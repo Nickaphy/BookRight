@@ -15,11 +15,11 @@ namespace BookRight.Application.UseCases.Services.DiscountService
             _strategies = strategies;
         }
 
-        public async Task<decimal> GetBestDiscountAsync(
-            Booking booking,
+        public async Task<BestDiscountResult> GetBestDiscountAsync(Booking booking, 
             CancellationToken ct = default)
         {
-            ArgumentNullException.ThrowIfNull(booking);
+            if (booking is null)
+                throw new ArgumentNullException(nameof(booking));
 
             var result = new BestDiscountResult();
 
@@ -27,13 +27,13 @@ namespace BookRight.Application.UseCases.Services.DiscountService
             {
                 ct.ThrowIfCancellationRequested();
                 var discount = await s.CalculateDiscount(booking);
-                result.OfferDiscount(s.GetType().Name, discount);
-                //return s.CalculateDiscount(booking);
+                var strategyName = s.GetType().Name;
+                result.OfferDiscount(strategyName, discount);
             }, ct))
             .ToArray();
 
             await Task.WhenAll(tasks);
-            return result.BestDiscount;
+            return result;
         }
     }
 }
