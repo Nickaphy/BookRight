@@ -1,7 +1,6 @@
-
-
 using BookRight.Domain.Common;
 using BookRight.Domain.Entities.Bookings;
+using BookRight.Domain.Entities.Campaigns;
 using BookRight.Domain.Entities.Clinics;
 using BookRight.Domain.Entities.Customers;
 using BookRight.Domain.Entities.Practitioners;
@@ -19,6 +18,7 @@ public class AppDbContext : DbContext
         _domainEventDispatcher = domainEventDispatcher;
     }
 
+    public DbSet<Campaign> Campaigns { get; set; }
     public DbSet<Clinic> Clinics { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<TreatmentType> Treatments { get; set; }

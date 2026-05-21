@@ -6,7 +6,7 @@
 
 using BookRight.Domain.Common;
 
-namespace BookRight.Domain.Campaigns;
+namespace BookRight.Domain.Entities.Campaigns;
 
 public class Campaign : AggregateRoot
 {
