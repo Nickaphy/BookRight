@@ -23,15 +23,13 @@
 
 
 using BookRight.Domain.Common;
-using BookRight.Domain.ValueObjects;
-
-
-
 /*using BookRight.Domain.Common;*/
 
 using BookRight.Domain.Common;
 using BookRight.Domain.Entities.Treatments;
+using BookRight.Domain.Enums;
 using BookRight.Domain.Exceptions;
+using BookRight.Domain.ValueObjects;
 using BookRight.Domain.ValueObjects;
 
 namespace BookRight.Domain.Entities.Bookings;
@@ -196,6 +194,7 @@ public class Booking : AggregateRoot
     public Guid PractitionerId { get; private set; }
     public Guid ClinicId { get; private set; }
     public Guid TreatmentTypeId { get; private set; }
+    public string? AppliedDiscount { get; private set; }
 
     private Booking()
     {
@@ -261,15 +260,16 @@ public class Booking : AggregateRoot
     }
 
     //Lucas har rettet.
-    public void SetFinalPrice(Money finalPrice)
+    public void SetFinalPrice(Money finalPrice, string? appliedDiscount)
     {
         if (finalPrice is null)
-            throw new DomainException(nameof(finalPrice));
+            throw new DomainException("Final price cant be null");
 
         if (finalPrice.Amount > BasePrice.Amount)
             throw new DomainException("Final price cannot be higher than base price.");
 
         FinalPrice = finalPrice;
+        AppliedDiscount = appliedDiscount;
     }
 
     // Marks the booking as no-show.
@@ -301,6 +301,12 @@ public class Booking : AggregateRoot
     {
         if (Status == BookingStatus.Completed)
             throw new DomainException("Booking is already completed.");
+
+        if (Status == BookingStatus.Cancelled)
+            throw new DomainException("A cancelled booking cannot be completed.");
+
+        if (Status == BookingStatus.NoShow)
+            throw new DomainException("A no-show booking cannot be completed.");
 
         Status = BookingStatus.Completed;
 
