@@ -34,13 +34,9 @@ public class DiscountService : IDiscountService
         {
             ct.ThrowIfCancellationRequested();
 
-            var discount =
-                await strategy.CalculateDiscountAsync(
-                    context);
+            var discount = await strategy.CalculateDiscountAsync(context); //Evaluate all discount strategies in parallel.
+            result.OfferDiscount(strategy.DiscountType, discount);         //Runs through the doorman "BestDiscountResult"
 
-            result.OfferDiscount(
-                strategy.DiscountType,
-                discount);
         });
 
         await Task.WhenAll(tasks);
