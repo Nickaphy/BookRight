@@ -1,30 +1,40 @@
-using BookRight.Application.Repositories;
-using BookRight.Domain.Entities.Bookings;
+using BookRight.Application.UseCases.Services.DiscountService;
 using BookRight.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BookRight.Application.UseCases.Services.DiscountStrategy
+namespace BookRight.Application.UseCases.Services.DiscountStrategy;
+
+// Silver loyalty discount strategy.
+//
+// Rules:
+// - Applies only to Silver customers.
+// - Returns discount amount in currency.
+public sealed class LoyaltyLevelSilver : IDiscountStrategy
 {
-    public class LoyaltyLevelSilver : IDiscountStrategy
+    private readonly decimal _percentage;
+
+    public LoyaltyLevelSilver(decimal percentage = 0.10m)
     {
-        private readonly decimal _percentage;
-        private readonly ICustomerRepository _customerRepository;
+        _percentage = percentage;
+    }
 
-        public LoyaltyLevelSilver(ICustomerRepository customerRepository, decimal percentage = 0.10m)
-        {
-            _percentage = percentage;
-            _customerRepository = customerRepository;
-        }
+    // Identifies this strategy as Silver loyalty discount.
+    public DiscountType DiscountType =>
+        DiscountType.Silver;
 
-        public async Task<decimal> CalculateDiscount(Booking booking)
-        {
-            var customer = await _customerRepository.GetCustomerByIdAsync(booking.CustomerId);
-            if (customer == null)
-                return 0m;
-            var loyaltyLevel = customer.LoyaltyLevel == LoyaltyLevel.Silver;
-            return loyaltyLevel ? booking.BasePrice.Amount * _percentage : 0;
-        }
+    public Task<decimal> CalculateDiscountAsync(
+        BookingPricingContext context)
+    {
+        if (context is null)
+            throw new ArgumentNullException(nameof(context));
+
+        // Discount only applies to Silver customers.
+        if (context.Customer.LoyaltyLevel != LoyaltyLevel.Silver)
+            return Task.FromResult(0m);
+
+        // Calculate discount amount.
+        var discount =
+            context.Booking.BasePrice.Amount * _percentage;
+
+        return Task.FromResult(discount);
     }
 }

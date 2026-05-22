@@ -106,4 +106,19 @@ public sealed class BookingRepository : IBookingRepository
                    || b.Status == BookingStatus.Created))
             .SumAsync(b => b.FinalPrice.Amount, cancellationToken);
     }
+
+    // Checks whether the customer has already used
+    // the birthday discount during the specified year.
+    public async Task<bool> HasUsedBirthdayDiscountAsync(
+        Guid customerId,
+        int year,
+        CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Bookings.AnyAsync(
+            booking =>
+                booking.CustomerId == customerId &&
+                booking.CreatedDate.Year == year &&
+                booking.DiscountType == DiscountType.BirthdayMonth,
+            cancellationToken);
+    }
 }

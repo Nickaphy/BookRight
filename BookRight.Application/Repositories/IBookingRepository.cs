@@ -38,4 +38,11 @@ public interface IBookingRepository
         Booking booking, CancellationToken cancellationToken = default);    //Lucas rettet - 13/5 - 13.55
 
     Task<decimal> GetTotalSpentLastYearAsync(Guid customerId, CancellationToken cancellationToken = default);
+
+    // Checks whether the customer has already used
+    // the birthday discount during the specified year.
+    Task<bool> HasUsedBirthdayDiscountAsync(
+        Guid customerId,
+        int year,
+        CancellationToken cancellationToken = default);
 }

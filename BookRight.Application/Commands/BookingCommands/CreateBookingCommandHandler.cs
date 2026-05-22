@@ -86,7 +86,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         ITreatmentTypeRepository treatmentTypeRepository,
         IBookingConflictChecker bookingConflictChecker,
         IDiscountService discountservice,
-        IPriceCalculator priceCalculator) 
+        IPriceCalculator priceCalculator)
 
     {
         _bookingRepository = bookingRepository;
@@ -114,7 +114,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
 
         if (customer is null)
         {
-            throw new InvalidOperationException("Customer was not found.");
+            throw new InvalidOperationException(
+                "Customer was not found.");
         }
 
         var practitioner = await _practitionerRepository.GetByIdAsync(
@@ -123,7 +124,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
 
         if (practitioner is null)
         {
-            throw new InvalidOperationException("Practitioner was not found.");
+            throw new InvalidOperationException(
+                "Practitioner was not found.");
         }
 
         var clinic = await _clinicRepository.GetByIdAsync(
@@ -132,7 +134,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
 
         if (clinic is null)
         {
-            throw new InvalidOperationException("Clinic was not found.");
+            throw new InvalidOperationException(
+                "Clinic was not found.");
         }
 
         var treatmentType = await _treatmentTypeRepository.GetByIdAsync(
@@ -141,7 +144,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
 
         if (treatmentType is null)
         {
-            throw new InvalidOperationException("Treatment type was not found.");
+            throw new InvalidOperationException(
+                "Treatment type was not found.");
         }
 
         // ====================
@@ -160,23 +164,19 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
             request.StartTime,
             endTime);
 
+        // Ensure practitioner availability.
         await _bookingConflictChecker
-    .EnsurePractitionerAvailabilityAsync(
-        request.PractitionerId,
-        timeRange,
-        cancellationToken);
+            .EnsurePractitionerAvailabilityAsync(
+                request.PractitionerId,
+                timeRange,
+                cancellationToken);
 
+        // Ensure clinic availability.
         await _bookingConflictChecker
             .EnsureClinicAvailabilityAsync(
                 request.ClinicId,
                 timeRange,
                 cancellationToken);
-
-        // ====================
-        // Create value objects
-        // ====================
-
-        
 
         // ====================
         // Create aggregate
@@ -192,12 +192,63 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
             timeRange,
             basePrice);
 
-        //Lucas har rettet
-        var discountResult = await _discountService.GetBestDiscountAsync(booking, cancellationToken);
+        // ====================
+        // Build pricing context
+        // ====================
 
+        // Determine whether the booking occurs
+        // during the customer's birthday month.
+        var isBirthdayMonth =
+            request.StartTime.Month ==
+            customer.DateOfBirth.Month;
 
-        var (finalPrice, winningStrategy) = await _priceCalculator.CalculateFinalPriceAsync(booking, cancellationToken);
-        booking.SetFinalPrice(finalPrice, winningStrategy);
+        // Check whether the customer has already used
+        // the birthday discount during the current year.
+        var hasUsedBirthdayDiscountThisYear =
+            await _bookingRepository
+                .HasUsedBirthdayDiscountAsync(
+                    customer.Id,
+                    request.StartTime.Year,
+                    cancellationToken);
+
+        // Build pricing context used by discount strategies.
+        var pricingContext = new BookingPricingContext
+        {
+            Booking = booking,
+
+            Customer = customer,
+
+            IsBirthdayMonth = isBirthdayMonth,
+
+            HasUsedBirthdayDiscountThisYear =
+                hasUsedBirthdayDiscountThisYear,
+
+            IsEveningOrWeekend = false,
+
+            CampaignDiscountPercent = null
+        };
+
+        // ====================
+        // Calculate discounts
+        // ====================
+
+        // Execute all discount strategies
+        // and select the best available discount.
+        var discountResult =
+            await _discountService.GetBestDiscountAsync(
+                pricingContext,
+                cancellationToken);
+
+        // Calculate final booking price.
+        var (finalPrice, winningDiscountType) =
+            await _priceCalculator.CalculateFinalPriceAsync(
+                pricingContext,
+                cancellationToken);
+
+        // Store final price on aggregate.
+        booking.SetFinalPrice(
+            finalPrice,
+            winningDiscountType);
 
         // ====================
         // Persist aggregate
@@ -212,4 +263,4 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
 
         return booking.Id;
     }
-}
+};
