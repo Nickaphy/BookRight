@@ -4,7 +4,7 @@ namespace BookRight.Domain.Enums
     public enum DiscountType
     {
         None,
-        Bronze, 
+        Bronze,
         Silver,
         Gold,
         BirthdayMonth,
