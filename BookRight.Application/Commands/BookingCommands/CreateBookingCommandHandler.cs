@@ -209,6 +209,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
                 .HasUsedBirthdayDiscountAsync(
                     customer.Id,
                     request.StartTime.Year,
+                    customer.DateOfBirth.Month, //Lucas rettet
                     cancellationToken);
 
         // Build pricing context used by discount strategies.
@@ -234,10 +235,14 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
 
         // Execute all discount strategies
         // and select the best available discount.
+        
+
+        //LUCAS og ERIK mener at vi kan kommenterer dette ud.
         var discountResult =
             await _discountService.GetBestDiscountAsync(
                 pricingContext,
                 cancellationToken);
+        //HERTIL.
 
         // Calculate final booking price.
         var (finalPrice, winningDiscountType) =
@@ -246,9 +251,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
                 cancellationToken);
 
         // Store final price on aggregate.
-        booking.SetFinalPrice(
-            finalPrice,
-            winningDiscountType);
+        booking.SetFinalPrice(finalPrice, winningDiscountType);
 
         // ====================
         // Persist aggregate
