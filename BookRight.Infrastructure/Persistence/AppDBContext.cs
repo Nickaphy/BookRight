@@ -24,12 +24,11 @@ public class AppDbContext : DbContext
     public DbSet<Clinic> Clinics { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<TreatmentType> Treatments { get; set; }
-
     public DbSet<Practitioner> Practitioners { get; set; }
     public DbSet<Booking> Bookings { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=BookRightTest;Trusted_Connection=True;TrustServerCertificate=True");
+        optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=BookRightTest1;Trusted_Connection=True;TrustServerCertificate=True");
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

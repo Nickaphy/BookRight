@@ -44,5 +44,6 @@ public interface IBookingRepository
     Task<bool> HasUsedBirthdayDiscountAsync(
         Guid customerId,
         int year,
+        int birthMonth, //Lucas rettet
         CancellationToken cancellationToken = default);
 }

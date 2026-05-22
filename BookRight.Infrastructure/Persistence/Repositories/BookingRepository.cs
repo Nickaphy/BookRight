@@ -22,9 +22,10 @@
 
 using BookRight.Application.Repositories;
 using BookRight.Domain.Entities.Bookings;
+using BookRight.Domain.Entities.Customers;
+using BookRight.Domain.Enums;
 using BookRight.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
-using BookRight.Domain.Enums;
 
 namespace BookRight.Infrastructure.Persistence.Repositories;
 
@@ -112,12 +113,14 @@ public sealed class BookingRepository : IBookingRepository
     public async Task<bool> HasUsedBirthdayDiscountAsync(
         Guid customerId,
         int year,
+        int birthMonth, //Lucas rettet
         CancellationToken cancellationToken = default)
     {
         return await _dbContext.Bookings.AnyAsync(
             booking =>
                 booking.CustomerId == customerId &&
-                booking.CreatedDate.Year == year &&
+                booking.TimeRange.Start.Year == year &&
+                booking.TimeRange.Start.Month == birthMonth && //Lucas rettet
                 booking.DiscountType == DiscountType.BirthdayMonth,
             cancellationToken);
     }
