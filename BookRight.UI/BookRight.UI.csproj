@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookRight.Application\BookRight.Application.csproj" />
+    <ProjectReference Include="..\BookRight.Facade\BookRight.Facade.csproj" />
     <ProjectReference Include="..\BookRight.Infrastructure\BookRight.Infrastructure.csproj" />
   </ItemGroup>
 
