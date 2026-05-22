@@ -1,4 +1,5 @@
 ﻿using BookRight.Application.Repositories;
+using BookRight.Domain.Common;
 using BookRight.Infrastructure.Persistece.Repository;
 using BookRight.Infrastructure.Persistence;
 using BookRight.Infrastructure.Persistence.Repositories;
@@ -11,15 +12,13 @@ namespace BookRight.Infrastructure.DependencyInjection
     public static class InfrastructureDependencyInjection
     {
         public static IServiceCollection AddInfrastructure(
-            this IServiceCollection services,
-            IConfiguration configuration)
+            this IServiceCollection services)
         {
             // -----
             // Database
             // -----
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("BookRightDb")));
-
+            services.AddDbContext<AppDbContext>();
+            
             // -----
             // Repositories
             // -----
@@ -28,7 +27,8 @@ namespace BookRight.Infrastructure.DependencyInjection
             services.AddScoped<IPractitionerRepository, PractitionerRepository>();
             services.AddScoped<IClinicRepository, ClinicRepository>();
             services.AddScoped<ICampaignRepository, CampaignRepository>();
-
+            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+            services.AddScoped<ITreatmentTypeRepository, TreatmentTypeRepository>();
             return services;
         }
     }

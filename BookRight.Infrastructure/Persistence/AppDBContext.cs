@@ -16,6 +16,8 @@ public class AppDbContext : DbContext
         : base(options)
     {
         _domainEventDispatcher = domainEventDispatcher;
+        if (Database.CanConnect())
+            DataSeeder.Seed(this);
     }
 
     public DbSet<Campaign> Campaigns { get; set; }
