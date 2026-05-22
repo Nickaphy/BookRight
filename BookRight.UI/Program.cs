@@ -1,6 +1,7 @@
-using BookRight.UI.Components;
 using BookRight.Application.DependencyInjection;
+using BookRight.Application.Services;
 using BookRight.Infrastructure.DependencyInjection;
+using BookRight.UI.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddInfrastructure();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddScoped<IBookingConflictChecker, BookingConflictChecker>();
+
 
 var app = builder.Build();
 
