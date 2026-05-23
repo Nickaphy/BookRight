@@ -5,6 +5,7 @@
 
 using BookRight.Application.Repositories;
 using BookRight.Domain.Entities.Campaigns;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookRight.Infrastructure.Persistence.Repositories;
 
@@ -41,5 +42,10 @@ public class CampaignRepository : ICampaignRepository
     public async Task SaveAsync(Campaign campaign, CancellationToken cancellationToken = default)
     {
         await _context.SaveChangesAsync(cancellationToken);
+    }
+    public async Task<bool> ExistsAsync(string name, CancellationToken cancellationToken)
+    {
+        return await _context.Campaigns
+        .AnyAsync(c => c.Name == name, cancellationToken);
     }
 }

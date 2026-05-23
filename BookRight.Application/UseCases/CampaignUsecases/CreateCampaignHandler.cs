@@ -19,6 +19,11 @@ public class CreateCampaignHandler : ICreateCampaign
     //The method responsible for recieving the DTO from the facade with the information needed to create a campaign.
     public async Task HandleAsync(CreateCampaignCommand command, CancellationToken cancellationToken = default)
     {
+        var exists = await _campaignRepository.ExistsAsync(command.Name, cancellationToken);
+
+
+        if (exists)
+            throw new InvalidOperationException($"That campaign = {command.Name} already exists");
         //Creating the campaign1
         var campaign = new Campaign(
             command.Name,
