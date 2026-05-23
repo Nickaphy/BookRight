@@ -1,5 +1,6 @@
 namespace BookRight.Domain.Tests.Customers;
 
+using BookRight.Domain.Exceptions;
 using BookRight.Domain.Entities.Customers;
 using BookRight.Domain.Enums;
 
@@ -68,7 +69,7 @@ public class CustomerTests
     [InlineData("12A45678")]
     public void Constructor_PhoneNumberContainingNonDigits_ThrowsArgumentException(string phone)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", phone, "ane@mail.dk",
                 LoyaltyLevel.None, ValidDob, null, "Testgade 1", "Vejle", "7100"));
     }
@@ -77,7 +78,7 @@ public class CustomerTests
     [Fact]
     public void Constructor_PhoneNumberLessThan8Digits_ThrowsArgumentException()
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", "1234567", "ane@mail.dk",
                 LoyaltyLevel.None, ValidDob, null, "Testgade 1", "Vejle", "7100"));
     }
@@ -86,7 +87,7 @@ public class CustomerTests
     [Fact]
     public void Constructor_PhoneNumberMoreThan11Digits_ThrowsArgumentException()
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", "123456789012", "ane@mail.dk",
                 LoyaltyLevel.None, ValidDob, null, "Testgade 1", "Vejle", "7100"));
     }
@@ -96,7 +97,7 @@ public class CustomerTests
     public void Constructor_DateOfBirthInFuture_ThrowsArgumentException()
     {
         var future = DateTime.Now.AddDays(1);
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", "12345678", "ane@mail.dk",
                 LoyaltyLevel.None, future, null, "Testgade 1", "Vejle", "7100"));
     }
@@ -107,7 +108,7 @@ public class CustomerTests
     [InlineData("12345")]   // 5 digits — too long
     public void Constructor_ZipcodeNotFourDigits_ThrowsArgumentException(string zipcode)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", "12345678", "ane@mail.dk",
                 LoyaltyLevel.None, ValidDob, null, "Testgade 1", "Vejle", zipcode));
     }
@@ -118,7 +119,7 @@ public class CustomerTests
     [InlineData("ABCD")]
     public void Constructor_ZipcodeContainingNonDigits_ThrowsArgumentException(string zipcode)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", "12345678", "ane@mail.dk",
                 LoyaltyLevel.None, ValidDob, null, "Testgade 1", "Vejle", zipcode));
     }
@@ -129,7 +130,7 @@ public class CustomerTests
     [InlineData("   ")]
     public void Constructor_EmptyCity_ThrowsArgumentException(string city)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", "12345678", "ane@mail.dk",
                 LoyaltyLevel.None, ValidDob, null, "Testgade 1", city, "7100"));
     }
@@ -140,7 +141,7 @@ public class CustomerTests
     [InlineData("   ")]
     public void Constructor_EmptyStreet_ThrowsArgumentException(string street)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", "12345678", "ane@mail.dk",
                 LoyaltyLevel.None, ValidDob, null, street, "Vejle", "7100"));
     }
