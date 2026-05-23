@@ -9,7 +9,7 @@ using BookRight.Domain.Enums;
 
 //ARRANGE
 //Helper method to create a practitioner with specific clinic assignments
-
+namespace BookRight.Domain.Tests.Clinics;
 public class PractitionerTests
 {
     private static Practitioner CreatePractitioner(
@@ -133,7 +133,7 @@ public class PractitionerTests
     public class AssignToClinic
     {
         [Fact]
-        public void Assigns_Practitioner_To_Clinic_On_New_Date() //MINDER MEGET OM EN LÆNGERE OPPE
+        public void Assigns_Practitioner_To_Clinic_On_New_Date() 
         {
             // Arrange
             var practitioner = CreatePractitioner();
@@ -270,27 +270,7 @@ public class PractitionerTests
     }
    
 }
-/*public class PractitionerClinicDayEncapsulationTests //denne test er for at se om PractitionerClinicDay er ordentligt sat op.
-   {
-       [Fact]
-       public void PractitionerClinicDay_Cannot_Be_Created_Outside_Practitioner()
-       {
-           // Denne test kompilerer KUN hvis konstruktøren er public.
-           // Hvis du ændrer konstruktøren til internal/private, fejler den at kompilere
-           // — hvilket er præcis hvad du vil.
 
-           // Arrange & Act
-           var clinicDay = new PractitionerClinicDay(Guid.NewGuid(), Guid.NewGuid(), DateTime.Today);
-
-           // Assert — vi burde aldrig nå hertil
-           Assert.Fail("PractitionerClinicDay should not be directly instantiatable outside of Practitioner.");
-       }
-   }*/
-
-//ACT 
-
-
-//ASSERT
 
 
 

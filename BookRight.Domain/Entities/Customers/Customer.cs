@@ -73,7 +73,7 @@ public class Customer : AggregateRoot
             throw new DomainException("Zipcode must be 4 digits.");
 
         if (!Zipcode.All(char.IsDigit))
-            throw new DomainException("Zipcode must not contain only digits.");
+            throw new DomainException("Zipcode must only contain digits.");
 
         if (string.IsNullOrWhiteSpace(City))
             throw new DomainException("City cannot be empty.");

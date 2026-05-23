@@ -10,4 +10,5 @@ public interface ICampaignRepository
     Task AddAsync(Campaign campaign, CancellationToken cancellationToken = default);
     Task UpdateAsync(Campaign campaign, CancellationToken cancellationToken = default);
     Task DeleteAsync(Campaign campaign, CancellationToken cancellationToken = default);
+    Task<bool> ExistsAsync(string name, CancellationToken cancellationToken);
 }
