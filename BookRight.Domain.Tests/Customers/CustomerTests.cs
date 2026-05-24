@@ -36,7 +36,7 @@ public class CustomerTests
     [InlineData("   ")]
     public void Constructor_EmptyName_ThrowsArgumentException(string name)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer(name, "12345678", "ane@mail.dk",
                 LoyaltyLevel.None, ValidDob, null, "Testgade 1", "Vejle", "7100"));
     }
@@ -47,7 +47,7 @@ public class CustomerTests
     [InlineData("   ")]
     public void Constructor_EmptyEmail_ThrowsArgumentException(string email)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", "12345678", email,
                 LoyaltyLevel.None, ValidDob, null, "Testgade 1", "Vejle", "7100"));
     }
@@ -58,7 +58,7 @@ public class CustomerTests
     [InlineData("   ")]
     public void Constructor_EmptyPhoneNumber_ThrowsArgumentException(string phone)
     {
-        Assert.Throws<ArgumentException>(() =>
+        Assert.Throws<DomainException>(() =>
             new Customer("Ane", phone, "ane@mail.dk",
                 LoyaltyLevel.None, ValidDob, null, "Testgade 1", "Vejle", "7100"));
     }

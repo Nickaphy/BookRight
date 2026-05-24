@@ -3,6 +3,7 @@ using BookRight.Application.UseCaseExceptions;
 using BookRight.Application.UseCases.PractitionerUseCases;
 using BookRight.Domain.Entities.Practitioners;
 using BookRight.Domain.Enums;
+using BookRight.Domain.Exceptions;
 using BookRight.Facade.Dtos.PractitionerCommand;
 using Moq;
 using System;
@@ -92,7 +93,7 @@ namespace BookRight.Application.Tests.PractitionerTest
             var act = async () => await _handler.HandleAsync(command);
 
             // Assert
-            await Assert.ThrowsAsync<UseCaseException>(() => _handler.HandleAsync(command)
+            await Assert.ThrowsAsync<DomainException>(() => _handler.HandleAsync(command)
             );
 
             _mockRepository.Verify(r => r.UpdateAsync(It.IsAny<Practitioner>(), It.IsAny<CancellationToken>()),
