@@ -16,10 +16,9 @@ public class AppDbContext : DbContext
         : base(options)
     {
         _domainEventDispatcher = domainEventDispatcher;
-        if (Database.CanConnect())
-            DataSeeder.Seed(this);
+       
     }
-
+    public DbSet<PractitionerClinicDay> PractitionerClinicDays { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
     public DbSet<Clinic> Clinics { get; set; }
     public DbSet<Customer> Customers { get; set; }
@@ -37,24 +36,47 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new CustomerConfiguration());*/
 
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Booking>()
-            .OwnsOne(b => b.FinalPrice, money =>
+        modelBuilder.Entity<Booking>(booking =>
+        {
+            booking.OwnsOne(b => b.BasePrice, money =>
             {
-                money.Property(m => m.Amount).HasColumnName("FinalPrice");
+                money.Property(m => m.Amount)
+                     .HasColumnName("BasePrice")
+                     .HasColumnType("decimal(18,2)");
             });
 
-        modelBuilder.Entity<Booking>()
-            .OwnsOne(b => b.BasePrice, money =>
+            booking.OwnsOne(b => b.FinalPrice, money =>
             {
-                money.Property(m => m.Amount).HasColumnName("BasePrice");
+                money.Property(m => m.Amount)
+                     .HasColumnName("FinalPrice")
+                     .HasColumnType("decimal(18,2)");
             });
-        modelBuilder.Entity<Booking>()
-            .OwnsOne(b => b.TimeRange, tr =>
+
+            booking.OwnsOne(b => b.TimeRange, tr =>
             {
                 tr.Property(t => t.Start).HasColumnName("StartTime");
                 tr.Property(t => t.End).HasColumnName("EndTime");
             });
+        });
+
+        modelBuilder.Entity<TreatmentType>()
+                .OwnsOne(t => t.BasePrice, money =>
+                {
+                    money.Property(m => m.Amount).HasColumnName("BasePrice");
+                });
+
+        modelBuilder.Entity<Clinic>()
+            .OwnsMany(c => c.OpeningHours, oh =>
+            {
+                oh.WithOwner().HasForeignKey("ClinicId");
+                oh.Property(o => o.WeekDay);
+                oh.Property(o => o.OpeningTime);
+                oh.Property(o => o.ClosingTime);
+                oh.HasKey("ClinicId", "WeekDay");
+            });
     }
+
+
 
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

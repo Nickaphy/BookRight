@@ -9,7 +9,7 @@ namespace BookRight.Facade.Dtos.PractitionerQuerry
                                   string email,
                                   string phoneNumber,
                                   string authorizationCode,
-                                  string Authorization)
+                                  PractitionerAuthorization Authorization)
     {
 
     }

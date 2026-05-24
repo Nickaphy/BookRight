@@ -1,0 +1,60 @@
+﻿@using BookRight.Facade.Dtos.CustomerDtos;
+@using BookRight.Facade.Dtos.TreatmentTypeDtos;
+@using BookRight.Facade.Dtos.PractitionerQuerry;
+@using BookRight.UI.Components.Pages.CreateBookings;
+
+
+@rendermode InteractiveServer
+@page "/create-booking"
+@namespace BookRight.UI.Components.Pages
+
+
+<h1>Ny Booking</h1>
+
+<CustomerSearch OnCustomerSelected="OnCustomerSelected" />
+
+@if (_selectedCustomer is not null)
+{
+	<TreatmentTypeSelector OnTreatmentTypeSelected="OnTreatmentTypeSelected" />
+}
+@if (_selectedTreatmentType is not null)
+{
+    <PractitionerSelector AuthorizationType="@_selectedTreatmentType.AuthorizationType"  
+                          OnPractitionerSelected="OnPractitionerSelected" />
+}
+@if (_selectedPractitioner is not null)
+{
+    <TimeSlotCalender PractitionerId="@_selectedPractitioner.id"
+                      DurationMinutes="@_selectedTreatmentType!.DurationMinutes"
+                      OnSlotSelected="OnSlotSelected" />
+}
+@*taking authorization through selectedtreatmenttype*@
+@code {
+    private CustomerDto? _selectedCustomer;
+    private TreatmentTypeDto? _selectedTreatmentType;
+    private PractitionerDto? _selectedPractitioner;
+    private PractitionerAvailableSlotDto? _selectedSlot;
+
+    private void OnCustomerSelected(CustomerDto customer)
+    {
+        _selectedCustomer = customer;
+        StateHasChanged();
+    }
+
+    private void OnTreatmentTypeSelected(TreatmentTypeDto treatmentType)
+    {
+        _selectedTreatmentType = treatmentType;
+        StateHasChanged();
+    }
+
+    private void OnPractitionerSelected(PractitionerDto practitioner)
+    {
+        _selectedPractitioner = practitioner;
+        StateHasChanged();
+    }
+    private void OnSlotSelected(PractitionerAvailableSlotDto slot)
+    {
+        _selectedSlot = slot;
+        StateHasChanged();
+    }
+}
