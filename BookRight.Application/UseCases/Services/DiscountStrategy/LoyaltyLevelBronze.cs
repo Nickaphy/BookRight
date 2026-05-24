@@ -1,4 +1,3 @@
-using BookRight.Application.Repositories;
 using BookRight.Application.UseCases.Services.DiscountService;
 using BookRight.Domain.Enums;
 
@@ -13,9 +12,7 @@ public sealed class LoyaltyLevelBronze : IDiscountStrategy
 {
     private readonly decimal _percentage;
 
-    public LoyaltyLevelBronze(
-    ICustomerRepository customerRepository,
-    decimal percentage = 0.05m)
+    public LoyaltyLevelBronze(decimal percentage = 0.05m)
     {
         _percentage = percentage;
     }
