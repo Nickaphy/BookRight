@@ -1,0 +1,20 @@
+﻿@namespace BookRight.UI.Components.Pages.CreateBookings
+@rendermode InteractiveServer
+
+<section>
+    <h2>2. Vælg behandlingstype</h2>
+
+    <ul>
+        @foreach (var treatment in _treatmentTypes)
+        {
+            <li>
+                <button type="button"
+                        class="treatment-card @(_selectedTreatmentType?.Id == treatment.Id ? "treatment-card--selected" : "")"
+                        @onclick="() => SelectTreatmentType(treatment)">
+                    <span class="treatment-emoji">@GetEmoji(treatment.AuthorizationType)</span>
+                    <span>@treatment.Name</span>
+                </button>
+            </li>
+        }
+    </ul>
+</section>

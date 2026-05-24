@@ -1,0 +1,108 @@
+﻿section {
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    margin-bottom: 16px;
+}
+
+h2 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+    margin-bottom: 16px;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+    .calendar-header button {
+        background: none;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 4px 12px;
+        font-size: 1.25rem;
+        cursor: pointer;
+        color: #374151;
+    }
+
+        .calendar-header button:hover {
+            border-color: #1e3a5f;
+            color: #1e3a5f;
+        }
+
+.calendar-grid {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .calendar-grid th {
+        text-align: center;
+        padding: 8px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+.day-name {
+    display: block;
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+.day-number {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.day-month {
+    display: block;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.time-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    padding: 4px 8px;
+    white-space: nowrap;
+    width: 50px;
+}
+
+.slot {
+    width: 100%;
+    padding: 6px 4px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 2px 0;
+}
+
+.slot--available {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+    .slot--available:hover {
+        background-color: #bbf7d0;
+    }
+
+.slot--booked {
+    background-color: #f3f4f6;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.slot--selected {
+    background-color: #1e3a5f;
+    color: white;
+}

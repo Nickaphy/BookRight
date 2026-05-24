@@ -1,0 +1,59 @@
+﻿@namespace BookRight.UI.Components.Pages.CreateBookings
+
+
+<section>
+    <h2>1. Find kunde via telefonnummer</h2>
+
+    @if (_selectedCustomer is null)
+    {
+        <label for="customer-search">Søg på navn, telefon eller email</label>
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input id="customer-search"
+                   type="search"
+                   value="@_searchTerm"
+                   @oninput="OnSearchChanged"
+                   placeholder="Søg..." />
+        </div>
+
+        @if (_isSearching)
+        {
+            <p>Søger...</p>
+        }
+
+        @if (_searchResults.Any())
+        {
+            <ul>
+                @foreach (var customer in _searchResults)
+                {
+                    <li>
+                        <button type="button" @onclick="() => SelectCustomer(customer)">
+                            <span class="avatar">@GetInitials(customer.Name)</span>
+                            <span class="customer-info">
+                                <strong>@customer.Name</strong>
+                                <small>@customer.PhoneNumber</small>
+                            </span>
+                            <span class="badge" style="@GetLoyaltyStyle(customer.LoyaltyLevel)">
+                                @customer.LoyaltyLevel
+                            </span>
+                        </button>
+                    </li>
+                }
+            </ul>
+        }
+    }
+    else
+    {
+        <article>
+            <span class="avatar">@GetInitials(_selectedCustomer.Name)</span>
+            <span class="customer-info">
+                <strong>@_selectedCustomer.Name</strong>
+                <small>📞 @_selectedCustomer.PhoneNumber</small>
+            </span>
+            <span class="badge" style="@GetLoyaltyStyle(_selectedCustomer.LoyaltyLevel)">
+                @_selectedCustomer.LoyaltyLevel
+            </span>
+            <button type="button" class="clear-btn" @onclick="ClearCustomer">×</button>
+        </article>
+    }
+</section>

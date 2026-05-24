@@ -1,5 +1,7 @@
 using BookRight.Application;
 using BookRight.Domain.Entities.Customers;
+using BookRight.Facade.Dtos.CustomerDtos;
+using BookRight.Facade.Querries.CustomerQuerries;
 using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,31 +12,43 @@ namespace BookRight.Infrastructure.Persistence
 {
     public class CustomerQuerries : ICustomerQuerries
     {
-        private readonly AppDbContext _context;
+        private readonly IDbContextFactory<AppDbContext> _factory;
 
-        public CustomerQuerries(AppDbContext context)
+        public CustomerQuerries(IDbContextFactory<AppDbContext> factory)
         {
-            _context = context;
+            _factory = factory;
         }
-        
+
 
         // Returns ALL customers as a read-only list.
-        public async Task<IReadOnlyList<Customer>> GetAllCustomersAsync(CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<CustomerDto>> GetAllCustomersAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Customers
-                    .AsNoTracking()
-                    .ToListAsync(cancellationToken);
+            using var context = _factory.CreateDbContext();
+            return await context.Customers
+            .AsNoTracking()
+            .Select(c => new CustomerDto(
+                c.Id,
+                c.Name,
+                c.PhoneNumber,
+                (CustomerLoyaltyLevel)c.LoyaltyLevel))
+            .ToListAsync(cancellationToken);
         }
 
         // Searches customers by a free-text term matched against name, phone, or e-mail.
-        public async Task<IReadOnlyList<Customer>> SearchCustomersAsync(string searchTerm, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<CustomerDto>> SearchCustomersAsync(string searchTerm, CancellationToken cancellationToken = default)
         {
-            return await _context.Customers
+            using var context = _factory.CreateDbContext();
+            return await context.Customers
                     .AsNoTracking()
-                    .Where(c => c.Name.Contains(searchTerm)
-                             || c.PhoneNumber.Contains(searchTerm)
-                             || c.Email.Contains(searchTerm))
+                        .Where(c => c.Name.Contains(searchTerm)
+                         || c.PhoneNumber.Contains(searchTerm)
+                         || c.Email.Contains(searchTerm))
+                .Select(c => new CustomerDto(
+                        c.Id,
+                        c.Name,
+                        c.PhoneNumber,
+                        (CustomerLoyaltyLevel)c.LoyaltyLevel))
                     .ToListAsync(cancellationToken);
-        } 
+        }
     }
 }
