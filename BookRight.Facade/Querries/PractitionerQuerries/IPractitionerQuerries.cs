@@ -9,5 +9,10 @@ namespace BookRight.Facade.Querries.PractitionerQuerries
     {
         Task<PractitionerDto?> GetByIdAsync(Guid id);
         Task<IReadOnlyList<PractitionerDto>> GetAllAsync();
+        Task<IReadOnlyList<PractitionerDto>> GetByAuthorizationType(string authorizationType);
+        Task<IReadOnlyList<PractitionerAvailableSlotDto>> GetAvailableSlotsAsync(Guid practitionerId,
+                                                                                              DateOnly week,
+                                                                                              int durationMinutes,
+                                                                                              CancellationToken cancellationToken = default);
     }
 }

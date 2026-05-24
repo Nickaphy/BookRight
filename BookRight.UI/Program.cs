@@ -1,6 +1,7 @@
 using BookRight.Application.DependencyInjection;
 using BookRight.Application.Services;
 using BookRight.Infrastructure.DependencyInjection;
+using BookRight.Infrastructure.Persistence;
 using BookRight.UI.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped<IBookingConflictChecker, BookingConflictChecker>();
 
 
-var app = builder.Build();
+    var app = builder.Build();
 
 
 
@@ -33,4 +34,12 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DataSeeder.Seed(context);
+
+}
+
 app.Run();
+

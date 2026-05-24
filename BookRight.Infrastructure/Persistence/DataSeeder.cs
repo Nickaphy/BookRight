@@ -103,6 +103,33 @@ namespace BookRight.Infrastructure.Persistence
                 context.SaveChanges();
             }
 
+            if (!context.PractitionerClinicDays.Any())
+            {
+                var practitioners = context.Practitioners.ToList();
+                var clinics = context.Clinics.ToList();
+                var now = DateTime.Now;
+
+                var clinicDays = new List<PractitionerClinicDay>();
+
+                foreach (var practitioner in practitioners)
+                {
+                    for (int i = 0; i < 7; i++)
+                    {
+                        var date = now.AddDays(i).Date;
+                        if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
+                        {
+                            clinicDays.Add(new PractitionerClinicDay(
+                                practitioner.Id,
+                                clinics[0].Id,
+                                date));
+                        }
+                    }
+                }
+
+                context.PractitionerClinicDays.AddRange(clinicDays);
+                context.SaveChanges();
+            }
+
             if (!context.Bookings.Any())
             {
                 var customers = context.Customers.ToList();
@@ -112,35 +139,26 @@ namespace BookRight.Infrastructure.Persistence
 
                 var rng = new Random(42);
                 var now = DateTime.Now;
-
                 var bookings = new List<Booking>();
 
-                for (int i = 0; i < 35; i++)
-                {
-                    var start = now.AddDays(-rng.Next(1, 365)).Date.AddHours(rng.Next(8, 16));
-                    var end = start.AddHours(1);
 
-                    bookings.Add(Booking.Create(
+                for (int i = 0; i < 30; i++)
+                {
+                    var start = now.AddDays(rng.Next(1, 7)).Date.AddHours(rng.Next(8, 16));
+                    var end = start.AddHours(1);
+                    var treatment = treatments[rng.Next(treatments.Count)];
+                    var basePrice = new Money(treatment.BasePrice.Amount);
+
+                    var booking = Booking.Create(
                         customerId: customers[rng.Next(customers.Count)].Id,
                         practitionerId: practitioners[rng.Next(practitioners.Count)].Id,
                         clinicId: clinics[rng.Next(clinics.Count)].Id,
-                        treatmentTypeId: treatments[rng.Next(treatments.Count)].Id,
+                        treatmentTypeId: treatment.Id,
                         timeRange: new TimeRange(start, end),
-                        basePrice: new Money(500)));
-                }
+                        basePrice: basePrice);
 
-                for (int i = 0; i < 5; i++)
-                {
-                    var start = now.AddDays(rng.Next(1, 60)).Date.AddHours(rng.Next(8, 16));
-                    var end = start.AddHours(1);
-
-                    bookings.Add(Booking.Create(
-                        customerId: customers[rng.Next(customers.Count)].Id,
-                        practitionerId: practitioners[rng.Next(practitioners.Count)].Id,
-                        clinicId: clinics[rng.Next(clinics.Count)].Id,
-                        treatmentTypeId: treatments[rng.Next(treatments.Count)].Id,
-                        timeRange: new TimeRange(start, end),
-                        basePrice: new Money(500)));
+                    booking.SetFinalPrice(new Money(treatment.BasePrice.Amount), DiscountType.None);
+                    bookings.Add(booking);
                 }
 
                 context.Bookings.AddRange(bookings);
