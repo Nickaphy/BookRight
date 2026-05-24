@@ -76,7 +76,6 @@ public class CreateBookingCommandHandlerTests
             clinicRepository.Object,
             treatmentTypeRepository.Object,
             bookingConflictChecker.Object,
-            discountService.Object,
             priceCalculator.Object);
 
         // Act + Assert:
@@ -172,7 +171,6 @@ public class CreateBookingCommandHandlerTests
             clinicRepository.Object,
             treatmentTypeRepository.Object,
             bookingConflictChecker.Object,
-            discountService.Object,
             priceCalculator.Object);
 
         // Act + Assert:
@@ -316,7 +314,6 @@ public class CreateBookingCommandHandlerTests
             clinicRepository.Object,
             treatmentTypeRepository.Object,
             bookingConflictChecker.Object,
-            discountService.Object,
             priceCalculator.Object);
 
         // Act
@@ -457,7 +454,6 @@ public class CreateBookingCommandHandlerTests
             clinicRepository.Object,
             treatmentTypeRepository.Object,
             bookingConflictChecker.Object,
-            discountService.Object,
             priceCalculator.Object);
 
         // Act
@@ -584,7 +580,6 @@ public class CreateBookingCommandHandlerTests
             clinicRepository.Object,
             treatmentTypeRepository.Object,
             bookingConflictChecker.Object,
-            discountService.Object,
             priceCalculator.Object);
 
         // Act
