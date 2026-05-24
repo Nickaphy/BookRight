@@ -6,15 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Persistence\Migrations\**" />
+    <EmbeddedResource Remove="Persistence\Migrations\**" />
+    <None Remove="Persistence\Migrations\**" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\BookRight.Application\BookRight.Application.csproj" />
 		<ProjectReference Include="..\BookRight.Domain\BookRight.Domain.csproj" />
 		<ProjectReference Include="..\BookRight.Facade\BookRight.Facade.csproj" />
 	</ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Persistence\Migrations\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.8" />
