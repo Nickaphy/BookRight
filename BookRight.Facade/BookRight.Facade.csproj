@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\CustomerDto\" />
-    <Folder Include="Services\" />
+    <Compile Remove="Dtos\CustomerDto\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Dtos\CustomerDto\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Dtos\CustomerDto\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
 </Project>

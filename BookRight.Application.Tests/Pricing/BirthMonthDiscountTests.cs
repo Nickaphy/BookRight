@@ -65,6 +65,32 @@ public class BirthMonthDiscountTests
         Assert.Equal(0m, discount);
     }
 
+    [Theory]
+    [InlineData(1000, 250)]
+    [InlineData(800, 200)]
+    [InlineData(400, 100)]
+    [InlineData(1200, 300)]
+    public async Task CalculateDiscountAsync_WhenEligible_Returns25PercentOfBasePrice(
+        decimal basePrice,
+        decimal expectedDiscount)
+    {
+        // Arrange:
+        // Theory test verifies the same business rule
+        // with different base prices.
+        var strategy = new BirthMonthDiscount();
+
+        var context = CreatePricingContext(
+            isBirthdayMonth: true,
+            hasUsedBirthdayDiscountThisYear: false,
+            basePrice: basePrice);
+
+        // Act
+        var discount = await strategy.CalculateDiscountAsync(context);
+
+        // Assert
+        Assert.Equal(expectedDiscount, discount);
+    }
+
     private static BookingPricingContext CreatePricingContext(
         bool isBirthdayMonth,
         bool hasUsedBirthdayDiscountThisYear,
