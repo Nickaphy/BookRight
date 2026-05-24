@@ -1,108 +1,45 @@
-
-
-// Command handler
-// Executes the use case
-// Coordinates repositories, domain rules and services
-// Does not contain UI code
-
-
-
-/*
-CreateBooking.razor
-↓
-IBookingFacade
-↓
-CreateBookingCommand
-↓
-CreateBookingCommandHandler
-↓
-Booking domain model
-↓
-IBookingRepository
-↓
-BookingRepository
-↓
-BookRightDbContext
-↓
-SQL Server
-*/
-
-
-/*
-CreateBookingCommandHandler
-→ bruger Domain regler
-→ kalder repository
-→ SaveChanges()
-*/
-
-
-
-// COMMAND HANDLER
-// Responsible for changing system state
-
-// Flow:
-// 1. Validate input
-// 2. Check domain rules (overlap, capacity, practitioner availability)
-// 3. Calculate price (using discount strategies)
-// 4. Create Booking entity
-// 5. Save using repository
-
-
-// Erik´s work
-
-
 using BookRight.Application.Repositories;
 using BookRight.Application.Services;
 using BookRight.Application.UseCases.Services.DiscountService;
 using BookRight.Application.UseCases.Services.PriceCalculator;
 using BookRight.Domain.Entities.Bookings;
-using BookRight.Domain.Enums;
 using BookRight.Domain.ValueObjects;
-using BookRight.Facade.Commands;
 using BookRight.Facade.Commands.Booking;
-using BookRight.Facade.Dtos;
 using BookRight.Facade.Dtos.BookingCommand;
 
 namespace BookRight.Application.Commands.BookingCommands;
 
-public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handleren er nu Usecasen, som har interfacet som refferance
+public sealed class CreateBookingCommandHandler : ICreateBookingUseCase
 {
     private readonly IBookingRepository _bookingRepository;
     private readonly ICustomerRepository _customerRepository;
     private readonly IPractitionerRepository _practitionerRepository;
-    //private readonly ICampaignRepository _campaignRepository;
     private readonly IClinicRepository _clinicRepository;
     private readonly ITreatmentTypeRepository _treatmentTypeRepository;
     private readonly IBookingConflictChecker _bookingConflictChecker;
-    private readonly IDiscountService _discountService;
     private readonly IPriceCalculator _priceCalculator;
 
     public CreateBookingCommandHandler(
         IBookingRepository bookingRepository,
         ICustomerRepository customerRepository,
         IPractitionerRepository practitionerRepository,
-        //ICampaignRepository campaignRepository,
         IClinicRepository clinicRepository,
         ITreatmentTypeRepository treatmentTypeRepository,
         IBookingConflictChecker bookingConflictChecker,
-        IDiscountService discountservice,
         IPriceCalculator priceCalculator)
-
     {
         _bookingRepository = bookingRepository;
         _customerRepository = customerRepository;
         _practitionerRepository = practitionerRepository;
-        //_campaignRepository = campaignRepository;
         _clinicRepository = clinicRepository;
         _treatmentTypeRepository = treatmentTypeRepository;
         _bookingConflictChecker = bookingConflictChecker;
-        _discountService = discountservice;
         _priceCalculator = priceCalculator;
     }
 
     public async Task<Guid> CreateBookingAsync(
-    CreateBookingRequest request,
-    CancellationToken cancellationToken = default)
+        CreateBookingRequest request,
+        CancellationToken cancellationToken = default)
     {
         // ====================
         // Load aggregates
@@ -182,15 +119,13 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
         // Create aggregate
         // ====================
 
-        var basePrice = treatmentType.BasePrice;
-
         var booking = Booking.Create(
             request.CustomerId,
             request.PractitionerId,
             request.ClinicId,
             request.TreatmentTypeId,
             timeRange,
-            basePrice);
+            treatmentType.BasePrice);
 
         // ====================
         // Build pricing context
@@ -209,49 +144,38 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
                 .HasUsedBirthdayDiscountAsync(
                     customer.Id,
                     request.StartTime.Year,
-                    customer.DateOfBirth.Month, //Lucas rettet
+                    customer.DateOfBirth.Month,
                     cancellationToken);
 
-        // Build pricing context used by discount strategies.
+        // Build pricing context used by the price calculator
+        // and discount strategies.
         var pricingContext = new BookingPricingContext
         {
             Booking = booking,
-
             Customer = customer,
-
             IsBirthdayMonth = isBirthdayMonth,
-
             HasUsedBirthdayDiscountThisYear =
                 hasUsedBirthdayDiscountThisYear,
-
             IsEveningOrWeekend = false,
-
             CampaignDiscountPercent = null
         };
 
         // ====================
-        // Calculate discounts
+        // Calculate final price
         // ====================
 
-        // Execute all discount strategies
-        // and select the best available discount.
-        
-
-        //LUCAS og ERIK mener at vi kan kommenterer dette ud.
-        var discountResult =
-            await _discountService.GetBestDiscountAsync(
-                pricingContext,
-                cancellationToken);
-        //HERTIL.
-
-        // Calculate final booking price.
+        // PriceCalculator owns the pricing flow.
+        // It calls DiscountService internally and returns
+        // both final price and winning discount type.
         var (finalPrice, winningDiscountType) =
             await _priceCalculator.CalculateFinalPriceAsync(
                 pricingContext,
                 cancellationToken);
 
-        // Store final price on aggregate.
-        booking.SetFinalPrice(finalPrice, winningDiscountType);
+        // Store final price and discount type on the aggregate.
+        booking.SetFinalPrice(
+            finalPrice,
+            winningDiscountType);
 
         // ====================
         // Persist aggregate
@@ -266,4 +190,4 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase //Handle
 
         return booking.Id;
     }
-};
+}
