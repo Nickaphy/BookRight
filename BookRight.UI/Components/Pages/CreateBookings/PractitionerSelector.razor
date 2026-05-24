@@ -1,0 +1,41 @@
+﻿@namespace BookRight.UI.Components.Pages.CreateBookings
+
+<section>
+    <h2>3. Vælg terapeut</h2>
+
+    @if (_selectedPractitioner is null)
+    {
+        @if (_practitioners.Any())
+        {
+            <ul>
+                @foreach (var practitioner in _practitioners)
+                {
+                    <li>
+                        <button type="button" class="practitioner-card" @onclick="() => SelectPractitioner(practitioner)">
+                            <span class="avatar">@GetInitials(practitioner.name)</span>
+                            <span class="practitioner-info">
+                                <strong>@practitioner.name</strong>
+                                <small>@practitioner.email</small>
+                            </span>
+                        </button>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Ingen terapeuter fundet med denne autorisation.</p>
+        }
+    }
+    else
+    {
+        <article>
+            <span class="avatar">@GetInitials(_selectedPractitioner.name)</span>
+            <span class="practitioner-info">
+                <strong>@_selectedPractitioner.name</strong>
+                <small>@_selectedPractitioner.email</small>
+            </span>
+            <button type="button" class="clear-btn" @onclick="ClearPractitioner">×</button>
+        </article>
+    }
+</section>

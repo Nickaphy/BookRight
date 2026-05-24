@@ -1,0 +1,53 @@
+﻿@namespace BookRight.UI.Components.Pages.CreateBookings
+
+<section>
+    <h2>4. Vælg dato og tid</h2>
+
+    <header class="calendar-header">
+        <button type="button" @onclick="GoToPreviousWeek">‹</button>
+        <span>Week @System.Globalization.ISOWeek.GetWeekOfYear(_currentWeek.ToDateTime(TimeOnly.MinValue))</span>
+        <button type="button" @onclick="GoToNextWeek">›</button>
+    </header>
+
+    <table class="calendar-grid">
+        <thead>
+            <tr>
+                <th></th>
+                @foreach (var day in GetWeekDays())
+                {
+                    <th>
+                        <span class="day-name">@day.ToString("ddd", new System.Globalization.CultureInfo("da-DK")).ToUpper()</span>
+                        <span class="day-number">@day.Day</span>
+                        <span class="day-month">@day.ToString("MMM", new System.Globalization.CultureInfo("da-DK"))</span>
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var time in GetTimeLabels())
+            {
+                <tr>
+                    <td class="time-label">@time.ToString("HH:mm")</td>
+                    @foreach (var day in GetWeekDays())
+                    {
+                        var slot = _slots.FirstOrDefault(s =>
+                            s.Start.Date == day.ToDateTime(TimeOnly.MinValue).Date &&
+                            TimeOnly.FromDateTime(s.Start) == time);
+
+                        <td>
+                            @if (slot is not null)
+                            {
+                                <button type="button"
+                                        class="slot @(slot.IsAvailable ? "slot--available" : "slot--booked") @(_selectedSlot?.Start == slot.Start ? "slot--selected" : "")"
+                                        disabled="@(!slot.IsAvailable)"
+                                        @onclick="() => SelectSlot(slot)">
+                                    @(slot.IsAvailable ? "Ledig" : "Optaget")
+                                </button>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

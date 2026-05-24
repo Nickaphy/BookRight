@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BookRight.Application\BookRight.Application.csproj" />
     <ProjectReference Include="..\BookRight.Facade\BookRight.Facade.csproj" />
     <ProjectReference Include="..\BookRight.Infrastructure\BookRight.Infrastructure.csproj" />
