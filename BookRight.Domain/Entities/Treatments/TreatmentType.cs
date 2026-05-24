@@ -1,5 +1,5 @@
-    // Represents a treatment type
-
+// Represents a treatment type
+//
 // Rules:
 // - Has duration and base price
 // - Requires specific authorization
@@ -14,35 +14,56 @@ namespace BookRight.Domain.Entities.Treatments;
 public class TreatmentType : AggregateRoot
 {
     public string Name { get; private set; }
-    public int DurationMinutes { get; private set; } // in minutes
+
+    // Duration in minutes.
+    public int DurationMinutes { get; private set; }
+
     public Money BasePrice { get; private set; }
-    public AuthorizationType NeedsAuthorisation { get; private set; } //Lucas ændret 09/05
+
+    // Which practitioner authorization is required.
+    public AuthorizationType NeedsAuthorisation { get; private set; }
+
+    // Maximum allowed participants.
     public int MaxParticipants { get; private set; }
 
-
-    private TreatmentType() { }
+    private TreatmentType()
+    {
+        // Required by EF Core.
+    }
 
     public TreatmentType(
         string name,
         int duration,
         Money basePrice,
-        AuthorizationType needsAuthorisation, //Lucas ændret 09/05
-        int maxParticipants
-        )
+        AuthorizationType needsAuthorisation,
+        int maxParticipants)
     {
-        if ( name == null ) 
-            throw new ArgumentException( "Must choose a treatmenttype" );
+        // Name is required.
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException(
+                "Must choose a treatment type.",
+                nameof(name));
+
+        // Duration must be positive.
         if (duration <= 0)
-            throw new ArgumentException("Duration must be greater than 0.", nameof(duration));
-            
-       if (string.IsNullOrWhiteSpace(name))
-       
+            throw new ArgumentException(
+                "Duration must be greater than 0.",
+                nameof(duration));
+
+        // Base price is required.
+        if (basePrice is null)
+            throw new ArgumentNullException(
+                nameof(basePrice));
+
+        // At least one participant must be allowed.
         if (maxParticipants <= 0)
-            throw new ArgumentException("Max participants must be greater than 1.", nameof(maxParticipants));
+            throw new ArgumentException(
+                "Max participants must be at least 1.",
+                nameof(maxParticipants));
 
         Name = name;
         DurationMinutes = duration;
-        BasePrice = basePrice;  
+        BasePrice = basePrice;
         NeedsAuthorisation = needsAuthorisation;
         MaxParticipants = maxParticipants;
     }
