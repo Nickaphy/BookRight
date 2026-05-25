@@ -2,6 +2,7 @@
 @using BookRight.Facade.Dtos.BookingCommand
 @using BookRight.Facade.Dtos.BookingQuery
 @using BookRight.Facade.Queries.BookingQueries
+@using System.Globalization
 
 @rendermode InteractiveServer
 @page "/bookings"
@@ -11,7 +12,8 @@
 @inject IBookingQueries BookingQueries
 @inject ICompleteBookingUseCase CompleteBooking
 
-<h1>@_heading</h1>
+<h1 class="bookings-heading">Bookinger</h1>
+<p class="bookings-period">@_periodLabel</p>
 
 @if (_bookings is null)
 {
@@ -19,89 +21,72 @@
 }
 else if (_bookings.Count == 0)
 {
-    <p>Ingen bookinger</p>
+    <p>Ingen bookinger i den valgte periode.</p>
 }
 else
 {
-    <div class="booking-list">
-        @foreach (var booking in _bookings)
-        {
-            var completed = booking.EndTime < _now;
-            <div class="booking-row @(completed ? "booking-done" : "booking-active")">
-                <span class="booking-time">@booking.StartTime.ToString("HH:mm") – @booking.EndTime.ToString("HH:mm")</span>
-                <span class="booking-customer">@booking.CustomerName</span>
-                <span class="booking-treatment">@booking.TreatmentName</span>
-                <span class="booking-status">@(completed ? "Afsluttet" : booking.Status)</span>
-            </div>
-        }
-    </div>
+    @* One section per clinic, sorted by clinic name *@
+    @foreach (var clinicGroup in _bookings
+        .GroupBy(b => b.ClinicName)
+        .OrderBy(g => g.Key))
+    {
+        <section class="clinic-section">
+            <h2 class="clinic-heading">
+                <span class="clinic-icon">🏥</span> @clinicGroup.Key
+            </h2>
+
+            @* Within each clinic, group by date *@
+            @foreach (var dayGroup in clinicGroup
+                .GroupBy(b => b.StartTime.Date)
+                .OrderBy(g => g.Key))
+            {
+                <div class="day-block">
+                    <div class="day-header">@FormatDayHeader(dayGroup.Key)</div>
+
+                    @foreach (var booking in dayGroup.OrderBy(b => b.StartTime))
+                    {
+                        var isPast = booking.EndTime < _now;
+                        var isToday = booking.StartTime.Date == DateTime.Today;
+
+                        <div class="booking-row
+                            @(isPast ? "booking-done" : "")
+                            @(isToday ? "booking-today" : "")">
+                            <span class="booking-time">
+                                @booking.StartTime.ToString("HH:mm") – @booking.EndTime.ToString("HH:mm")
+                            </span>
+                            <span class="booking-customer">@booking.CustomerName</span>
+                            <span class="booking-treatment">@booking.TreatmentName</span>
+                            <span class="booking-status">@StatusLabel(booking.Status, isPast)</span>
+                        </div>
+                    }
+                </div>
+            }
+        </section>
+    }
 }
-
-<style>
-    .booking-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        max-width: 700px;
-    }
-
-    .booking-row {
-        display: flex;
-        gap: 1.5rem;
-        align-items: center;
-        padding: 0.75rem 1rem;
-        border-radius: 6px;
-        font-size: 0.95rem;
-    }
-
-    .booking-active {
-        background: #f0f7ff;
-        border-left: 4px solid #2563eb;
-        color: #1e293b;
-    }
-
-    .booking-done {
-        background: #f5f5f5;
-        border-left: 4px solid #cbd5e1;
-        color: #94a3b8;
-    }
-
-    .booking-time {
-        font-weight: 600;
-        min-width: 110px;
-    }
-
-    .booking-customer {
-        min-width: 160px;
-    }
-
-    .booking-treatment {
-        flex: 1;
-    }
-
-    .booking-status {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-    }
-</style>
 
 @code {
     private List<BookingDto>? _bookings;
-    private string _heading = string.Empty;
+    private string _periodLabel = string.Empty;
     private DateTime _now = DateTime.Now;
     private Timer? _timer;
 
+    private static readonly CultureInfo Da = new("da-DK");
+
     protected override async Task OnInitializedAsync()
     {
-        _heading = BuildHeading();
-        _bookings = (await BookingQueries.GetTodaysBookingsAsync()).ToList();
+        var from = DateTime.Today;
+        var to = from.AddDays(30);
+
+        _periodLabel = $"{FormatDate(from)} – {FormatDate(to.AddDays(-1))}";
+        _bookings = (await BookingQueries.GetBookingsForPeriodAsync(from, to)).ToList();
     }
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;
 
+        // Refresh every minute: update clock and auto-complete past bookings.
         _timer = new Timer(_ =>
         {
             InvokeAsync(async () =>
@@ -126,42 +111,154 @@ else
         }, null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
     }
 
-    public void Dispose()
+    public void Dispose() => _timer?.Dispose();
+
+    private static string FormatDayHeader(DateTime date)
     {
-        _timer?.Dispose();
+        var dayName = date.DayOfWeek switch
+        {
+            DayOfWeek.Monday => "Mandag",
+            DayOfWeek.Tuesday => "Tirsdag",
+            DayOfWeek.Wednesday => "Onsdag",
+            DayOfWeek.Thursday => "Torsdag",
+            DayOfWeek.Friday => "Fredag",
+            DayOfWeek.Saturday => "Lørdag",
+            DayOfWeek.Sunday => "Søndag",
+            _ => string.Empty
+        };
+
+        var monthName = MonthName(date.Month);
+        var today = date.Date == DateTime.Today ? " – I dag" : string.Empty;
+        return $"{dayName} d. {date.Day}. {monthName}{today}";
     }
 
-    private static string BuildHeading()
-    {
-        var now = DateTime.Now;
-        var dayName = now.DayOfWeek switch
+    private static string FormatDate(DateTime date) =>
+        $"{date.Day}. {MonthName(date.Month)} {date.Year}";
+
+    private static string StatusLabel(string status, bool isPast) =>
+        isPast ? "Afsluttet" : status switch
         {
-            DayOfWeek.Monday    => "Mandag",
-            DayOfWeek.Tuesday   => "Tirsdag",
-            DayOfWeek.Wednesday => "Onsdag",
-            DayOfWeek.Thursday  => "Torsdag",
-            DayOfWeek.Friday    => "Fredag",
-            DayOfWeek.Saturday  => "Lørdag",
-            DayOfWeek.Sunday    => "Søndag",
-            _                   => string.Empty
+            "Completed" => "Afsluttet",
+            "Cancelled" => "Aflyst",
+            "NoShow" => "Udeblevet",
+            _ => "Aktiv"
         };
-        return $"{dayName} d. {now.Day}. {MonthName(now.Month)} {now.Year}";
-    }
 
     private static string MonthName(int month) => month switch
     {
-        1  => "januar",
-        2  => "februar",
-        3  => "marts",
-        4  => "april",
-        5  => "maj",
-        6  => "juni",
-        7  => "juli",
-        8  => "august",
-        9  => "september",
+        1 => "januar",
+        2 => "februar",
+        3 => "marts",
+        4 => "april",
+        5 => "maj",
+        6 => "juni",
+        7 => "juli",
+        8 => "august",
+        9 => "september",
         10 => "oktober",
         11 => "november",
         12 => "december",
-        _  => string.Empty
+        _ => string.Empty
     };
 }
+
+<style>
+    .bookings-heading {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 0.25rem;
+    }
+
+    .bookings-period {
+        font-size: 0.85rem;
+        color: #6b7280;
+        margin-bottom: 2rem;
+    }
+
+    /* ── Clinic section ── */
+    .clinic-section {
+        margin-bottom: 2.5rem;
+    }
+
+    .clinic-heading {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #1e3a5f;
+        padding: 0.6rem 1rem;
+        background: #eff6ff;
+        border-left: 4px solid #2563eb;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .clinic-icon {
+        font-size: 1.1rem;
+    }
+
+    /* ── Day block ── */
+    .day-block {
+        margin-bottom: 1rem;
+    }
+
+    .day-header {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #9ca3af;
+        padding: 0.3rem 0;
+        margin-bottom: 0.4rem;
+        border-bottom: 1px solid #f0f1f5;
+    }
+
+    /* ── Booking rows ── */
+    .booking-row {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        padding: 0.65rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        background: #f0f7ff;
+        border-left: 4px solid #2563eb;
+        color: #1e293b;
+        margin-bottom: 0.3rem;
+    }
+
+        .booking-row.booking-today {
+            background: #f0fdf4;
+            border-left-color: #16a34a;
+        }
+
+        .booking-row.booking-done {
+            background: #f5f5f5;
+            border-left-color: #cbd5e1;
+            color: #94a3b8;
+        }
+
+    .booking-time {
+        font-weight: 600;
+        min-width: 110px;
+        flex-shrink: 0;
+    }
+
+    .booking-customer {
+        min-width: 150px;
+        flex-shrink: 0;
+    }
+
+    .booking-treatment {
+        flex: 1;
+    }
+
+    .booking-status {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        flex-shrink: 0;
+    }
+</style>
