@@ -6,4 +6,6 @@ public record BookingDto(
     string TreatmentName,
     DateTime StartTime,
     DateTime EndTime,
-    string Status);
+    string Status,
+    Guid ClinicId,
+    string ClinicName);

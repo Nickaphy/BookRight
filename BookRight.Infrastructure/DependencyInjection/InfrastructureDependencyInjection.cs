@@ -1,6 +1,7 @@
 ﻿using BookRight.Application.Repositories;
-using BookRight.Domain.Common;
 using BookRight.Application.UseCases.Pricing;
+using BookRight.Domain.Common;
+using BookRight.Facade.Queries.BookingQueries;
 using BookRight.Facade.Querries.BookingQuerries;
 using BookRight.Facade.Querries.ClinicQuerries;
 using BookRight.Facade.Querries.CustomerQuerries;
@@ -37,6 +38,7 @@ namespace BookRight.Infrastructure.DependencyInjection
             services.AddScoped<ITreatmentTypeQuerry, TreatmentTypeImpl>();
             services.AddScoped<IPractitionerQuerries, PractitionerImpl>();
             services.AddScoped<IClinicQuerries, ClinicImpl>();
+            services.AddScoped<IBookingQueries, BookingQueries>();
             services.AddScoped<IBookingPricingFacade, BookingPricingFacadeHandler>();
             return services;
         }
