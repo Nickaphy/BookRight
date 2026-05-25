@@ -1,0 +1,41 @@
+﻿@namespace BookRight.UI.Components.Pages.CreateBookings
+
+<section>
+    <h2>4. Vælg klinik</h2>
+
+    @if (_selectedClinic is null)
+    {
+        @if (_clinics.Any())
+        {
+            <ul>
+                @foreach (var clinic in _clinics)
+                {
+                    <li>
+                        <button type="button" class="clinic-card" @onclick="() => SelectClinic(clinic)">
+                            <span class="clinic-icon">🏥</span>
+                            <span class="clinic-info">
+                                <strong>@clinic.Name</strong>
+                                <small>@clinic.Street, @clinic.City</small>
+                            </span>
+                        </button>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Ingen klinikker fundet for denne terapeut.</p>
+        }
+    }
+    else
+    {
+        <article>
+            <span class="clinic-icon">🏥</span>
+            <span class="clinic-info">
+                <strong>@_selectedClinic.Name</strong>
+                <small>@_selectedClinic.Street, @_selectedClinic.City</small>
+            </span>
+            <button type="button" class="clear-btn" @onclick="ClearClinic">×</button>
+        </article>
+    }
+</section>

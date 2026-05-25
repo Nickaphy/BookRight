@@ -1,12 +1,8 @@
-using BookRight.Application;
-using BookRight.Domain.Entities.Customers;
+using BookRight.Domain.Enums;
 using BookRight.Facade.Dtos.CustomerDtos;
 using BookRight.Facade.Querries.CustomerQuerries;
 using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BookRight.Infrastructure.Persistence
 {
@@ -19,36 +15,71 @@ namespace BookRight.Infrastructure.Persistence
             _factory = factory;
         }
 
-
-        // Returns ALL customers as a read-only list.
-        public async Task<IReadOnlyList<CustomerDto>> GetAllCustomersAsync(CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<CustomerDto>> GetAllCustomersAsync(
+            CancellationToken cancellationToken = default)
         {
             using var context = _factory.CreateDbContext();
-            return await context.Customers
-            .AsNoTracking()
-            .Select(c => new CustomerDto(
-                c.Id,
-                c.Name,
-                c.PhoneNumber,
-                (CustomerLoyaltyLevel)c.LoyaltyLevel))
-            .ToListAsync(cancellationToken);
+            var customers = await context.Customers
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+
+            return customers
+                .Select(c => new CustomerDto(c.Id, c.Name, c.PhoneNumber, CustomerLoyaltyLevel.None))
+                .ToList();
         }
 
-        // Searches customers by a free-text term matched against name, phone, or e-mail.
-        public async Task<IReadOnlyList<CustomerDto>> SearchCustomersAsync(string searchTerm, CancellationToken cancellationToken = default)
+        // Searches customers by name, phone number or e-mail.
+        // The loyalty level in the returned DTO is calculated live from the
+        // customer's booking history for the past 12 months — not read from the
+        // stored column — so it always reflects the current reality.
+        public async Task<IReadOnlyList<CustomerDto>> SearchCustomersAsync(
+            string searchTerm,
+            CancellationToken cancellationToken = default)
         {
             using var context = _factory.CreateDbContext();
-            return await context.Customers
-                    .AsNoTracking()
-                        .Where(c => c.Name.Contains(searchTerm)
+
+            var oneYearAgo = DateTime.UtcNow.AddYears(-1);
+
+            var customers = await context.Customers
+                .AsNoTracking()
+                .Where(c => c.Name.Contains(searchTerm)
                          || c.PhoneNumber.Contains(searchTerm)
-                         || c.Email.Contains(searchTerm))
-                .Select(c => new CustomerDto(
-                        c.Id,
-                        c.Name,
-                        c.PhoneNumber,
-                        (CustomerLoyaltyLevel)c.LoyaltyLevel))
-                    .ToListAsync(cancellationToken);
+)
+                .ToListAsync(cancellationToken);
+
+            if (customers.Count == 0)
+                return [];
+
+            var customerIds = customers.Select(c => c.Id).ToList();
+
+            // Sum FinalPrice per customer for the past 12 months.
+            // Matches the logic in BookingRepository.GetTotalSpentLastYearAsync
+            // and Customer.UpdateLoyaltyLevel so the displayed level is consistent.
+            var spendingByCustomer = await context.Bookings
+                .AsNoTracking()
+                .Where(b => customerIds.Contains(b.CustomerId)
+                         && b.CreatedDate >= oneYearAgo
+                         && (b.Status == BookingStatus.Completed
+                          || b.Status == BookingStatus.Created))
+                .GroupBy(b => b.CustomerId)
+                .Select(g => new { CustomerId = g.Key, Total = g.Sum(b => b.FinalPrice.Amount) })
+                .ToDictionaryAsync(x => x.CustomerId, x => x.Total, cancellationToken);
+
+            return customers.Select(c =>
+            {
+                var total = spendingByCustomer.TryGetValue(c.Id, out var t) ? t : 0m;
+
+                // Mirror the thresholds from Customer.UpdateLoyaltyLevel
+                var level = total switch
+                {
+                    >= 10000m => CustomerLoyaltyLevel.Gold,
+                    >= 5000m => CustomerLoyaltyLevel.Silver,
+                    >= 1000m => CustomerLoyaltyLevel.Bronze,
+                    _ => CustomerLoyaltyLevel.None
+                };
+
+                return new CustomerDto(c.Id, c.Name, c.PhoneNumber, level);
+            }).ToList();
         }
     }
 }

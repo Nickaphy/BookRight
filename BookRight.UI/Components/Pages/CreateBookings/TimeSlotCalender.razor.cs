@@ -13,13 +13,16 @@ namespace BookRight.UI.Components.Pages.CreateBookings
         public Guid PractitionerId { get; set; }
 
         [Parameter]
+        public Guid ClinicId { get; set; }
+
+        [Parameter]
         public int DurationMinutes { get; set; }
 
         [Parameter]
         public EventCallback<PractitionerAvailableSlotDto> OnSlotSelected { get; set; }
 
         private DateOnly _currentWeek = DateOnly.FromDateTime(
-        DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + 1));
+            DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + 1));
 
         private IReadOnlyList<PractitionerAvailableSlotDto> _slots = [];
         private PractitionerAvailableSlotDto? _selectedSlot;
@@ -28,16 +31,19 @@ namespace BookRight.UI.Components.Pages.CreateBookings
         {
             await LoadSlots();
         }
+
         private async Task LoadSlots()
         {
-            if (PractitionerId != Guid.Empty)
+            if (PractitionerId != Guid.Empty && ClinicId != Guid.Empty)
             {
                 _slots = await PractitionerQueries.GetAvailableSlotsAsync(
                     PractitionerId,
+                    ClinicId,
                     _currentWeek,
                     DurationMinutes);
             }
         }
+
         private async Task SelectSlot(PractitionerAvailableSlotDto slot)
         {
             _selectedSlot = slot;
