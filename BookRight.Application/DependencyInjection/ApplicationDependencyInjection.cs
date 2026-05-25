@@ -47,6 +47,7 @@ namespace BookRight.Application.DependencyInjection
             // ─── Booking ─────────────────────────────────────────────────────
             services.AddScoped<ICreateBookingUseCase, CreateBookingCommandHandler>();
             services.AddScoped<ICancelBookingFacade, CancelBookingCommandHandler>();
+            services.AddScoped<ICompleteBookingUseCase, CompleteBookingCommandHandler>();
 
             // ─── Discount strategies ─────────────────────────────────────────
             // Each strategy is registered against the IDiscountStrategy interface
