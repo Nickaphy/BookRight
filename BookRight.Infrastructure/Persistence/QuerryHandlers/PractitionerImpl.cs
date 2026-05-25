@@ -1,9 +1,7 @@
 using BookRight.Facade.Dtos.PractitionerQuerry;
 using BookRight.Facade.Querries.PractitionerQuerries;
+using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BookRight.Infrastructure.Persistence.QuerryHandlers
 {
@@ -30,7 +28,6 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                      p.AuthorizationCode,
                      (PractitionerAuthorization)p.AuthorizationType))
                  .FirstOrDefaultAsync();
-
         }
 
         public async Task<IReadOnlyList<PractitionerDto>> GetAllAsync()
@@ -47,6 +44,7 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                     (PractitionerAuthorization)p.AuthorizationType))
                 .ToListAsync();
         }
+
         public async Task<IReadOnlyList<PractitionerDto>> GetByAuthorizationType(string authorizationType)
         {
             using var context = _factory.CreateDbContext();
@@ -63,49 +61,50 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                 p.AuthorizationCode,
                 (PractitionerAuthorization)p.AuthorizationType))
                 .ToList();
-
         }
-        public async Task<IReadOnlyList<PractitionerAvailableSlotDto>> GetAvailableSlotsAsync(Guid practitionerId,
-                                                                                              DateOnly week,
-                                                                                              int durationMinutes,
-                                                                                              CancellationToken cancellationToken = default)
+
+        public async Task<IReadOnlyList<PractitionerAvailableSlotDto>> GetAvailableSlotsAsync(
+            Guid practitionerId,
+            Guid clinicId,
+            DateOnly week,
+            int durationMinutes,
+            CancellationToken cancellationToken = default)
         {
             using var context = _factory.CreateDbContext();
 
             var weekStart = week.ToDateTime(TimeOnly.MinValue);
             var weekEnd = weekStart.AddDays(7);
 
+            // Only look at days where this practitioner is at the chosen clinic.
             var clinicDays = await context.PractitionerClinicDays
                 .AsNoTracking()
                 .Where(pc => pc.PractitionerId == practitionerId
+                          && pc.ClinicId == clinicId
                           && pc.Date >= weekStart
                           && pc.Date < weekEnd)
                 .ToListAsync(cancellationToken);
 
-            // Hent klinikkerne med åbningstider
-            var clinicIds = clinicDays.Select(pc => pc.ClinicId).Distinct();
-            var clinics = await context.Clinics
+            var clinic = await context.Clinics
                 .AsNoTracking()
                 .Include(c => c.OpeningHours)
-                .Where(c => clinicIds.Contains(c.Id))
-                .ToListAsync(cancellationToken);
+                .FirstOrDefaultAsync(c => c.Id == clinicId, cancellationToken);
 
-            // Hent eksisterende bookings for practitioner i ugen
+            if (clinic is null)
+                return [];
+
+            // Existing bookings for this practitioner at this clinic in the week.
             var bookings = await context.Bookings
                 .AsNoTracking()
                 .Where(b => b.PractitionerId == practitionerId
+                         && b.ClinicId == clinicId
                          && b.TimeRange.Start >= weekStart
                          && b.TimeRange.Start < weekEnd)
                 .ToListAsync(cancellationToken);
-
 
             var slots = new List<PractitionerAvailableSlotDto>();
 
             foreach (var clinicDay in clinicDays)
             {
-                var clinic = clinics.FirstOrDefault(c => c.Id == clinicDay.ClinicId);
-                if (clinic is null) continue;
-
                 var dayOfWeek = clinicDay.Date.DayOfWeek;
                 var openingHour = clinic.OpeningHours.FirstOrDefault(oh => oh.WeekDay == dayOfWeek);
                 if (openingHour is null) continue;
@@ -122,14 +121,11 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                         b.TimeRange.End > slotStart);
 
                     slots.Add(new PractitionerAvailableSlotDto(slotStart, slotEnd, !isBooked));
-
                     slotStart = slotStart.AddMinutes(durationMinutes);
                 }
             }
 
             return slots.OrderBy(s => s.Start).ToList();
-
-
         }
     }
 }

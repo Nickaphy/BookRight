@@ -1,60 +1,155 @@
 ﻿@using BookRight.Facade.Dtos.CustomerDtos;
 @using BookRight.Facade.Dtos.TreatmentTypeDtos;
 @using BookRight.Facade.Dtos.PractitionerQuerry;
+@using BookRight.Facade.Dtos.ClinicQuerry;
 @using BookRight.UI.Components.Pages.CreateBookings;
-
 
 @rendermode InteractiveServer
 @page "/create-booking"
 @namespace BookRight.UI.Components.Pages
 
-
 <h1>Ny Booking</h1>
 
-<CustomerSearch OnCustomerSelected="OnCustomerSelected" />
+@* Step 1 — Find kunde *@
+<CustomerSearch @key="_customerSearchKey"
+                OnCustomerSelected="OnCustomerSelected"
+                OnCleared="OnCustomerCleared" />
 
+@* Step 2 — Vælg behandlingstype (only shown once customer is selected) *@
 @if (_selectedCustomer is not null)
 {
-	<TreatmentTypeSelector OnTreatmentTypeSelected="OnTreatmentTypeSelected" />
+    <TreatmentTypeSelector OnTreatmentTypeSelected="OnTreatmentTypeSelected" />
 }
+
+@* Step 3 — Vælg terapeut (only shown once treatment is selected) *@
 @if (_selectedTreatmentType is not null)
 {
-    <PractitionerSelector AuthorizationType="@_selectedTreatmentType.AuthorizationType"  
-                          OnPractitionerSelected="OnPractitionerSelected" />
+    <PractitionerSelector AuthorizationType="@_selectedTreatmentType.AuthorizationType"
+                          OnPractitionerSelected="OnPractitionerSelected"
+                          OnCleared="OnPractitionerCleared" />
 }
+
+@* Step 4 — Vælg klinik (only shown once practitioner is selected) *@
 @if (_selectedPractitioner is not null)
 {
-    <TimeSlotCalender PractitionerId="@_selectedPractitioner.id"
+    <ClinicSelector PractitionerId="@_selectedPractitioner.id"
+                    OnClinicSelected="OnClinicSelected"
+                    OnCleared="OnClinicCleared" />
+}
+
+@* Step 5 — Calendar (only shown once clinic is selected) *@
+@if (_selectedClinic is not null)
+{
+    <TimeSlotCalender PractitionerId="@_selectedPractitioner!.id"
+                      ClinicId="@_selectedClinic.Id"
                       DurationMinutes="@_selectedTreatmentType!.DurationMinutes"
                       OnSlotSelected="OnSlotSelected" />
 }
-@*taking authorization through selectedtreatmenttype*@
+
+@* Step 6 — Confirmation (only shown once a slot is selected) *@
+@if (_selectedSlot is not null)
+{
+    <BookingConfirmation Customer="@(_selectedCustomer!)"
+                         TreatmentType="@(_selectedTreatmentType!)"
+                         Practitioner="@(_selectedPractitioner!)"
+                         Clinic="@(_selectedClinic!)"
+                         Slot="@(_selectedSlot!)"
+                         OnNewBooking="ResetAll" />
+}
+
 @code {
     private CustomerDto? _selectedCustomer;
     private TreatmentTypeDto? _selectedTreatmentType;
     private PractitionerDto? _selectedPractitioner;
+    private ClinicDto? _selectedClinic;
     private PractitionerAvailableSlotDto? _selectedSlot;
+
+    // Incrementing this key forces Blazor to destroy and recreate CustomerSearch,
+    // clearing its internal state (the selected customer card) on full reset.
+    private int _customerSearchKey = 0;
+
+    // ── Selection handlers ────────────────────────────────────────────────────
 
     private void OnCustomerSelected(CustomerDto customer)
     {
         _selectedCustomer = customer;
+        _selectedTreatmentType = null;
+        _selectedPractitioner = null;
+        _selectedClinic = null;
+        _selectedSlot = null;
         StateHasChanged();
     }
 
     private void OnTreatmentTypeSelected(TreatmentTypeDto treatmentType)
     {
         _selectedTreatmentType = treatmentType;
+        _selectedPractitioner = null;
+        _selectedClinic = null;
+        _selectedSlot = null;
         StateHasChanged();
     }
 
     private void OnPractitionerSelected(PractitionerDto practitioner)
     {
         _selectedPractitioner = practitioner;
+        _selectedClinic = null;
+        _selectedSlot = null;
         StateHasChanged();
     }
+
+    private void OnClinicSelected(ClinicDto clinic)
+    {
+        _selectedClinic = clinic;
+        _selectedSlot = null;
+        StateHasChanged();
+    }
+
     private void OnSlotSelected(PractitionerAvailableSlotDto slot)
     {
         _selectedSlot = slot;
+        StateHasChanged();
+    }
+
+    // ── Clear handlers — each resets all steps below it ──────────────────────
+
+    private void OnCustomerCleared()
+    {
+        _selectedCustomer = null;
+        _selectedTreatmentType = null;
+        _selectedPractitioner = null;
+        _selectedClinic = null;
+        _selectedSlot = null;
+        StateHasChanged();
+    }
+
+    // TreatmentTypeSelector has no X button — re-selecting a treatment
+    // already triggers OnTreatmentTypeSelected which cascades below it.
+
+    private void OnPractitionerCleared()
+    {
+        _selectedPractitioner = null;
+        _selectedClinic = null;
+        _selectedSlot = null;
+        StateHasChanged();
+    }
+
+    private void OnClinicCleared()
+    {
+        _selectedClinic = null;
+        _selectedSlot = null;
+        StateHasChanged();
+    }
+
+    // ── Full reset after a booking is confirmed ───────────────────────────────
+
+    private void ResetAll()
+    {
+        _selectedCustomer = null;
+        _selectedTreatmentType = null;
+        _selectedPractitioner = null;
+        _selectedClinic = null;
+        _selectedSlot = null;
+        _customerSearchKey++;   // forces CustomerSearch to remount with clean state
         StateHasChanged();
     }
 }
