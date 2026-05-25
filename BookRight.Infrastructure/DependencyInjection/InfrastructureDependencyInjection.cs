@@ -6,6 +6,7 @@ using BookRight.Infrastructure.Persistece.Repository;
 using BookRight.Infrastructure.Persistence;
 using BookRight.Infrastructure.Persistence.QuerryHandlers;
 using BookRight.Infrastructure.Persistence.Repositories;
+using BookRight.Facade.Queries.BookingQueries;
 using BookRight.Facade.Querries.CustomerQuerries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +41,7 @@ namespace BookRight.Infrastructure.DependencyInjection
             services.AddScoped<ICustomerQuerries, CustomerQuerries>();
             services.AddScoped<ITreatmentTypeQuerry, TreatmentTypeImpl>();
             services.AddScoped<IPractitionerQuerries, PractitionerImpl>();
+            services.AddScoped<IBookingQueries, BookingQueries>();
             return services;
         }
     }
