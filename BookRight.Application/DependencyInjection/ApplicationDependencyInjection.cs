@@ -54,9 +54,7 @@ namespace BookRight.Application.DependencyInjection
             // -----
             services.AddScoped<ICreateBookingUseCase, CreateBookingCommandHandler>();
             services.AddScoped<ICancelBookingFacade, CancelBookingCommandHandler>();
-            //
-            // Overvej at lave en UpdateBookingHandler, hvis det er nødvendigt.
-            //
+            services.AddScoped<ICompleteBookingUseCase, CompleteBookingCommandHandler>();
 
 
 
