@@ -1,14 +1,14 @@
 ﻿using BookRight.Application.Repositories;
 using BookRight.Domain.Common;
+using BookRight.Facade.Querries.ClinicQuerries;
+using BookRight.Facade.Querries.CustomerQuerries;
 using BookRight.Facade.Querries.PractitionerQuerries;
 using BookRight.Facade.Querries.TreatmentTypeQuerries;
 using BookRight.Infrastructure.Persistece.Repository;
 using BookRight.Infrastructure.Persistence;
 using BookRight.Infrastructure.Persistence.QuerryHandlers;
 using BookRight.Infrastructure.Persistence.Repositories;
-using BookRight.Facade.Querries.CustomerQuerries;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookRight.Infrastructure.DependencyInjection
@@ -18,14 +18,10 @@ namespace BookRight.Infrastructure.DependencyInjection
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services)
         {
-            // -----
-            // Database
-            // -----
+            // ─── Database ────────────────────────────────────────────────────────
             services.AddDbContextFactory<AppDbContext>(lifetime: ServiceLifetime.Scoped);
 
-            // -----
-            // Repositories
-            // -----
+            // ─── Repositories ────────────────────────────────────────────────────
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IPractitionerRepository, PractitionerRepository>();
@@ -34,12 +30,12 @@ namespace BookRight.Infrastructure.DependencyInjection
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             services.AddScoped<ITreatmentTypeRepository, TreatmentTypeRepository>();
 
-            // ----
-            //Querries
-            // ----
+            // ─── Queries ─────────────────────────────────────────────────────────
             services.AddScoped<ICustomerQuerries, CustomerQuerries>();
             services.AddScoped<ITreatmentTypeQuerry, TreatmentTypeImpl>();
             services.AddScoped<IPractitionerQuerries, PractitionerImpl>();
+            services.AddScoped<IClinicQuerries, ClinicImpl>();
+
             return services;
         }
     }

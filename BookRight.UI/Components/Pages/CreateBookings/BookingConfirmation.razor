@@ -1,0 +1,109 @@
+﻿@namespace BookRight.UI.Components.Pages.CreateBookings
+@using System.Globalization
+
+<section class="confirmation-section">
+    <h2>5. Bekræft booking</h2>
+
+    @if (_bookingConfirmed)
+    {
+        <div class="success-box">
+            <span class="success-icon">✓</span>
+            <div>
+                <strong>Booking bekræftet!</strong>
+                <p>Bookingen er gemt i systemet.</p>
+            </div>
+            <button type="button" class="btn-new" @onclick="OnNewBookingClicked">
+                Opret ny booking
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="confirmation-layout">
+
+            @* ── Left: booking summary ── *@
+            <div class="summary-rows">
+
+                <div class="summary-row">
+                    <span class="summary-row__icon">👤</span>
+                    <div>
+                        <div class="summary-row__label">Patient</div>
+                        <strong>@Customer.Name</strong>
+                        <div class="summary-row__sub">📞 @Customer.PhoneNumber</div>
+                    </div>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-row__icon">⚕️</span>
+                    <div>
+                        <div class="summary-row__label">Behandling</div>
+                        <strong>@TreatmentType.Name</strong>
+                        <div class="summary-row__sub">hos @Practitioner.name</div>
+                    </div>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-row__icon">📅</span>
+                    <div>
+                        <div class="summary-row__label">Dato og tid</div>
+                        <strong>@FormatDate(Slot.Start)</strong>
+                        <div class="summary-row__sub">kl. @Slot.Start.ToString("HH:mm")</div>
+                    </div>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-row__icon">🏥</span>
+                    <div>
+                        <div class="summary-row__label">Klinik</div>
+                        <strong>@Clinic.Name</strong>
+                        <div class="summary-row__sub">@Clinic.Street, @Clinic.City</div>
+                    </div>
+                </div>
+
+            </div>
+
+            @* ── Right: price breakdown + confirm button ── *@
+            <div class="price-box">
+                <div class="price-box__title">PRISOVERSIGT</div>
+
+                @if (_isLoadingPrice)
+                {
+                    <p class="price-loading">Beregner pris...</p>
+                }
+                else if (_pricePreview is not null)
+                {
+                    <div class="price-row">
+                        <span>Behandlingspris</span>
+                        <strong>@_pricePreview.BasePrice.ToString("N0") DKK</strong>
+                    </div>
+
+                    @if (_pricePreview.DiscountAmount > 0)
+                    {
+                        <div class="price-row price-row--discount">
+                            <span>@_pricePreview.DiscountLabel</span>
+                            <span>–@_pricePreview.DiscountAmount.ToString("N0") DKK</span>
+                        </div>
+                    }
+
+                    <div class="price-row price-row--total">
+                        <strong>Total</strong>
+                        <strong class="price-total-amount">@_pricePreview.FinalPrice.ToString("N0") DKK</strong>
+                    </div>
+                }
+
+                @if (_errorMessage is not null)
+                {
+                    <p class="error-msg">@_errorMessage</p>
+                }
+
+                <button type="button"
+                        class="btn-confirm"
+                        @onclick="ConfirmBookingAsync"
+                        disabled="@(_isSubmitting || _isLoadingPrice)">
+                    @(_isSubmitting ? "Gemmer..." : "Bekræft Booking")
+                </button>
+            </div>
+
+        </div>
+    }
+</section>

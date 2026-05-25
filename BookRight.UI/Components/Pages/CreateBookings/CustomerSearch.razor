@@ -6,7 +6,7 @@
 
     @if (_selectedCustomer is null)
     {
-        <label for="customer-search">Søg på navn, telefon eller email</label>
+        <label for="customer-search">Søg på navn eller telefonnummer</label>
         <div class="search-wrapper">
             <span class="search-icon">🔍</span>
             <input id="customer-search"
@@ -31,7 +31,7 @@
                             <span class="avatar">@GetInitials(customer.Name)</span>
                             <span class="customer-info">
                                 <strong>@customer.Name</strong>
-                                <small>@customer.PhoneNumber</small>
+                                <small>📞 @customer.PhoneNumber</small>
                             </span>
                             <span class="badge" style="@GetLoyaltyStyle(customer.LoyaltyLevel)">
                                 @customer.LoyaltyLevel
