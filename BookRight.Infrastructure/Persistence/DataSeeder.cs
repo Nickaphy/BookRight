@@ -85,10 +85,10 @@ namespace BookRight.Infrastructure.Persistence
 
                 context.Clinics.AddRange(klinik1, klinik2, klinik3);
                 context.SaveChanges();
+            }
 
-
-                if (context.Practitioners.Any()) return;
-
+            if (!context.Practitioners.Any())
+            {
                 var practitioners = new List<Practitioner>
                 {
                     Practitioner.Create("Anders Nielsen", "anders@klinik.dk", "12345678", "AUTH001", AuthorizationType.Physiotherapist),
