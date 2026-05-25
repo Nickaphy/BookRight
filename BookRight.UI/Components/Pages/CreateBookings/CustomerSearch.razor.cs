@@ -3,7 +3,6 @@ using BookRight.Facade.Dtos.CustomerDtos;
 using BookRight.Facade.Querries.CustomerQuerries;
 using Microsoft.AspNetCore.Components;
 
-
 namespace BookRight.UI.Components.Pages.CreateBookings
 {
     public partial class CustomerSearch : ComponentBase
@@ -14,6 +13,9 @@ namespace BookRight.UI.Components.Pages.CreateBookings
         [Parameter]
         public EventCallback<CustomerDto> OnCustomerSelected { get; set; }
 
+        [Parameter]
+        public EventCallback OnCleared { get; set; }
+
         private string _searchTerm = string.Empty;
         private IReadOnlyList<CustomerDto> _searchResults = [];
         private CustomerDto? _selectedCustomer;
@@ -22,13 +24,11 @@ namespace BookRight.UI.Components.Pages.CreateBookings
         private async Task OnSearchChanged(ChangeEventArgs e)
         {
             _searchTerm = e.Value?.ToString() ?? string.Empty;
-
             if (_searchTerm.Length < 2)
             {
                 _searchResults = [];
                 return;
             }
-
             _isSearching = true;
             _searchResults = await CustomerQueries.SearchCustomersAsync(_searchTerm);
             _isSearching = false;
@@ -42,11 +42,12 @@ namespace BookRight.UI.Components.Pages.CreateBookings
             await OnCustomerSelected.InvokeAsync(customer);
         }
 
-        private void ClearCustomer()
+        private async Task ClearCustomer()
         {
             _selectedCustomer = null;
             _searchTerm = string.Empty;
             _searchResults = [];
+            await OnCleared.InvokeAsync();
         }
 
         private string GetInitials(string name)

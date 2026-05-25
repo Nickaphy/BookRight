@@ -9,5 +9,10 @@ namespace BookRight.Facade.Querries.ClinicQuerries
     {
         Task<ClinicDto?> GetByIdAsync(Guid id);
         Task<IReadOnlyList<ClinicDto>> GetAllAsync();
+
+        // Returns only the clinics where the given practitioner has
+        // PractitionerClinicDay assignments — used by the ClinicSelector step.
+        Task<IReadOnlyList<ClinicDto>> GetByPractitionerAsync(Guid practitionerId,
+            CancellationToken cancellationToken = default);
     }
 }

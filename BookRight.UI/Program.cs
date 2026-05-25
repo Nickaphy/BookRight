@@ -11,10 +11,10 @@ builder.Services.AddInfrastructure();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-builder.Services.AddScoped<IBookingConflictChecker, BookingConflictChecker>();
+// IBookingConflictChecker is already registered in ApplicationDependencyInjection
 
 
-    var app = builder.Build();
+var app = builder.Build();
 
 
 
@@ -42,4 +42,3 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
-

@@ -15,13 +15,25 @@ namespace BookRight.UI.Components.Pages.CreateBookings
         [Parameter]
         public EventCallback<PractitionerDto> OnPractitionerSelected { get; set; }
 
+        [Parameter]
+        public EventCallback OnCleared { get; set; }
+
         private IReadOnlyList<PractitionerDto> _practitioners = [];
         private PractitionerDto? _selectedPractitioner;
+        private string _previousAuthorizationType = string.Empty;
 
         protected override async Task OnParametersSetAsync()
         {
-            if (!string.IsNullOrEmpty(AuthorizationType))
+            if (!string.IsNullOrEmpty(AuthorizationType)
+                && AuthorizationType != _previousAuthorizationType)
             {
+                _previousAuthorizationType = AuthorizationType;
+
+                // Treatment type changed — clear the old practitioner selection
+                // so the user isn't left with a practitioner from a different
+                // treatment type still appearing as chosen.
+                _selectedPractitioner = null;
+
                 _practitioners = await PractitionerQueries.GetByAuthorizationType(AuthorizationType);
             }
         }
@@ -32,9 +44,10 @@ namespace BookRight.UI.Components.Pages.CreateBookings
             await OnPractitionerSelected.InvokeAsync(practitioner);
         }
 
-        private void ClearPractitioner()
+        private async Task ClearPractitioner()
         {
             _selectedPractitioner = null;
+            await OnCleared.InvokeAsync();
         }
 
         private string GetInitials(string name)
