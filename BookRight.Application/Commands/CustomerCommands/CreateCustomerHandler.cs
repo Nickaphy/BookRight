@@ -31,6 +31,7 @@ namespace BookRight.Application.Commands.CustomerCommands
                 zipcode: command.Zipcode);
 
             await _customerRepository.AddCustomerAsync(customer, cancellationToken);
+            await _customerRepository.SaveAsync(cancellationToken);
         }
     }
 }

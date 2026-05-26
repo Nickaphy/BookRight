@@ -1,7 +1,5 @@
 ﻿using BookRight.Application.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using BookRight.Application.UseCaseExceptions;
 using BookRight.Facade.Dtos.BookingCommand;
 using BookRight.Facade.Commands.Booking;
 
@@ -18,7 +16,7 @@ namespace BookRight.Application.Commands.BookingCommands
         {
 
             var booking = await _bookingRepo.GetByIdAsync(request.BookingId)
-                ?? throw new Exception($"Booking with ID {request.BookingId} not found.");
+                ?? throw new UseCaseException($"Booking with ID {request.BookingId} not found.");
             booking.MarkNoShow(); // Kalder MarkNoShow metoden på booking entiteten for at ændre status til NoShow
             await _bookingRepo.SaveChangesAsync(); // Gemmer ændringerne i databasen
 
