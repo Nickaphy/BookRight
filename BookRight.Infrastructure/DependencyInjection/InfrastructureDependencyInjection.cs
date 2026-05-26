@@ -22,7 +22,17 @@ namespace BookRight.Infrastructure.DependencyInjection
             this IServiceCollection services)
         {
             // ─── Database ────────────────────────────────────────────────────────
-            services.AddDbContextFactory<AppDbContext>(lifetime: ServiceLifetime.Scoped);
+            services.AddDbContextFactory<AppDbContext>(
+                options =>
+                {
+                    options.UseSqlServer(
+                        @"Server=(localdb)\MSSQLLocalDB;Database=BookRight;Trusted_Connection=True;TrustServerCertificate=True",
+                        sqlOptions =>
+                        {
+                            sqlOptions.EnableRetryOnFailure();
+                        });
+                },
+                ServiceLifetime.Scoped);
 
             // ─── Repositories ────────────────────────────────────────────────────
             services.AddScoped<ICustomerRepository, CustomerRepository>();

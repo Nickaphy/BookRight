@@ -3,6 +3,7 @@ using BookRight.Application.Services;
 using BookRight.Infrastructure.DependencyInjection;
 using BookRight.Infrastructure.Persistence;
 using BookRight.UI.Components;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,19 @@ builder.Services.AddRazorComponents()
 
 var app = builder.Build();
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbFactory =
+        scope.ServiceProvider.GetRequiredService<IDbContextFactory<AppDbContext>>();
+
+    using var dbContext =
+        dbFactory.CreateDbContext();
+
+    dbContext.Database.Migrate();
+
+    DataSeeder.Seed(dbContext);
+}
 
 
 // Configure the HTTP request pipeline.
