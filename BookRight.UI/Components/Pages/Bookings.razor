@@ -2,7 +2,6 @@
 @using BookRight.Facade.Dtos.BookingCommand
 @using BookRight.Facade.Dtos.BookingQuery
 @using BookRight.Facade.Queries.BookingQueries
-@using System.Globalization
 
 @rendermode InteractiveServer
 @page "/bookings"
@@ -11,58 +10,150 @@
 
 @inject IBookingQueries BookingQueries
 @inject ICompleteBookingUseCase CompleteBooking
+@inject IMarkAsNoShowUseCase MarkAsNoShow
+@inject ICancelBookingFacade CancelBooking
 
-<h1 class="bookings-heading">Bookinger</h1>
-<p class="bookings-period">@_periodLabel</p>
+<div class="bookings-page">
+    <h1 class="bookings-heading">Bookinger</h1>
+    <p class="bookings-period">@_periodLabel</p>
 
-@if (_bookings is null)
-{
-    <p>Henter bookinger...</p>
-}
-else if (_bookings.Count == 0)
-{
-    <p>Ingen bookinger i den valgte periode.</p>
-}
-else
-{
-    @* One section per clinic, sorted by clinic name *@
-    @foreach (var clinicGroup in _bookings
-        .GroupBy(b => b.ClinicName)
-        .OrderBy(g => g.Key))
+    @if (_bookings is null)
     {
-        <section class="clinic-section">
-            <h2 class="clinic-heading">
-                <span class="clinic-icon">🏥</span> @clinicGroup.Key
-            </h2>
-
-            @* Within each clinic, group by date *@
-            @foreach (var dayGroup in clinicGroup
-                .GroupBy(b => b.StartTime.Date)
-                .OrderBy(g => g.Key))
+        <p class="loading-text">Henter bookinger...</p>
+    }
+    else if (_bookings.Count == 0)
+    {
+        <p class="empty-text">Ingen bookinger i den valgte periode.</p>
+    }
+    else
+    {
+        <div class="clinics-grid">
+            @foreach (var clinicGroup in _bookings.GroupBy(b => b.ClinicName).OrderBy(g => g.Key))
             {
-                <div class="day-block">
-                    <div class="day-header">@FormatDayHeader(dayGroup.Key)</div>
-
-                    @foreach (var booking in dayGroup.OrderBy(b => b.StartTime))
-                    {
-                        var isPast = booking.EndTime < _now;
-                        var isToday = booking.StartTime.Date == DateTime.Today;
-
-                        <div class="booking-row
-                            @(isPast ? "booking-done" : "")
-                            @(isToday ? "booking-today" : "")">
-                            <span class="booking-time">
-                                @booking.StartTime.ToString("HH:mm") – @booking.EndTime.ToString("HH:mm")
-                            </span>
-                            <span class="booking-customer">@booking.CustomerName</span>
-                            <span class="booking-treatment">@booking.TreatmentName</span>
-                            <span class="booking-status">@StatusLabel(booking.Status, isPast)</span>
-                        </div>
-                    }
+                <div class="clinic-card">
+                    <div class="clinic-card__header">
+                        <span class="clinic-card__name">@clinicGroup.Key</span>
+                        <span class="clinic-card__count">@clinicGroup.Count() booking@(clinicGroup.Count() != 1 ? "s" : "")</span>
+                    </div>
+                    <div class="clinic-card__body">
+                        @foreach (var dayGroup in clinicGroup.GroupBy(b => b.StartTime.Date).OrderBy(g => g.Key))
+                        {
+                            <div class="day-section">
+                                <div class="day-label">@FormatDayHeader(dayGroup.Key)</div>
+                                @foreach (var booking in dayGroup.OrderBy(b => b.StartTime))
+                                {
+                                    var isPast = booking.EndTime < _now;
+                                    var isToday = booking.StartTime.Date == DateTime.Today;
+                                    <div class="booking-row @(isPast ? "booking-row--done" : "") @(isToday ? "booking-row--today" : "")"
+                                         @onclick="() => OpenDetail(booking)">
+                                        <span class="booking-row__time">@booking.StartTime.ToString("HH:mm") – @booking.EndTime.ToString("HH:mm")</span>
+                                        <span class="booking-row__customer">@booking.CustomerName</span>
+                                        <span class="booking-row__treatment">@booking.TreatmentName</span>
+                                        <span class="booking-row__status @StatusCss(booking.Status, isPast)">@StatusLabel(booking.Status, isPast)</span>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
                 </div>
             }
-        </section>
+        </div>
     }
+</div>
+
+@* ── Detail popup ── *@
+@if (_detailBooking is not null)
+{
+    <div class="br-overlay" @onclick="CloseDetail">
+        <div class="br-popup" @onclick:stopPropagation="true">
+
+            <div class="br-popup__header">
+                <h2 class="br-popup__title">Bookingdetaljer</h2>
+                <button class="br-popup__close" @onclick="CloseDetail">&#x2715;</button>
+            </div>
+
+            <div class="br-popup__body">
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Patient</span>
+                    <span class="br-detail-row__value">@_detailBooking.CustomerName</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Behandling</span>
+                    <span class="br-detail-row__value">@_detailBooking.TreatmentName</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Terapeut</span>
+                    <span class="br-detail-row__value">@_detailBooking.PractitionerName</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Klinik</span>
+                    <span class="br-detail-row__value">@_detailBooking.ClinicName</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Dato</span>
+                    <span class="br-detail-row__value">@FormatFullDate(_detailBooking.StartTime)</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Tidspunkt</span>
+                    <span class="br-detail-row__value">@_detailBooking.StartTime.ToString("HH:mm") – @_detailBooking.EndTime.ToString("HH:mm")</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Pris</span>
+                    <span class="br-detail-row__value">
+                        @_detailBooking.FinalPrice.ToString("N0") DKK
+                        @if (_detailBooking.DiscountType != "None")
+                        {
+                            <span class="br-discount-tag">@DiscountLabel(_detailBooking.DiscountType)</span>
+                        }
+                    </span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Status</span>
+                    <span class="br-detail-row__value">@StatusLabel(_detailBooking.Status, _detailBooking.EndTime < _now)</span>
+                </div>
+            </div>
+
+            @* Actions: only available while booking is still Created.
+               Past Created → receptionist chooses outcome (Complete / NoShow).
+               Future Created → can only be Cancelled.
+               Once a final status is set, no further changes are possible. *@
+            @* Ongoing or past Created: receptionist can complete or mark no-show
+               as soon as the appointment has started (StartTime < now). *@
+            @if (_detailBooking.Status == "Created" && _detailBooking.StartTime < _now)
+            {
+                <div class="br-popup__actions">
+                    <button class="br-btn-complete" @onclick="CompleteAsync" disabled="@_isActing">Afslut booking</button>
+                    <button class="br-btn-noshow" @onclick="MarkNoShowAsync" disabled="@_isActing">Udeblevet</button>
+                </div>
+            }
+
+            @* Upcoming Created: appointment hasn't started yet — can only be cancelled *@
+            @if (_detailBooking.Status == "Created" && _detailBooking.StartTime >= _now)
+            {
+                <div class="br-popup__actions">
+                    <button class="br-btn-cancel" @onclick="CancelAsync" disabled="@_isActing">Aflys booking</button>
+                </div>
+            }
+
+            @* Completed: can be corrected to no-show *@
+            @if (_detailBooking.Status == "Completed")
+            {
+                <div class="br-popup__actions">
+                    <button class="br-btn-noshow" @onclick="MarkNoShowAsync" disabled="@_isActing">Ret til udeblevet</button>
+                </div>
+            }
+
+            @if (_actionError is not null)
+            {
+                <p class="br-action-error">@_actionError</p>
+            }
+
+            <div class="br-popup__footer">
+                <button class="br-btn-close" @onclick="CloseDetail">Luk</button>
+            </div>
+
+        </div>
+    </div>
 }
 
 @code {
@@ -70,81 +161,148 @@ else
     private string _periodLabel = string.Empty;
     private DateTime _now = DateTime.Now;
     private Timer? _timer;
-
-    private static readonly CultureInfo Da = new("da-DK");
+    private BookingDto? _detailBooking;
+    private bool _isActing;
+    private string? _actionError;
 
     protected override async Task OnInitializedAsync()
     {
         var from = DateTime.Today;
         var to = from.AddDays(30);
-
-        _periodLabel = $"{FormatDate(from)} – {FormatDate(to.AddDays(-1))}";
+        _periodLabel = $"{FormatDate(from)} \u2013 {FormatDate(to.AddDays(-1))}";
         _bookings = (await BookingQueries.GetBookingsForPeriodAsync(from, to)).ToList();
     }
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;
-
-        // Refresh every minute: update clock and auto-complete past bookings.
+        // Refresh _now every minute so the day/time labels stay current.
+        // Status changes are manual — the receptionist decides the outcome.
         _timer = new Timer(_ =>
         {
-            InvokeAsync(async () =>
-            {
-                _now = DateTime.Now;
-
-                if (_bookings is not null)
-                {
-                    for (var i = 0; i < _bookings.Count; i++)
-                    {
-                        var b = _bookings[i];
-                        if (b.EndTime < _now && b.Status != "Completed")
-                        {
-                            await CompleteBooking.ExecuteAsync(new CompleteBookingRequest(b.Id));
-                            _bookings[i] = b with { Status = "Completed" };
-                        }
-                    }
-                }
-
-                StateHasChanged();
-            });
+            InvokeAsync(() => { _now = DateTime.Now; StateHasChanged(); return Task.CompletedTask; });
         }, null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
     }
 
     public void Dispose() => _timer?.Dispose();
 
-    private static string FormatDayHeader(DateTime date)
+    private void OpenDetail(BookingDto booking)
     {
-        var dayName = date.DayOfWeek switch
-        {
-            DayOfWeek.Monday => "Mandag",
-            DayOfWeek.Tuesday => "Tirsdag",
-            DayOfWeek.Wednesday => "Onsdag",
-            DayOfWeek.Thursday => "Torsdag",
-            DayOfWeek.Friday => "Fredag",
-            DayOfWeek.Saturday => "Lørdag",
-            DayOfWeek.Sunday => "Søndag",
-            _ => string.Empty
-        };
-
-        var monthName = MonthName(date.Month);
-        var today = date.Date == DateTime.Today ? " – I dag" : string.Empty;
-        return $"{dayName} d. {date.Day}. {monthName}{today}";
+        _detailBooking = booking;
+        _actionError = null;
     }
 
-    private static string FormatDate(DateTime date) =>
-        $"{date.Day}. {MonthName(date.Month)} {date.Year}";
+    private void CloseDetail()
+    {
+        _detailBooking = null;
+        _actionError = null;
+    }
 
-    private static string StatusLabel(string status, bool isPast) =>
-        isPast ? "Afsluttet" : status switch
+    private async Task CompleteAsync()
+    {
+        if (_detailBooking is null) return;
+        _isActing = true;
+        _actionError = null;
+        try
         {
-            "Completed" => "Afsluttet",
-            "Cancelled" => "Aflyst",
-            "NoShow" => "Udeblevet",
-            _ => "Aktiv"
-        };
+            await CompleteBooking.ExecuteAsync(new CompleteBookingRequest(_detailBooking.Id));
+            UpdateLocalStatus(_detailBooking.Id, "Completed");
+            CloseDetail();
+        }
+        catch (Exception ex) { _actionError = ex.Message; }
+        finally { _isActing = false; }
+    }
 
-    private static string MonthName(int month) => month switch
+    private async Task MarkNoShowAsync()
+    {
+        if (_detailBooking is null) return;
+        _isActing = true;
+        _actionError = null;
+        try
+        {
+            await MarkAsNoShow.ExecuteAsync(new MarkAsNoShowRequest(_detailBooking.Id));
+            UpdateLocalStatus(_detailBooking.Id, "NoShow");
+            CloseDetail();
+        }
+        catch (Exception ex) { _actionError = ex.Message; }
+        finally { _isActing = false; }
+    }
+
+    private async Task CancelAsync()
+    {
+        if (_detailBooking is null) return;
+        _isActing = true;
+        _actionError = null;
+        try
+        {
+            await CancelBooking.ExecuteAsync(new CancelBookingRequest(_detailBooking.Id));
+            UpdateLocalStatus(_detailBooking.Id, "Cancelled");
+            CloseDetail();
+        }
+        catch (Exception ex) { _actionError = ex.Message; }
+        finally { _isActing = false; }
+    }
+
+    private void UpdateLocalStatus(Guid id, string newStatus)
+    {
+        if (_bookings is null) return;
+        var idx = _bookings.FindIndex(b => b.Id == id);
+        if (idx >= 0)
+            _bookings[idx] = _bookings[idx] with { Status = newStatus };
+    }
+
+    private static string StatusLabel(string status, bool isPast) => status switch
+    {
+        "Completed" => "Afsluttet",
+        "Cancelled" => "Aflyst",
+        "NoShow" => "Udeblevet",
+        // Created: show "Afventer" for upcoming, "Ikke behandlet" for past
+        _ => isPast ? "Ikke behandlet" : "Aktiv"
+    };
+
+    private static string StatusCss(string status, bool isPast) => status switch
+    {
+        "Completed" => "status--done",
+        "Cancelled" => "status--cancelled",
+        "NoShow" => "status--noshow",
+        _ => isPast ? "status--pending" : "status--active"
+    };
+
+    private static string DiscountLabel(string discountType) => discountType switch
+    {
+        "Bronze" => "Bronze 5%",
+        "Silver" => "S\u00f8lv 10%",
+        "Gold" => "Guld 15%",
+        "BirthdayMonth" => "F\u00f8dselsdag 25%",
+        "Campaign" => "Kampagne",
+        _ => string.Empty
+    };
+
+    private static string FormatDayHeader(DateTime date)
+    {
+        var today = date.Date == DateTime.Today ? " \u2013 I DAG" : string.Empty;
+        return $"{DayName(date.DayOfWeek)} D. {date.Day}. {MonthName(date.Month).ToUpper()}{today}";
+    }
+
+    private static string FormatFullDate(DateTime dt) =>
+        $"{DayName(dt.DayOfWeek)} den {dt.Day}. {MonthName(dt.Month)} {dt.Year}";
+
+    private static string FormatDate(DateTime dt) =>
+        $"{dt.Day}. {MonthName(dt.Month)} {dt.Year}";
+
+    private static string DayName(DayOfWeek d) => d switch
+    {
+        DayOfWeek.Monday => "Mandag",
+        DayOfWeek.Tuesday => "Tirsdag",
+        DayOfWeek.Wednesday => "Onsdag",
+        DayOfWeek.Thursday => "Torsdag",
+        DayOfWeek.Friday => "Fredag",
+        DayOfWeek.Saturday => "L\u00f8rdag",
+        DayOfWeek.Sunday => "S\u00f8ndag",
+        _ => string.Empty
+    };
+
+    private static string MonthName(int m) => m switch
     {
         1 => "januar",
         2 => "februar",
@@ -161,104 +319,3 @@ else
         _ => string.Empty
     };
 }
-
-<style>
-    .bookings-heading {
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: #1a1a2e;
-        margin-bottom: 0.25rem;
-    }
-
-    .bookings-period {
-        font-size: 0.85rem;
-        color: #6b7280;
-        margin-bottom: 2rem;
-    }
-
-    /* ── Clinic section ── */
-    .clinic-section {
-        margin-bottom: 2.5rem;
-    }
-
-    .clinic-heading {
-        font-size: 1rem;
-        font-weight: 700;
-        color: #1e3a5f;
-        padding: 0.6rem 1rem;
-        background: #eff6ff;
-        border-left: 4px solid #2563eb;
-        border-radius: 6px;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .clinic-icon {
-        font-size: 1.1rem;
-    }
-
-    /* ── Day block ── */
-    .day-block {
-        margin-bottom: 1rem;
-    }
-
-    .day-header {
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: #9ca3af;
-        padding: 0.3rem 0;
-        margin-bottom: 0.4rem;
-        border-bottom: 1px solid #f0f1f5;
-    }
-
-    /* ── Booking rows ── */
-    .booking-row {
-        display: flex;
-        gap: 1.5rem;
-        align-items: center;
-        padding: 0.65rem 1rem;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        background: #f0f7ff;
-        border-left: 4px solid #2563eb;
-        color: #1e293b;
-        margin-bottom: 0.3rem;
-    }
-
-        .booking-row.booking-today {
-            background: #f0fdf4;
-            border-left-color: #16a34a;
-        }
-
-        .booking-row.booking-done {
-            background: #f5f5f5;
-            border-left-color: #cbd5e1;
-            color: #94a3b8;
-        }
-
-    .booking-time {
-        font-weight: 600;
-        min-width: 110px;
-        flex-shrink: 0;
-    }
-
-    .booking-customer {
-        min-width: 150px;
-        flex-shrink: 0;
-    }
-
-    .booking-treatment {
-        flex: 1;
-    }
-
-    .booking-status {
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        flex-shrink: 0;
-    }
-</style>

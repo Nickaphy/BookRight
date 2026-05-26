@@ -53,6 +53,8 @@ public class Customer : AggregateRoot
         //Not empty
         if (string.IsNullOrWhiteSpace(Email))
             throw new DomainException("Email cannot be empty.");
+        if (!Email.Contains('@'))
+            throw new DomainException("Email must contain @.");
 
         //Not empty
         if (string.IsNullOrWhiteSpace(PhoneNumber))
@@ -117,14 +119,14 @@ public class Customer : AggregateRoot
     string city,
     string zipcode)
     {
-        return new Customer(name, 
-                            phoneNumber, 
-                            email, 
+        return new Customer(name,
+                            phoneNumber,
+                            email,
                             loyaltyLevel,
-                            dateOfBirth, 
-                            note, 
-                            street, 
-                            city, 
+                            dateOfBirth,
+                            note,
+                            street,
+                            city,
                             zipcode);
     }
 

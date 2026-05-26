@@ -1,0 +1,159 @@
+﻿/* ── Page ── */
+.bookings-page {
+    padding-bottom: 3rem;
+}
+
+.bookings-heading {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.25rem;
+}
+
+.bookings-period {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+}
+
+.loading-text, .empty-text {
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* ── Clinic cards ── */
+.clinics-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.clinic-card {
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.clinic-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1e3a5f;
+    color: #fff;
+    padding: 0.9rem 1.25rem;
+}
+
+.clinic-card__name {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.clinic-card__count {
+    font-size: 0.78rem;
+    opacity: 0.75;
+}
+
+.clinic-card__body {
+    padding: 0.75rem 1.25rem 1.25rem;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ── Day sections ── */
+.day-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.day-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    color: #9ca3af;
+    padding: 0.4rem 0 0.2rem;
+    border-bottom: 1px solid #f0f1f5;
+    margin-bottom: 0.2rem;
+}
+
+/* ── Booking rows ── */
+.booking-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 7px;
+    background: #f8faff;
+    border-left: 3px solid #2563eb;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background 0.12s;
+}
+
+    .booking-row:hover {
+        background: #eef2ff;
+    }
+
+.booking-row--today {
+    background: #f0fdf4;
+    border-left-color: #16a34a;
+}
+
+    .booking-row--today:hover {
+        background: #dcfce7;
+    }
+
+.booking-row--done {
+    background: #f9fafb;
+    border-left-color: #d1d5db;
+    color: #9ca3af;
+}
+
+    .booking-row--done:hover {
+        background: #f3f4f6;
+    }
+
+.booking-row__time {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.booking-row__customer {
+    font-weight: 500;
+}
+
+.booking-row__treatment {
+    color: #6b7280;
+}
+
+.booking-row__status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.status--active {
+    color: #2563eb;
+}
+
+.status--done {
+    color: #9ca3af;
+}
+
+.status--cancelled {
+    color: #dc2626;
+}
+
+.status--noshow {
+    color: #c2410c;
+}
+
+.status--pending {
+    color: #d97706;
+}
