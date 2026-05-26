@@ -49,7 +49,6 @@ public class DiscountServiceTests
 
         // Act
         var result = await service.GetBestDiscountAsync(context);
-
         // Assert
 
         // Highest discount should win.
@@ -86,7 +85,6 @@ public class DiscountServiceTests
 
         // Act
         var result = await service.GetBestDiscountAsync(context);
-
         // Assert
         Assert.Equal(0m, result.BestDiscount);
 
@@ -104,8 +102,8 @@ public class DiscountServiceTests
             clinicId: Guid.NewGuid(),
             treatmentTypeId: Guid.NewGuid(),
             timeRange: new TimeRange(
-                DateTime.Today.AddHours(10),
-                DateTime.Today.AddHours(11)),
+                DateTime.Today.AddDays(1).AddHours(10),
+                DateTime.Today.AddDays(1).AddHours(11)),
             basePrice: new Money(1000m));
 
         var customer = Customer.Create(

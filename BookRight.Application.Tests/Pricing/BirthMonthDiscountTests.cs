@@ -103,8 +103,8 @@ public class BirthMonthDiscountTests
             clinicId: Guid.NewGuid(),
             treatmentTypeId: Guid.NewGuid(),
             timeRange: new TimeRange(
-                DateTime.Today.AddHours(10),
-                DateTime.Today.AddHours(11)),
+                DateTime.Today.AddDays(1).AddHours(10),
+                DateTime.Today.AddDays(1).AddHours(11)),
             basePrice: new Money(basePrice));
 
         var customer = Customer.Create(
