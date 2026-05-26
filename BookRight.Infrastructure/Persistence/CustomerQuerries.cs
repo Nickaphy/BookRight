@@ -81,5 +81,49 @@ namespace BookRight.Infrastructure.Persistence
                 return new CustomerDto(c.Id, c.Name, c.PhoneNumber, level, c.DateOfBirth);
             }).ToList();
         }
+
+        public async Task<CustomerDetailDto?> GetCustomerDetailAsync(
+            Guid customerId,
+            CancellationToken cancellationToken = default)
+        {
+            using var context = _factory.CreateDbContext();
+
+            var customer = await context.Customers
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == customerId, cancellationToken);
+
+            if (customer is null) return null;
+
+            var oneYearAgo = DateTime.UtcNow.AddYears(-1);
+
+            var totalSpent = await context.Bookings
+                .AsNoTracking()
+                .Where(b => b.CustomerId == customerId
+                         && b.CreatedDate >= oneYearAgo
+                         && (b.Status == BookingStatus.Completed
+                          || b.Status == BookingStatus.Created))
+                .SumAsync(b => (decimal?)b.FinalPrice.Amount ?? 0, cancellationToken);
+
+            var level = totalSpent switch
+            {
+                >= 10000m => CustomerLoyaltyLevel.Gold,
+                >= 5000m => CustomerLoyaltyLevel.Silver,
+                >= 1000m => CustomerLoyaltyLevel.Bronze,
+                _ => CustomerLoyaltyLevel.None
+            };
+
+            return new CustomerDetailDto(
+                customer.Id,
+                customer.Name,
+                customer.PhoneNumber,
+                customer.Email,
+                customer.DateOfBirth,
+                customer.Street,
+                customer.City,
+                customer.Zipcode,
+                customer.Note,
+                level,
+                totalSpent);
+        }
     }
 }

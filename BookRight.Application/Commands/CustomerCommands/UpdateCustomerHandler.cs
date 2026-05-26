@@ -26,6 +26,7 @@ namespace BookRight.Application.Commands.CustomerCommands
                 command.Name,
                 command.PhoneNumber,
                 command.Email,
+                command.Note,
                 command.Street,
                 command.City,
                 command.Zipcode,

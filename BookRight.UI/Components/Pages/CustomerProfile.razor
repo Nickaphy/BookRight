@@ -1,0 +1,501 @@
+﻿@page "/customers"
+@rendermode InteractiveServer
+@namespace BookRight.UI.Components.Pages
+
+@using BookRight.Facade.Commands.CustomerCommands
+@using BookRight.Facade.Dtos.CustomerDtos
+@using BookRight.Facade.Dtos.CustomerCommands
+@using BookRight.Facade.Dtos.BookingQuery
+@using BookRight.Facade.Queries.BookingQueries
+@using BookRight.Facade.Querries.CustomerQuerries
+
+@using BookRight.Facade.Dtos.BookingCommand
+@using BookRight.Facade.Commands.Booking
+
+@inject ICustomerQuerries CustomerQueries
+@inject IUpdateCustomer UpdateCustomer
+@inject IBookingQueries BookingQueries
+@inject ICompleteBookingUseCase CompleteBooking
+@inject IMarkAsNoShowUseCase MarkAsNoShow
+@inject ICancelBookingFacade CancelBooking
+
+<div class="profile-page">
+    <h1 class="profile-page__title">Kundeprofil</h1>
+
+    @* ── Search ── *@
+    @if (_detail is null)
+    {
+        <div class="search-card">
+            <label class="search-label">Søg på navn eller telefonnummer</label>
+            <div class="search-row">
+                <input class="search-input" type="text"
+                       placeholder="f.eks. Lars eller 20123456"
+                       value="@_searchTerm"
+                       @oninput="OnSearchInput"
+                       @onkeydown="HandleSearchKeyDown" />
+                <button class="btn-search" @onclick="SearchAsync">Søg</button>
+            </div>
+
+            @if (_searchResults.Any())
+            {
+                <ul class="search-results">
+                    @foreach (var c in _searchResults)
+                    {
+                        <li class="search-result" @onclick="() => SelectCustomerAsync(c.Id)">
+                            <span class="result-avatar">@Initials(c.Name)</span>
+                            <span class="result-info">
+                                <strong>@c.Name</strong>
+                                <small>@c.PhoneNumber</small>
+                            </span>
+                            @if (c.LoyaltyLevel != CustomerLoyaltyLevel.None)
+                            {
+                                <span class="loyalty-badge loyalty-badge--@c.LoyaltyLevel.ToString().ToLower()">@c.LoyaltyLevel</span>
+                            }
+                        </li>
+                    }
+                </ul>
+            }
+            else if (_searchDone)
+            {
+                <p class="no-results">Ingen kunder fundet.</p>
+            }
+        </div>
+    }
+    else
+    {
+        <button class="btn-back" @onclick="ClearCustomer">← Søg igen</button>
+
+        <div class="profile-grid">
+
+            @* ── Left column: info + edit ── *@
+            <div class="left-col">
+
+                @* Customer summary card *@
+                <div class="info-card">
+                    <div class="info-card__avatar">@Initials(_detail.Name)</div>
+                    <div class="info-card__details">
+                        <h2 class="info-card__name">@_detail.Name</h2>
+                        <p class="info-card__meta">@_detail.PhoneNumber · @_detail.Email</p>
+                        <p class="info-card__meta">Fødselsdag d. @_detail.DateOfBirth.Day. @MonthName(_detail.DateOfBirth.Month) @_detail.DateOfBirth.Year</p>
+                        <p class="info-card__meta">@_detail.Street, @_detail.Zipcode @_detail.City</p>
+                    </div>
+                    @if (_detail.LoyaltyLevel != CustomerLoyaltyLevel.None)
+                    {
+                        <span class="loyalty-badge loyalty-badge--@_detail.LoyaltyLevel.ToString().ToLower()">@_detail.LoyaltyLevel</span>
+                    }
+                </div>
+
+                @* Spending *@
+                <div class="spending-card">
+                    <div class="spending-card__label">Forbrug seneste 12 måneder</div>
+                    <div class="spending-card__amount">@_detail.TotalSpentLastYear.ToString("N0") DKK</div>
+                    <div class="spending-card__thresholds">
+                        Bronze ≥ 1.000 · Sølv ≥ 5.000 · Guld ≥ 10.000
+                    </div>
+                </div>
+
+                @* Edit form *@
+                @if (!string.IsNullOrWhiteSpace(_detail.Note))
+                {
+                    <div class="note-card">
+                        <div class="note-card__label">Note</div>
+                        <p class="note-card__text">@_detail.Note</p>
+                    </div>
+                }
+
+                <div class="edit-card">
+                    <h3 class="edit-card__title">Rediger oplysninger</h3>
+
+                    @if (_saveSuccess)
+                    {
+                        <p class="save-success">Ændringer gemt.</p>
+                    }
+                    @if (_saveError is not null)
+                    {
+                        <p class="save-error">@_saveError</p>
+                    }
+
+                    <div class="form-field">
+                        <label>Navn</label>
+                        <input type="text" @bind="_editName" />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Telefon</label>
+                            <input type="tel" @bind="_editPhone" />
+                        </div>
+                        <div class="form-field">
+                            <label>Email</label>
+                            <input type="email" @bind="_editEmail" />
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label>Fødselsdato</label>
+                        <input type="date" @bind="_editDob" />
+                    </div>
+                    <div class="form-field">
+                        <label>Vejnavn</label>
+                        <input type="text" @bind="_editStreet" />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field form-field--zip">
+                            <label>Postnummer</label>
+                            <input type="text" @bind="_editZip" maxlength="4" />
+                        </div>
+                        <div class="form-field">
+                            <label>By</label>
+                            <input type="text" @bind="_editCity" />
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label>Note</label>
+                        <textarea rows="3" @bind="_editNote"></textarea>
+                    </div>
+
+                    <button class="btn-save" @onclick="SaveAsync" disabled="@_isSaving">
+                        @(_isSaving ? "Gemmer..." : "Gem ændringer")
+                    </button>
+                </div>
+
+            </div>
+
+            @* ── Right column: bookings ── *@
+            <div class="right-col">
+
+                @* Upcoming bookings *@
+                <div class="bookings-card">
+                    <h3 class="bookings-card__title">Kommende aftaler</h3>
+                    @if (_upcoming.Count == 0)
+                    {
+                        <p class="no-bookings">Ingen kommende aftaler.</p>
+                    }
+                    else
+                    {
+                        @foreach (var b in _upcoming)
+                        {
+                            <div class="booking-item booking-item--upcoming" @onclick="() => OpenDetail(b)" style="cursor:pointer">
+                                <div class="booking-item__date">@FormatDate(b.StartTime)</div>
+                                <div class="booking-item__time">@b.StartTime.ToString("HH:mm") – @b.EndTime.ToString("HH:mm")</div>
+                                <div class="booking-item__treatment">@b.TreatmentName</div>
+                                <div class="booking-item__meta">@b.PractitionerName · @b.ClinicName</div>
+                                <div class="booking-item__price">@b.FinalPrice.ToString("N0") DKK</div>
+                                <div class="booking-item__status status--active">@StatusLabel(b.Status)</div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                @* Past bookings *@
+                <div class="bookings-card">
+                    <h3 class="bookings-card__title">Tidligere aftaler</h3>
+                    @if (_past.Count == 0)
+                    {
+                        <p class="no-bookings">Ingen tidligere aftaler.</p>
+                    }
+                    else
+                    {
+                        @foreach (var b in _past.OrderByDescending(b => b.StartTime))
+                        {
+                            <div class="booking-item booking-item--past" @onclick="() => OpenDetail(b)" style="cursor:pointer">
+                                <div class="booking-item__date">@FormatDate(b.StartTime)</div>
+                                <div class="booking-item__time">@b.StartTime.ToString("HH:mm") – @b.EndTime.ToString("HH:mm")</div>
+                                <div class="booking-item__treatment">@b.TreatmentName</div>
+                                <div class="booking-item__meta">@b.PractitionerName · @b.ClinicName</div>
+                                <div class="booking-item__price">@b.FinalPrice.ToString("N0") DKK</div>
+                                <div class="booking-item__status status--done">@StatusLabel(b.Status)</div>
+                            </div>
+                        }
+                    }
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+@* ── Booking detail popup ── *@
+@if (_popupBooking is not null)
+{
+    <div class="br-overlay" @onclick="CloseDetail">
+        <div class="br-popup" @onclick:stopPropagation="true">
+
+            <div class="br-popup__header">
+                <h2 class="br-popup__title">Bookingdetaljer</h2>
+                <button class="br-popup__close" @onclick="CloseDetail">&#x2715;</button>
+            </div>
+
+            <div class="br-popup__body">
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Behandling</span>
+                    <span class="br-detail-row__value">@_popupBooking.TreatmentName</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Terapeut</span>
+                    <span class="br-detail-row__value">@_popupBooking.PractitionerName</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Klinik</span>
+                    <span class="br-detail-row__value">@_popupBooking.ClinicName</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Dato</span>
+                    <span class="br-detail-row__value">@FormatDate(_popupBooking.StartTime)</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Tidspunkt</span>
+                    <span class="br-detail-row__value">@_popupBooking.StartTime.ToString("HH:mm") – @_popupBooking.EndTime.ToString("HH:mm")</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Pris</span>
+                    <span class="br-detail-row__value">@_popupBooking.FinalPrice.ToString("N0") DKK</span>
+                </div>
+                <div class="br-detail-row">
+                    <span class="br-detail-row__label">Status</span>
+                    <span class="br-detail-row__value">@StatusLabel(_popupBooking.Status)</span>
+                </div>
+            </div>
+
+            @* Same button logic as Bookinger page *@
+            @if (_popupBooking.Status == "Created" && _popupBooking.StartTime < DateTime.Now)
+            {
+                <div class="br-popup__actions">
+                    <button class="br-btn-complete" @onclick="PopupCompleteAsync" disabled="@_popupActing">Afslut booking</button>
+                    <button class="br-btn-noshow" @onclick="PopupNoShowAsync" disabled="@_popupActing">Udeblevet</button>
+                </div>
+            }
+            @if (_popupBooking.Status == "Created" && _popupBooking.StartTime >= DateTime.Now)
+            {
+                <div class="br-popup__actions">
+                    <button class="br-btn-cancel" @onclick="PopupCancelAsync" disabled="@_popupActing">Aflys booking</button>
+                </div>
+            }
+            @if (_popupBooking.Status == "Completed")
+            {
+                <div class="br-popup__actions">
+                    <button class="br-btn-noshow" @onclick="PopupNoShowAsync" disabled="@_popupActing">Ret til udeblevet</button>
+                </div>
+            }
+
+            @if (_popupError is not null)
+            {
+                <p class="br-action-error">@_popupError</p>
+            }
+
+            <div class="br-popup__footer">
+                <button class="br-btn-close" @onclick="CloseDetail">Luk</button>
+            </div>
+
+        </div>
+    </div>
+}
+
+@code {
+    // ── Booking popup ──
+    private BookingDto? _popupBooking;
+    private bool _popupActing;
+    private string? _popupError;
+
+    // ── Search ──
+    private string _searchTerm = string.Empty;
+    private IReadOnlyList<CustomerDto> _searchResults = [];
+    private bool _searchDone;
+
+    // ── Selected customer ──
+    private CustomerDetailDto? _detail;
+    private List<BookingDto> _upcoming = new();
+    private List<BookingDto> _past = new();
+
+    // ── Edit form ──
+    private string _editName = string.Empty;
+    private string _editPhone = string.Empty;
+    private string _editEmail = string.Empty;
+    private DateTime _editDob = DateTime.Today;
+    private string? _editStreet;
+    private string _editZip = string.Empty;
+    private string _editCity = string.Empty;
+    private string? _editNote;
+
+    private bool _isSaving = false;
+    private bool _saveSuccess = false;
+    private string? _saveError;
+
+    private async Task HandleSearchKeyDown(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter") await SearchAsync();
+    }
+
+    private async Task OnSearchInput(ChangeEventArgs e)
+    {
+        _searchTerm = e.Value?.ToString() ?? string.Empty;
+        if (_searchTerm.Length >= 2)
+            await SearchAsync();
+        else
+            _searchResults = [];
+    }
+
+    private async Task SearchAsync()
+    {
+        if (string.IsNullOrWhiteSpace(_searchTerm)) return;
+        _searchResults = await CustomerQueries.SearchCustomersAsync(_searchTerm.Trim());
+        _searchDone = true;
+    }
+
+    private async Task SelectCustomerAsync(Guid id)
+    {
+        _detail = await CustomerQueries.GetCustomerDetailAsync(id);
+        if (_detail is null) return;
+
+        // Populate edit form
+        _editName = _detail.Name;
+        _editPhone = _detail.PhoneNumber;
+        _editEmail = _detail.Email;
+        _editDob = _detail.DateOfBirth;
+        _editStreet = _detail.Street;
+        _editZip = _detail.Zipcode;
+        _editCity = _detail.City;
+        _editNote = _detail.Note;
+
+        // Load all bookings for this customer
+        var from = DateTime.Today.AddYears(-5);
+        var to = DateTime.Today.AddDays(365);
+        var all = (await BookingQueries.GetBookingsForPeriodAsync(from, to))
+                   .Where(b => b.CustomerName == _detail.Name)
+                   .ToList();
+
+        _upcoming = all.Where(b => b.StartTime >= DateTime.Now).OrderBy(b => b.StartTime).ToList();
+        _past = all.Where(b => b.StartTime < DateTime.Now).ToList();
+
+        _saveSuccess = false;
+        _saveError = null;
+        _searchResults = [];
+        _searchDone = false;
+    }
+
+    private void ClearCustomer()
+    {
+        _detail = null;
+        _searchTerm = string.Empty;
+        _searchDone = false;
+        _upcoming = new();
+        _past = new();
+    }
+
+    private async Task SaveAsync()
+    {
+        if (_detail is null) return;
+        _isSaving = true;
+        _saveError = null;
+        _saveSuccess = false;
+
+        try
+        {
+            await UpdateCustomer.HandleAsync(new UpdateCustomerRequest(
+                Id: _detail.Id,
+                Name: _editName.Trim(),
+                PhoneNumber: _editPhone.Trim(),
+                Email: _editEmail.Trim(),
+                LoyaltyLevel: 0,
+                DateOfBirth: _editDob,
+                Note: _editNote ?? string.Empty,
+                Street: _editStreet ?? string.Empty,
+                City: _editCity.Trim(),
+                Zipcode: _editZip.Trim()));
+
+            // Refresh detail
+            _detail = await CustomerQueries.GetCustomerDetailAsync(_detail.Id);
+            _saveSuccess = true;
+        }
+        catch (Exception ex)
+        {
+            _saveError = ex.Message;
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private static string Initials(string name)
+    {
+        var parts = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return parts.Length >= 2 ? $"{parts[0][0]}{parts[^1][0]}".ToUpper() : name[..1].ToUpper();
+    }
+
+    private static string FormatDate(DateTime dt) =>
+        $"{DayName(dt.DayOfWeek)} d. {dt.Day}. {MonthName(dt.Month)} {dt.Year}";
+
+    private static string StatusLabel(string s) => s switch
+    {
+        "Completed" => "Afsluttet",
+        "Cancelled" => "Aflyst",
+        "NoShow" => "Udeblevet",
+        _ => "Aktiv"
+    };
+
+    private static string DayName(DayOfWeek d) => d switch
+    {
+        DayOfWeek.Monday => "Mandag",
+        DayOfWeek.Tuesday => "Tirsdag",
+        DayOfWeek.Wednesday => "Onsdag",
+        DayOfWeek.Thursday => "Torsdag",
+        DayOfWeek.Friday => "Fredag",
+        DayOfWeek.Saturday => "Lørdag",
+        DayOfWeek.Sunday => "Søndag",
+        _ => string.Empty
+    };
+
+    private void OpenDetail(BookingDto b) { _popupBooking = b; _popupError = null; }
+    private void CloseDetail() { _popupBooking = null; _popupError = null; }
+
+    private async Task PopupCompleteAsync() => await RunPopupAction(
+        async () => await CompleteBooking.ExecuteAsync(new CompleteBookingRequest(_popupBooking!.Id)),
+        "Completed");
+
+    private async Task PopupNoShowAsync() => await RunPopupAction(
+        async () => await MarkAsNoShow.ExecuteAsync(new MarkAsNoShowRequest(_popupBooking!.Id)),
+        "NoShow");
+
+    private async Task PopupCancelAsync() => await RunPopupAction(
+        async () => await CancelBooking.ExecuteAsync(new CancelBookingRequest(_popupBooking!.Id)),
+        "Cancelled");
+
+    private async Task RunPopupAction(Func<Task> action, string newStatus)
+    {
+        _popupActing = true;
+        _popupError = null;
+        try
+        {
+            await action();
+            // Update the local lists so the UI reflects the change immediately
+            UpdateBookingStatus(_popupBooking!.Id, newStatus);
+            CloseDetail();
+        }
+        catch (Exception ex) { _popupError = ex.Message; }
+        finally { _popupActing = false; }
+    }
+
+    private void UpdateBookingStatus(Guid id, string newStatus)
+    {
+        var idx = _upcoming.FindIndex(b => b.Id == id);
+        if (idx >= 0) { _upcoming[idx] = _upcoming[idx] with { Status = newStatus }; return; }
+        idx = _past.FindIndex(b => b.Id == id);
+        if (idx >= 0) _past[idx] = _past[idx] with { Status = newStatus };
+    }
+
+    private static string MonthName(int m) => m switch
+    {
+        1 => "januar",
+        2 => "februar",
+        3 => "marts",
+        4 => "april",
+        5 => "maj",
+        6 => "juni",
+        7 => "juli",
+        8 => "august",
+        9 => "september",
+        10 => "oktober",
+        11 => "november",
+        12 => "december",
+        _ => string.Empty
+    };
+}
