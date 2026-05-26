@@ -8,4 +8,7 @@ public record BookingDto(
     DateTime EndTime,
     string Status,
     Guid ClinicId,
-    string ClinicName);
+    string ClinicName,
+    string PractitionerName,
+    decimal FinalPrice,
+    string DiscountType);
