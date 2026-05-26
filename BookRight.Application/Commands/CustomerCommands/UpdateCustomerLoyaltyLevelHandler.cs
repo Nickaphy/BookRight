@@ -28,6 +28,10 @@ namespace BookRight.Application.Commands.CustomerCommands
             var customer = await _customerRepository
                 .GetCustomerByIdAsync(domainEvent.CustomerId, cancellationToken);
 
+            if (customer is null)
+                throw new InvalidOperationException(
+                    $"Customer with ID {domainEvent.CustomerId} was not found.");
+
             customer.UpdateLoyaltyLevel(totalSpent);
 
             await _customerRepository.UpdateCustomerAsync(customer, cancellationToken);  

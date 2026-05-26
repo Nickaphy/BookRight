@@ -14,7 +14,7 @@ namespace BookRight.Application.UseCases.ClinicUseCases
     public class UpdateClinicHandler : IUpdateClinic
     {
 
-        public readonly IClinicRepository _clinicRepository;
+        private readonly IClinicRepository _clinicRepository;
 
         public UpdateClinicHandler(IClinicRepository clinicRepository)
         {
