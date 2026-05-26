@@ -127,7 +127,7 @@ public class BookingConflictCheckerTests
     private static TimeRange CreateTimeRange()
     {
         return new TimeRange(
-            DateTime.Today.AddHours(10),
-            DateTime.Today.AddHours(11));
+            DateTime.Today.AddDays(1).AddHours(10),
+            DateTime.Today.AddDays(1).AddHours(11));
     }
 }
