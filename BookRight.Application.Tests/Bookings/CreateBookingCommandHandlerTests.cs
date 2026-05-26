@@ -491,7 +491,9 @@ public class CreateBookingCommandHandlerTests
         var discountService = new Mock<IDiscountService>();
         var priceCalculator = new Mock<IPriceCalculator>();
 
-        var startTime = new DateTime(2026, 5, 20, 10, 0, 0);
+        var startTime = DateTime.Today.AddYears(1).AddMonths(5 - DateTime.Today.Month);
+
+        startTime = new DateTime(startTime.Year,5,20,10,0,0);
 
         var request = new CreateBookingRequest(
             CustomerId: Guid.NewGuid(),
