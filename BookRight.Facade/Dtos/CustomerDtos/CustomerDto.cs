@@ -6,8 +6,8 @@ namespace BookRight.Facade.Dtos.CustomerDtos
 {
     public record CustomerDto(
         Guid Id,
-    string Name,
-    string PhoneNumber,
-    CustomerLoyaltyLevel LoyaltyLevel);
-
+        string Name,
+        string PhoneNumber,
+        CustomerLoyaltyLevel LoyaltyLevel,
+        DateTime DateOfBirth);
 }
