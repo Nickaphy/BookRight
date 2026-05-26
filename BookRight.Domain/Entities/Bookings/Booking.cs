@@ -114,8 +114,6 @@ public class Booking : AggregateRoot
         Status = BookingStatus.Cancelled;
     }
 
-    //Lucas har rettet.
-    //Erik har rettet.
     public void SetFinalPrice(Money finalPrice, DiscountType discountType)
     {
         if (finalPrice is null)
@@ -166,7 +164,9 @@ public class Booking : AggregateRoot
 
         Status = BookingStatus.Completed;
 
-        // Fyrer en event
+        if (FinalPrice is null)
+            throw new DomainException("Cannot complete a booking before a final price has been set.");
+
         AddDomainEvent(new BookingCompletedEvent(CustomerId, FinalPrice.Amount));
     }
 
