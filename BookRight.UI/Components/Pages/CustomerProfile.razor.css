@@ -1,0 +1,482 @@
+﻿.profile-page {
+    max-width: 1200px;
+    padding-bottom: 3rem;
+}
+
+.profile-page__title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Search ── */
+.search-card {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 520px;
+}
+
+.search-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.search-row {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.search-input {
+    flex: 1;
+    height: 44px;
+    padding: 0 1rem;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+    .search-input:focus {
+        border-color: #3b5bdb;
+        box-shadow: 0 0 0 3px rgba(59,91,219,0.1);
+    }
+
+.btn-search {
+    height: 44px;
+    padding: 0 1.25rem;
+    background: #3b5bdb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .btn-search:hover {
+        background: #2f4cc0;
+    }
+
+.search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.7rem 0.875rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: border-color 0.12s, background 0.12s;
+}
+
+    .search-result:hover {
+        background: #eef2ff;
+        border-color: #c7d2fe;
+    }
+
+.result-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #3b5bdb;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.result-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+    .result-info strong {
+        font-size: 0.9rem;
+        color: #1a1a2e;
+    }
+
+    .result-info small {
+        font-size: 0.78rem;
+        color: #6b7280;
+    }
+
+.no-results {
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 0.875rem;
+    margin-top: 0.75rem;
+}
+
+/* ── Loyalty badges ── */
+.loyalty-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.loyalty-badge--bronze {
+    background: #fef3e2;
+    color: #b45309;
+    border: 1px solid #f4c06a;
+}
+
+.loyalty-badge--silver {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+.loyalty-badge--gold {
+    background: #fefce8;
+    color: #854d0e;
+    border: 1px solid #fbbf24;
+}
+
+/* ── Back button ── */
+.btn-back {
+    background: none;
+    border: none;
+    color: #3b5bdb;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 1.25rem;
+}
+
+    .btn-back:hover {
+        text-decoration: underline;
+    }
+
+/* ── Profile grid ── */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.left-col, .right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ── Info card ── */
+.info-card {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.info-card__avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #3b5bdb;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.info-card__details {
+    flex: 1;
+}
+
+.info-card__name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 0.25rem;
+}
+
+.info-card__meta {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin: 0.1rem 0;
+}
+
+/* ── Spending card ── */
+.spending-card {
+    background: #eff6ff;
+    border: 1.5px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.spending-card__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #6b7280;
+    margin-bottom: 0.4rem;
+}
+
+.spending-card__amount {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.spending-card__thresholds {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.4rem;
+}
+
+/* ── Edit card ── */
+.edit-card {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.edit-card__title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #6b7280;
+    margin: 0 0 1rem;
+}
+
+.save-success {
+    color: #16a34a;
+    font-size: 0.85rem;
+    margin: 0 0 0.75rem;
+}
+
+.save-error {
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin: 0 0 0.75rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: 0.875rem;
+}
+
+    .form-field label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #374151;
+    }
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+}
+
+.form-field--zip {
+    max-width: 120px;
+}
+
+.form-field input, .form-field textarea {
+    height: 40px;
+    padding: 0 0.875rem;
+    border: 1.5px solid #d1d5db;
+    border-radius: 7px;
+    font-size: 0.875rem;
+    color: #1a1a2e;
+    outline: none;
+    transition: border-color 0.15s;
+    font-family: inherit;
+}
+
+.form-field textarea {
+    height: auto;
+    padding: 0.6rem 0.875rem;
+    resize: vertical;
+}
+
+    .form-field input:focus, .form-field textarea:focus {
+        border-color: #3b5bdb;
+        box-shadow: 0 0 0 3px rgba(59,91,219,0.1);
+    }
+
+.btn-save {
+    height: 42px;
+    padding: 0 1.5rem;
+    background: #3b5bdb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    width: 100%;
+    margin-top: 0.25rem;
+}
+
+    .btn-save:hover:not(:disabled) {
+        background: #2f4cc0;
+    }
+
+    .btn-save:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+/* ── Booking cards ── */
+.bookings-card {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.bookings-card__title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #fff;
+    background: #1e3a5f;
+    padding: 0.8rem 1.25rem;
+    margin: 0;
+}
+
+.no-bookings {
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 0.875rem;
+    padding: 1rem 1.25rem;
+}
+
+.booking-item {
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid #f0f1f5;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    gap: 0.1rem 1rem;
+}
+
+    .booking-item:last-child {
+        border-bottom: none;
+    }
+
+.booking-item--upcoming {
+    border-left: 3px solid #2563eb;
+}
+
+.booking-item--past {
+    border-left: 3px solid #d1d5db;
+}
+
+.booking-item__date {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #9ca3af;
+    grid-column: 1;
+}
+
+.booking-item__time {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #1a1a2e;
+    grid-column: 1;
+}
+
+.booking-item__treatment {
+    font-size: 0.875rem;
+    color: #374151;
+    grid-column: 1;
+}
+
+.booking-item__meta {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    grid-column: 1;
+}
+
+.booking-item__price {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #3b5bdb;
+    grid-column: 2;
+    grid-row: 1 / 5;
+    align-self: center;
+    white-space: nowrap;
+}
+
+.booking-item--past .booking-item__price {
+    color: #9ca3af;
+}
+
+.booking-item__status {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    grid-column: 2;
+    white-space: nowrap;
+}
+
+/* ── Note card ── */
+.note-card {
+    background: #fffbeb;
+    border: 1.5px solid #fde68a;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+}
+
+.note-card__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #92400e;
+    margin-bottom: 0.4rem;
+}
+
+.note-card__text {
+    font-size: 0.875rem;
+    color: #374151;
+    margin: 0;
+    white-space: pre-wrap;
+}

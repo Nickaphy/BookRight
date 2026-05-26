@@ -81,9 +81,10 @@ public class Customer : AggregateRoot
             throw new DomainException("Street cannot be empty.");
     }
     public void Update(string name, string phoneNumber, string email,
-                   string? street, string city, string zipcode,
+                   string? note, string? street, string city, string zipcode,
                    DateTime dateOfBirth)
     {
+        Note = note;
         Name = name;
         PhoneNumber = phoneNumber;
         Email = email;
