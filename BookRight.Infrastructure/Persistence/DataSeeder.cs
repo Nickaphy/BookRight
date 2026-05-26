@@ -266,7 +266,7 @@ namespace BookRight.Infrastructure.Persistence
                         var practitioner = practitioners[rng.Next(practitioners.Count)];
                         var clinic = clinics[rng.Next(clinics.Count)];
 
-                        var start = now.AddDays(-rng.Next(1, 365)).Date
+                        var start = now.AddDays(rng.Next(1, 365)).Date
                                        .AddHours(rng.Next(8, 16));
                         var end = start.AddMinutes(treatment.DurationMinutes);
 
