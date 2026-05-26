@@ -59,13 +59,15 @@ public class AppDbContext : DbContext
             });
         });
 
-        modelBuilder.Entity<TreatmentType>()
-                .OwnsOne(t => t.BasePrice, money =>
-                {
-                    money.Property(m => m.Amount).HasColumnName("BasePrice");
-                });
+            modelBuilder.Entity<TreatmentType>()
+            .OwnsOne(t => t.BasePrice, money =>
+            {
+                money.Property(m => m.Amount)
+            .HasColumnName("BasePrice")
+            .HasColumnType("decimal(18,2)");
+            });
 
-        modelBuilder.Entity<Clinic>()
+            modelBuilder.Entity<Clinic>()
             .OwnsMany(c => c.OpeningHours, oh =>
             {
                 oh.WithOwner().HasForeignKey("ClinicId");
