@@ -1,0 +1,100 @@
+﻿@page "/customers/create"
+@rendermode InteractiveServer
+@namespace BookRight.UI.Components.Pages.CreateCustomers
+
+<div class="create-customer-page">
+    <h1 class="page-title">Opret ny kunde</h1>
+
+    @if (_saved)
+    {
+        <div class="success-box">
+            <strong>Kunden er oprettet!</strong>
+            <p>@_savedName er nu registreret i systemet.</p>
+            <div class="success-actions">
+                <button class="btn-primary" @onclick="ResetForm">Opret endnu en kunde</button>
+                <button class="btn-secondary" @onclick='() => Navigation.NavigateTo("/create-booking")'>Gå til Ny Booking</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-card">
+
+            @if (_errorMessage is not null)
+            {
+                <div class="error-banner">@_errorMessage</div>
+            }
+
+            @* ── Navn & kontakt ── *@
+            <fieldset>
+                <legend>Personoplysninger</legend>
+
+                <div class="field">
+                    <label for="name">Fulde navn <span class="required">*</span></label>
+                    <input id="name" type="text" @bind="_name" placeholder="f.eks. Lars Nielsen" />
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="phone">Telefonnummer <span class="required">*</span></label>
+                        <input id="phone" type="tel" @bind="_phoneNumber" placeholder="f.eks. 20123456" />
+                        <span class="hint">8–11 cifre, kun tal</span>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input id="email" type="email" @bind="_email" placeholder="f.eks. lars@mail.dk" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="dob">Fødselsdato <span class="required">*</span></label>
+                    <input id="dob" type="date" @bind="_dateOfBirth" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                </div>
+            </fieldset>
+
+            @* ── Adresse ── *@
+            <fieldset>
+                <legend>Adresse</legend>
+
+                <div class="field">
+                    <label for="street">Vejnavn</label>
+                    <input id="street" type="text" @bind="_street" placeholder="f.eks. Østergade 12" />
+                </div>
+
+                <div class="field-row">
+                    <div class="field field--zip">
+                        <label for="zip">Postnummer <span class="required">*</span></label>
+                        <input id="zip" type="text" @bind="_zipcode" placeholder="f.eks. 7100" maxlength="4" />
+                    </div>
+                    <div class="field">
+                        <label for="city">By <span class="required">*</span></label>
+                        <input id="city" type="text" @bind="_city" placeholder="f.eks. Vejle" />
+                    </div>
+                </div>
+            </fieldset>
+
+            @* ── Note ── *@
+            <fieldset>
+                <legend>Note</legend>
+                <div class="field">
+                    <label for="note">Intern note (valgfri)</label>
+                    <textarea id="note" rows="3" @bind="_note" placeholder="f.eks. allergier, præferencer…"></textarea>
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <button class="btn-primary"
+                        @onclick="SubmitAsync"
+                        disabled="@_isSubmitting">
+                    @(_isSubmitting ? "Gemmer..." : "Opret kunde")
+                </button>
+                <button class="btn-secondary"
+                        @onclick='() => Navigation.NavigateTo("/create-booking")'
+                        disabled="@_isSubmitting">
+                    Annuller
+                </button>
+            </div>
+
+        </div>
+    }
+</div>
