@@ -23,7 +23,7 @@ namespace BookRight.Application.Commands.CustomerCommands
                 name: command.Name,
                 phoneNumber: command.PhoneNumber,
                 email: command.Email,
-                loyaltyLevel: (LoyaltyLevel)command.LoyaltyLevel,  
+                loyaltyLevel: (LoyaltyLevel)command.LoyaltyLevel,
                 dateOfBirth: command.DateOfBirth,
                 note: command.Note,
                 street: command.Street,
@@ -31,6 +31,7 @@ namespace BookRight.Application.Commands.CustomerCommands
                 zipcode: command.Zipcode);
 
             await _customerRepository.AddCustomerAsync(customer, cancellationToken);
+            await _customerRepository.SaveAsync(cancellationToken);
         }
     }
 }

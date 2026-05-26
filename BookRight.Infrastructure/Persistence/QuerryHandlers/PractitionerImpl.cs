@@ -112,9 +112,18 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                 var slotStart = clinicDay.Date.Date + openingHour.OpeningTime.ToTimeSpan();
                 var closingTime = clinicDay.Date.Date + openingHour.ClosingTime.ToTimeSpan();
 
+                var now = DateTime.Now;
+
                 while (slotStart.AddMinutes(durationMinutes) <= closingTime)
                 {
                     var slotEnd = slotStart.AddMinutes(durationMinutes);
+
+                    // Skip slots that are already in the past.
+                    if (slotStart < now)
+                    {
+                        slotStart = slotStart.AddMinutes(durationMinutes);
+                        continue;
+                    }
 
                     var isBooked = bookings.Any(b =>
                         b.TimeRange.Start < slotEnd &&
