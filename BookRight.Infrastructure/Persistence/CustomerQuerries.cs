@@ -24,7 +24,7 @@ namespace BookRight.Infrastructure.Persistence
                 .ToListAsync(cancellationToken);
 
             return customers
-                .Select(c => new CustomerDto(c.Id, c.Name, c.PhoneNumber, CustomerLoyaltyLevel.None))
+                .Select(c => new CustomerDto(c.Id, c.Name, c.PhoneNumber, CustomerLoyaltyLevel.None, c.DateOfBirth))
                 .ToList();
         }
 
@@ -78,7 +78,7 @@ namespace BookRight.Infrastructure.Persistence
                     _ => CustomerLoyaltyLevel.None
                 };
 
-                return new CustomerDto(c.Id, c.Name, c.PhoneNumber, level);
+                return new CustomerDto(c.Id, c.Name, c.PhoneNumber, level, c.DateOfBirth);
             }).ToList();
         }
     }

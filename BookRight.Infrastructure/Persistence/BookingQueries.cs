@@ -30,17 +30,17 @@ public class BookingQueries : IBookingQueries
             .AsNoTracking()
             .Where(b => b.TimeRange.Start >= from && b.TimeRange.Start < to)
             .Join(context.Customers,
-                b => b.CustomerId,
-                c => c.Id,
+                b => b.CustomerId, c => c.Id,
                 (b, c) => new { Booking = b, CustomerName = c.Name })
             .Join(context.Treatments,
-                x => x.Booking.TreatmentTypeId,
-                t => t.Id,
+                x => x.Booking.TreatmentTypeId, t => t.Id,
                 (x, t) => new { x.Booking, x.CustomerName, TreatmentName = t.Name })
             .Join(context.Clinics,
-                x => x.Booking.ClinicId,
-                cl => cl.Id,
-                (x, cl) => new
+                x => x.Booking.ClinicId, cl => cl.Id,
+                (x, cl) => new { x.Booking, x.CustomerName, x.TreatmentName, ClinicId = cl.Id, ClinicName = cl.Name })
+            .Join(context.Practitioners,
+                x => x.Booking.PractitionerId, p => p.Id,
+                (x, p) => new
                 {
                     x.Booking.Id,
                     x.CustomerName,
@@ -48,8 +48,11 @@ public class BookingQueries : IBookingQueries
                     x.Booking.TimeRange.Start,
                     x.Booking.TimeRange.End,
                     x.Booking.Status,
-                    ClinicId = cl.Id,
-                    ClinicName = cl.Name
+                    x.ClinicId,
+                    x.ClinicName,
+                    PractitionerName = p.Name,
+                    x.Booking.FinalPrice,
+                    x.Booking.DiscountType
                 })
             .ToListAsync(cancellationToken);
 
@@ -63,7 +66,10 @@ public class BookingQueries : IBookingQueries
                 r.End,
                 r.Status.ToString(),
                 r.ClinicId,
-                r.ClinicName))
+                r.ClinicName,
+                r.PractitionerName,
+                r.FinalPrice.Amount,
+                r.DiscountType.ToString()))
             .ToList();
     }
 }

@@ -47,6 +47,7 @@ namespace BookRight.Application.DependencyInjection
             // ─── Booking ─────────────────────────────────────────────────────
             services.AddScoped<ICreateBookingUseCase, CreateBookingCommandHandler>();
             services.AddScoped<ICancelBookingFacade, CancelBookingCommandHandler>();
+            services.AddScoped<IMarkAsNoShowUseCase, MarkAsNoShowCommandHandler>();
             services.AddScoped<ICompleteBookingUseCase, CompleteBookingCommandHandler>();
             services.AddScoped<IMarkAsNoShowUseCase, MarkAsNoShowCommandHandler>();
 

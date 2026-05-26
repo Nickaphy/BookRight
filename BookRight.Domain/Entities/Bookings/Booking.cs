@@ -33,7 +33,7 @@ public class Booking : AggregateRoot
 {
     public Money BasePrice { get; private set; }
     public Money FinalPrice { get; private set; }
-    
+
     // Stores which discount type won
     // during booking price calculation.
     public DiscountType DiscountType { get; private set; }
@@ -70,6 +70,8 @@ public class Booking : AggregateRoot
 
         if (amountParticipants < 1)
             throw new ArgumentException("Amount of participants must be at least 1.", nameof(amountParticipants));
+        if (timeRange.Start < DateTime.Now)
+            throw new DomainException("A booking cannot be placed in the past.");
 
         CustomerId = customerId;
         PractitionerId = practitionerId;
@@ -79,7 +81,7 @@ public class Booking : AggregateRoot
         IsTeam = isTeam;
         AmountParticipants = amountParticipants;
         BasePrice = basePrice;
-        
+
 
         Status = BookingStatus.Created;
         CreatedDate = DateTime.UtcNow;
