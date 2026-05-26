@@ -119,13 +119,19 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase
         // Create aggregate
         // ====================
 
+        // Create a fresh Money instance rather than passing treatmentType.BasePrice
+        // directly. EF Core tracks owned entities by instance — reusing the same
+        // Money object that belongs to TreatmentType causes an owned-entity key
+        // conflict when SaveChanges tries to associate it with Booking.BasePrice.
+        var basePrice = new Money(treatmentType.BasePrice.Amount);
+
         var booking = Booking.Create(
             request.CustomerId,
             request.PractitionerId,
             request.ClinicId,
             request.TreatmentTypeId,
             timeRange,
-            treatmentType.BasePrice);
+            basePrice);
 
         // ====================
         // Build pricing context

@@ -32,6 +32,7 @@
                             <span class="customer-info">
                                 <strong>@customer.Name</strong>
                                 <small>📞 @customer.PhoneNumber</small>
+                                <small>@BirthdayDisplay(customer.DateOfBirth)</small>
                             </span>
                             <span class="badge" style="@GetLoyaltyStyle(customer.LoyaltyLevel)">
                                 @customer.LoyaltyLevel
@@ -49,6 +50,7 @@
             <span class="customer-info">
                 <strong>@_selectedCustomer.Name</strong>
                 <small>📞 @_selectedCustomer.PhoneNumber</small>
+                <small>@BirthdayDisplay(_selectedCustomer.DateOfBirth)</small>
             </span>
             <span class="badge" style="@GetLoyaltyStyle(_selectedCustomer.LoyaltyLevel)">
                 @_selectedCustomer.LoyaltyLevel
