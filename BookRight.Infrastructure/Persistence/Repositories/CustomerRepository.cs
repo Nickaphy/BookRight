@@ -1,5 +1,4 @@
-
-using BookRight.Application.Repositories;
+ï»¿using BookRight.Application.Repositories;
 using BookRight.Domain.Entities.Customers;
 using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -36,12 +35,12 @@ public class CustomerRepository : ICustomerRepository                           
     {
         await _context.SaveChangesAsync(cancellationToken);
     }
-     
+
     public async Task<bool> GetCustomerByPhoneNumberAsync(                        //UDKOMMENTERET LUCAS d. 17.5 FEJL
         string phoneNumber,
         CancellationToken cancellationToken = default)
     {
-        // AnyAsync generates a SQL EXISTS query — far more efficient than loading
+        // AnyAsync generates a SQL EXISTS query ï¿½ far more efficient than loading
         // the full Customer row just to check presence.
         // SQL: SELECT CASE WHEN EXISTS (SELECT 1 FROM Customers WHERE ...) THEN 1 ELSE 0 END
 
@@ -65,7 +64,7 @@ public class CustomerRepository : ICustomerRepository                           
     public async Task UpdateCustomerAsync(Customer customer, CancellationToken cancellationToken = default)
     {
         _context.Customers.Update(customer);
-        
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task DeleteCustomerAsync(Guid id, CancellationToken cancellationToken = default)
@@ -73,7 +72,7 @@ public class CustomerRepository : ICustomerRepository                           
         var customer = await _context.Customers
             .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
-        
+
         _context.Customers.Remove(customer);
     }
 
