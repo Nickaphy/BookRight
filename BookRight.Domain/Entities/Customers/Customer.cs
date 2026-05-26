@@ -1,9 +1,6 @@
 using BookRight.Domain.Common;
 using BookRight.Domain.Enums;
 using BookRight.Domain.Exceptions;
-using System.Net.Http.Headers;
-using System.Reflection.Emit;
-using System.Xml.Linq;
 
 namespace BookRight.Domain.Entities.Customers;
 
