@@ -1,0 +1,139 @@
+﻿@page "/reports"
+@rendermode InteractiveServer
+@namespace BookRight.UI.Components.Pages
+
+@using BookRight.Facade.Dtos.Reports
+@using BookRight.Facade.Queries.Reports
+
+@inject IClinicReportQueries ReportQueries
+
+<div class="report-page">
+    <h1 class="page-title">Klinikrapport</h1>
+
+    @* ── Period selector ── *@
+    <div class="period-bar">
+        <div class="period-group">
+            <label>Fra</label>
+            <input type="date" @bind="_from" />
+        </div>
+        <div class="period-group">
+            <label>Til</label>
+            <input type="date" @bind="_to" />
+        </div>
+        <button class="btn-load" @onclick="LoadAsync" disabled="@_isLoading">
+            @(_isLoading ? "Henter..." : "Vis rapport")
+        </button>
+        <button class="btn-print" onclick="window.print()">Udskriv</button>
+    </div>
+
+    @if (_reports is not null)
+    {
+        <p class="period-label">
+            Periode: @_from.ToString("d. MMM yyyy") – @_to.ToString("d. MMM yyyy")
+        </p>
+
+        @* ── Summary cards ── *@
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="summary-card__label">Bookinger i alt</div>
+                <div class="summary-card__value">@_reports.Sum(r => r.TotalBookings)</div>
+            </div>
+            <div class="summary-card summary-card--green">
+                <div class="summary-card__label">Afsluttede</div>
+                <div class="summary-card__value">@_reports.Sum(r => r.CompletedBookings)</div>
+            </div>
+            <div class="summary-card summary-card--blue">
+                <div class="summary-card__label">Omsætning i alt</div>
+                <div class="summary-card__value">@_reports.Sum(r => r.TotalRevenue).ToString("N0") DKK</div>
+            </div>
+            <div class="summary-card summary-card--red">
+                <div class="summary-card__label">Udeblevne + Aflyste</div>
+                <div class="summary-card__value">@_reports.Sum(r => r.NoShowBookings + r.CancelledBookings)</div>
+            </div>
+        </div>
+
+        @* ── Per-clinic tables ── *@
+        @foreach (var r in _reports)
+        {
+            <div class="clinic-report">
+                <h2 class="clinic-report__title">@r.ClinicName</h2>
+
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat__label">Bookinger i alt</div>
+                        <div class="stat__value">@r.TotalBookings</div>
+                    </div>
+                    <div class="stat stat--green">
+                        <div class="stat__label">Afsluttede</div>
+                        <div class="stat__value">@r.CompletedBookings</div>
+                    </div>
+                    <div class="stat stat--amber">
+                        <div class="stat__label">Afventer</div>
+                        <div class="stat__value">@r.PendingBookings</div>
+                    </div>
+                    <div class="stat stat--red">
+                        <div class="stat__label">Udeblevet</div>
+                        <div class="stat__value">@r.NoShowBookings</div>
+                    </div>
+                    <div class="stat stat--grey">
+                        <div class="stat__label">Aflyst</div>
+                        <div class="stat__value">@r.CancelledBookings</div>
+                    </div>
+                    <div class="stat stat--blue">
+                        <div class="stat__label">Unik kunder</div>
+                        <div class="stat__value">@r.UniqueCustomers</div>
+                    </div>
+                </div>
+
+                <div class="revenue-row">
+                    <div class="revenue-item">
+                        <span class="revenue-item__label">Omsætning</span>
+                        <span class="revenue-item__value">@r.TotalRevenue.ToString("N0") DKK</span>
+                    </div>
+                    <div class="revenue-item">
+                        <span class="revenue-item__label">Gns. pr. behandling</span>
+                        <span class="revenue-item__value">@r.AverageBookingValue.ToString("N0") DKK</span>
+                    </div>
+                    <div class="revenue-item">
+                        <span class="revenue-item__label">Mest populær behandling</span>
+                        <span class="revenue-item__value">@r.MostPopularTreatment</span>
+                    </div>
+                </div>
+
+                @if (r.TotalBookings > 0)
+                {
+                    var fillPct = r.TotalBookings > 0
+                        ? (int)(r.CompletedBookings * 100.0 / r.TotalBookings)
+                        : 0;
+                    <div class="completion-bar-wrap">
+                        <div class="completion-bar-label">
+                            Afslutningsrate <strong>@fillPct%</strong>
+                        </div>
+                        <div class="completion-bar-track">
+                            <div class="completion-bar-fill" style="width:@fillPct%"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private IReadOnlyList<ClinicReportDto>? _reports;
+    private DateTime _from = DateTime.Today.AddMonths(-1);
+    private DateTime _to = DateTime.Today;
+    private bool _isLoading;
+
+    protected override async Task OnInitializedAsync() => await LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            _reports = await ReportQueries.GetClinicReportsAsync(_from, _to.AddDays(1));
+        }
+        finally { _isLoading = false; }
+    }
+}

@@ -59,8 +59,7 @@ namespace BookRight.Infrastructure.Persistence
                 .AsNoTracking()
                 .Where(b => customerIds.Contains(b.CustomerId)
                          && b.CreatedDate >= oneYearAgo
-                         && (b.Status == BookingStatus.Completed
-                          || b.Status == BookingStatus.Created))
+                         && b.Status == BookingStatus.Completed)
                 .GroupBy(b => b.CustomerId)
                 .Select(g => new { CustomerId = g.Key, Total = g.Sum(b => b.FinalPrice.Amount) })
                 .ToDictionaryAsync(x => x.CustomerId, x => x.Total, cancellationToken);
@@ -100,8 +99,7 @@ namespace BookRight.Infrastructure.Persistence
                 .AsNoTracking()
                 .Where(b => b.CustomerId == customerId
                          && b.CreatedDate >= oneYearAgo
-                         && (b.Status == BookingStatus.Completed
-                          || b.Status == BookingStatus.Created))
+                         && b.Status == BookingStatus.Completed)
                 .SumAsync(b => (decimal?)b.FinalPrice.Amount ?? 0, cancellationToken);
 
             var level = totalSpent switch
