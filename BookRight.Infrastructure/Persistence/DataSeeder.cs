@@ -48,7 +48,7 @@ namespace BookRight.Infrastructure.Persistence
                 Customer.Create("Katrine Lund",          "20110008", "katrine.lund@mail.dk",          LoyaltyLevel.None, new DateTime(1996, 8, 29),  null, "Engvej 18",         "Aalborg",    "9000"),
                 Customer.Create("Nicolai Bruun",         "20110009", "nicolai.bruun@mail.dk",         LoyaltyLevel.None, new DateTime(1987, 9, 4),   null, "Møllegade 5",       "Silkeborg",  "8600"),
                 Customer.Create("Sara Kjær",             "20110010", "sara.kjaer@mail.dk",            LoyaltyLevel.None, new DateTime(1993, 10, 14), null, "Bakkevej 17",       "Randers",    "8900"),
-            
+
                 Customer.Create("Emil Toft",             "20110011", "emil.toft@mail.dk",             LoyaltyLevel.None, new DateTime(1985, 11, 3),  null, "Vestergade 33",     "Vejle",      "7100"),
                 Customer.Create("Louise Birk",           "20110012", "louise.birk@mail.dk",           LoyaltyLevel.None, new DateTime(1991, 12, 25), null, "Kystvejen 1",       "Kolding",    "6000"),
                 Customer.Create("Rikke Mortensen",       "20110013", "rikke.mortensen@mail.dk",       LoyaltyLevel.None, new DateTime(1982, 1, 7),   null, "Åboulevarden 20",   "Aarhus",     "8000"),
@@ -59,7 +59,7 @@ namespace BookRight.Infrastructure.Persistence
                 Customer.Create("Casper Riis",           "20110018", "casper.riis@mail.dk",           LoyaltyLevel.None, new DateTime(1986, 6, 1),   null, "Stationsvej 9",     "Aalborg",    "9000"),
                 Customer.Create("Mille Bohn",            "20110019", "mille.bohn@mail.dk",            LoyaltyLevel.None, new DateTime(1990, 7, 9),   null, "Strandvej 44",      "Silkeborg",  "8600"),
                 Customer.Create("Andreas Nygaard",       "20110020", "andreas.nygaard@mail.dk",       LoyaltyLevel.None, new DateTime(1983, 8, 30),  null, "Granvej 19",        "Randers",    "8900"),
-            
+
                 Customer.Create("Signe Fisker",          "20110021", "signe.fisker@mail.dk",          LoyaltyLevel.None, new DateTime(1995, 9, 12),  null, "Elmosevej 3",       "Vejle",      "7100"),
                 Customer.Create("Magnus Olesen",         "20110022", "magnus.olesen@mail.dk",         LoyaltyLevel.None, new DateTime(1988, 10, 22), null, "Nygade 16",         "Kolding",    "6000"),
                 Customer.Create("Helene Gade",           "20110023", "helene.gade@mail.dk",           LoyaltyLevel.None, new DateTime(1991, 11, 5),  null, "Bredgade 8",        "Odense",     "5000"),
@@ -70,7 +70,7 @@ namespace BookRight.Infrastructure.Persistence
                 Customer.Create("Tobias Munk",           "20110028", "tobias.munk@mail.dk",           LoyaltyLevel.None, new DateTime(1985, 4, 17),  null, "Lærkevej 13",       "Aalborg",    "9000"),
                 Customer.Create("Clara Foldager",        "20110029", "clara.foldager@mail.dk",        LoyaltyLevel.None, new DateTime(1993, 5, 26),  null, "Hedetoften 1",      "Silkeborg",  "8600"),
                 Customer.Create("Alexander Bech",        "20110030", "alexander.bech@mail.dk",        LoyaltyLevel.None, new DateTime(1989, 6, 20),  null, "Skippergade 9",     "Randers",    "8900"),
-            
+
                 Customer.Create("Victoria Hald",         "20110031", "victoria.hald@mail.dk",         LoyaltyLevel.None, new DateTime(1996, 7, 7),   null, "Mosevej 6",         "Vejle",      "7100"),
                 Customer.Create("Simon Vang",            "20110032", "simon.vang@mail.dk",            LoyaltyLevel.None, new DateTime(1982, 8, 11),  null, "Kløvervej 22",      "Kolding",    "6000"),
                 Customer.Create("Laura Kjeldsen",        "20110033", "laura.kjeldsen@mail.dk",        LoyaltyLevel.None, new DateTime(1994, 9, 3),   null, "Ørnevej 4",         "Odense",     "5000"),
@@ -225,64 +225,122 @@ namespace BookRight.Infrastructure.Persistence
                 var clinics = context.Clinics.ToList();
                 var treatments = context.Treatments.ToList();
                 var rng = new Random(42);
-                var now = DateTime.Now;
+                var seedDate = DateTime.Today;
                 var bookings = new List<Booking>();
 
-                // All customers start with LoyaltyLevel.None in the DB.
-                // We distribute them across spending tiers by index so that
-                // CustomerQuerries and BookingPricingFacadeHandler — which both
-                // calculate loyalty live from booking history — will resolve each
-                // customer to the correct level at runtime.
-                //
-                // Thresholds (from Customer.UpdateLoyaltyLevel):
-                //   Gold   >= 10 000 DKK  → target 10 500
-                //   Silver >=  5 000 DKK  → target  5 500
-                //   Bronze >=  1 000 DKK  → target  1 500
-                //   None   <   1 000 DKK  → no bookings (total = 0)
-                //
-                // Distribution across 20 customers (by index % 4):
-                //   0 → Gold    (indices 0, 4, 8, 12, 16)
-                //   1 → Silver  (indices 1, 5, 9, 13, 17)
-                //   2 → Bronze  (indices 2, 6, 10, 14, 18)
-                //   3 → None    (indices 3, 7, 11, 15, 19)
+                // Conflict tracking: one slot per practitioner,
+                // and respect AmountTreatmentRooms per clinic per slot.
+                var practSlots = new HashSet<(Guid, DateTime)>();
+                var clinicSlots = new Dictionary<(Guid, DateTime), int>();
+                var clinicRooms = clinics.ToDictionary(c => c.Id, c => c.AmountTreatmentRooms);
+
+                bool TryBook(Guid practId, Guid clinicId, DateTime start)
+                {
+                    if (practSlots.Contains((practId, start))) return false;
+                    clinicSlots.TryGetValue((clinicId, start), out int used);
+                    if (used >= clinicRooms.GetValueOrDefault(clinicId, 1)) return false;
+                    practSlots.Add((practId, start));
+                    clinicSlots[(clinicId, start)] = used + 1;
+                    return true;
+                }
+
+                DateTime? PickSlot(Random r, DateTime from, DateTime to,
+                                   Guid practId, Guid clinicId)
+                {
+                    for (int attempt = 0; attempt < 50; attempt++)
+                    {
+                        int daysRange = Math.Max(1, (to - from).Days);
+                        var date = from.AddDays(r.Next(0, daysRange)).Date;
+                        if (date.DayOfWeek == DayOfWeek.Saturday ||
+                            date.DayOfWeek == DayOfWeek.Sunday) continue;
+                        int maxHour = date.DayOfWeek == DayOfWeek.Friday ? 15 : 16;
+                        var start = date.AddHours(r.Next(8, maxHour + 1))
+                                        .AddMinutes(r.Next(0, 2) * 30);
+                        if (TryBook(practId, clinicId, start)) return start;
+                    }
+                    return null;
+                }
+
+                // 1. Past Completed bookings to build loyalty spending history.
+                // Index % 4 => 0=Gold(10000), 1=Silver(5000), 2=Bronze(1000), 3=None.
+                var historyFrom = seedDate.AddDays(-365);
+                var historyTo = seedDate.AddDays(-1);
 
                 for (int i = 0; i < customers.Count; i++)
                 {
                     var customer = customers[i];
-
-                    decimal targetTotal = (i % 4) switch
+                    decimal target = (i % 4) switch
                     {
-                        0 => 10000m,   // Gold tier   (>= 10 000)
-                        1 => 5000m,   // Silver tier (>=  5 000)
-                        2 => 1000m,   // Bronze tier (>=  1 000)
-                        _ => 0m    // None: no history needed
+                        0 => 10000m,
+                        1 => 5000m,
+                        2 => 1000m,
+                        _ => 0m
                     };
-
-                    decimal runningTotal = 0m;
-
-                    while (runningTotal < targetTotal)
+                    decimal running = 0m;
+                    int safety = 0;
+                    while (running < target && safety++ < 300)
                     {
                         var treatment = treatments[rng.Next(treatments.Count)];
                         var practitioner = practitioners[rng.Next(practitioners.Count)];
                         var clinic = clinics[rng.Next(clinics.Count)];
-
-                        var start = now.AddDays(rng.Next(1, 365)).Date
-                                       .AddHours(rng.Next(8, 16));
-                        var end = start.AddMinutes(treatment.DurationMinutes);
-
-                        var booking = Booking.Create(
-                            customerId: customer.Id,
-                            practitionerId: practitioner.Id,
-                            clinicId: clinic.Id,
-                            treatmentTypeId: treatment.Id,
-                            timeRange: new TimeRange(start, end),
-                            basePrice: new Money(treatment.BasePrice.Amount));
-
-                        booking.SetFinalPrice(new Money(treatment.BasePrice.Amount), DiscountType.None);
-
-                        bookings.Add(booking);
-                        runningTotal += treatment.BasePrice.Amount;
+                        var slot = PickSlot(rng, historyFrom, historyTo,
+                                            practitioner.Id, clinic.Id);
+                        if (slot is null) continue;
+                        var b = Booking.Reconstitute(
+                            customer.Id, practitioner.Id, clinic.Id, treatment.Id,
+                            new TimeRange(slot.Value, slot.Value.AddMinutes(treatment.DurationMinutes)),
+                            new Money(treatment.BasePrice.Amount), BookingStatus.Completed);
+                        b.SetFinalPrice(new Money(treatment.BasePrice.Amount), DiscountType.None);
+                        bookings.Add(b);
+                        running += treatment.BasePrice.Amount;
                     }
+                }
+
+                // 2. Extra past bookings for realistic reports (last 6 months).
+                // 70% Completed, 15% NoShow, 15% Cancelled.
+                var recentFrom = seedDate.AddDays(-180);
+                for (int extra = 0; extra < 120; extra++)
+                {
+                    var customer = customers[rng.Next(customers.Count)];
+                    var treatment = treatments[rng.Next(treatments.Count)];
+                    var practitioner = practitioners[rng.Next(practitioners.Count)];
+                    var clinic = clinics[rng.Next(clinics.Count)];
+                    var slot = PickSlot(rng, recentFrom, historyTo,
+                                        practitioner.Id, clinic.Id);
+                    if (slot is null) continue;
+                    var roll = rng.Next(100);
+                    var status = roll < 70 ? BookingStatus.Completed
+                               : roll < 85 ? BookingStatus.NoShow
+                               : BookingStatus.Cancelled;
+                    var b = Booking.Reconstitute(
+                        customer.Id, practitioner.Id, clinic.Id, treatment.Id,
+                        new TimeRange(slot.Value, slot.Value.AddMinutes(treatment.DurationMinutes)),
+                        new Money(treatment.BasePrice.Amount), status);
+                    b.SetFinalPrice(new Money(treatment.BasePrice.Amount), DiscountType.None);
+                    bookings.Add(b);
+                }
+
+                // 3. Future Created bookings for the upcoming schedule (next 30 days).
+                var futureFrom = seedDate.AddDays(1);
+                var futureTo = seedDate.AddDays(30);
+                for (int fut = 0; fut < 40; fut++)
+                {
+                    var customer = customers[rng.Next(customers.Count)];
+                    var treatment = treatments[rng.Next(treatments.Count)];
+                    var practitioner = practitioners[rng.Next(practitioners.Count)];
+                    var clinic = clinics[rng.Next(clinics.Count)];
+                    var slot = PickSlot(rng, futureFrom, futureTo,
+                                        practitioner.Id, clinic.Id);
+                    if (slot is null) continue;
+                    var b = Booking.Create(
+                        customerId: customer.Id,
+                        practitionerId: practitioner.Id,
+                        clinicId: clinic.Id,
+                        treatmentTypeId: treatment.Id,
+                        timeRange: new TimeRange(slot.Value, slot.Value.AddMinutes(treatment.DurationMinutes)),
+                        basePrice: new Money(treatment.BasePrice.Amount));
+                    b.SetFinalPrice(new Money(treatment.BasePrice.Amount), DiscountType.None);
+                    bookings.Add(b);
                 }
 
                 context.Bookings.AddRange(bookings);
