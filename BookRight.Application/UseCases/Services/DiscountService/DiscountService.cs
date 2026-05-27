@@ -30,14 +30,13 @@ public class DiscountService : IDiscountService
         // - Loyalty discount
         // - Birthday discount
         // - Campaign discount
-        var tasks = _strategies.Select(async strategy =>
+        var tasks = _strategies.Select(strategy =>
+        Task.Run(async () =>
         {
             ct.ThrowIfCancellationRequested();
-
-            var discount = await strategy.CalculateDiscountAsync(context); //Evaluate all discount strategies in parallel.
-            result.OfferDiscount(strategy.DiscountType, discount);         //Runs through the doorman "BestDiscountResult"
-
-        });
+            var discount = await strategy.CalculateDiscountAsync(context);
+            result.OfferDiscount(strategy.DiscountType, discount);
+        }, ct));
 
         await Task.WhenAll(tasks);
 
