@@ -61,13 +61,26 @@ public sealed class BookingRepository : IBookingRepository
         TimeRange timeRange,
         CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Bookings
-            .AnyAsync(
+        // Count how many active bookings overlap this time range.
+        // Only Created and Completed bookings occupy a treatment room.
+        // Cancelled and NoShow bookings free the room.
+        var overlappingCount = await _dbContext.Bookings
+            .CountAsync(
                 booking =>
                     booking.ClinicId == clinicId &&
                     booking.TimeRange.Start < timeRange.End &&
-                    booking.TimeRange.End > timeRange.Start,
+                    booking.TimeRange.End > timeRange.Start &&
+                    (booking.Status == BookingStatus.Created ||
+                     booking.Status == BookingStatus.Completed),
                 cancellationToken);
+
+        // Compare against the clinic's number of treatment rooms.
+        var clinic = await _dbContext.Clinics
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == clinicId, cancellationToken);
+
+        var maxRooms = clinic?.AmountTreatmentRooms ?? 1;
+        return overlappingCount >= maxRooms;
     }
 
     // Adds a new booking to EF Core change tracking.
