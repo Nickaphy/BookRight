@@ -6,9 +6,6 @@
 using BookRight.Domain.Entities.Bookings;
 using BookRight.Domain.ValueObjects;
 
-
-
-// Eriks work
 namespace BookRight.Application.Repositories;
 
 public interface IBookingRepository
@@ -32,10 +29,10 @@ public interface IBookingRepository
     Task SaveChangesAsync(
         CancellationToken cancellationToken = default);
 
-    Task<Booking?> GetByIdAsync(                                            //Lucas rettet - 13/5 - 13.55
+    Task<Booking?> GetByIdAsync(                                            
         Guid id, CancellationToken cancellationToken = default);
     Task UpdateAsync(
-        Booking booking, CancellationToken cancellationToken = default);    //Lucas rettet - 13/5 - 13.55
+        Booking booking, CancellationToken cancellationToken = default);    
 
     Task<decimal> GetTotalSpentLastYearAsync(Guid customerId, CancellationToken cancellationToken = default);
 
@@ -44,6 +41,6 @@ public interface IBookingRepository
     Task<bool> HasUsedBirthdayDiscountAsync(
         Guid customerId,
         int year,
-        int birthMonth, //Lucas rettet
+        int birthMonth,
         CancellationToken cancellationToken = default);
 }

@@ -23,35 +23,35 @@ namespace BookRight.Application.DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            // ─── Customer ────────────────────────────────────────────────────
+            // Customer 
             services.AddScoped<ICreateCustomer, CreateCustomerHandler>();
             services.AddScoped<IUpdateCustomer, UpdateCustomerHandler>();
             services.AddScoped<IDeleteCustomer, DeleteCustomerHandler>();
 
-            // ─── Practitioner ────────────────────────────────────────────────
+            // Practitioner 
             services.AddScoped<ICreatePractitioner, CreatePractitionerHandler>();
             services.AddScoped<IUpdatePractitioner, UpdatePractitionerHandler>();
             services.AddScoped<IDeletePractitioner, DeletePractitionerHandler>();
             services.AddScoped<IAssignPractitionerToClinic, AssignPractitionerToClinicHandler>();
 
-            // ─── Clinic ──────────────────────────────────────────────────────
+            // Clinic
             services.AddScoped<ICreateClinic, CreateClinicHandler>();
             services.AddScoped<IUpdateClinic, UpdateClinicHandler>();
             services.AddScoped<IDeleteClinic, DeleteClinicHandler>();
 
-            // ─── Campaign ────────────────────────────────────────────────────
+            // Campaign
             services.AddScoped<ICreateCampaign, CreateCampaignHandler>();
             services.AddScoped<IUpdateCampaign, UpdateCampaignHandler>();
             services.AddScoped<IDeleteCampaign, DeleteCampaignHandler>();
 
-            // ─── Booking ─────────────────────────────────────────────────────
+            // Booking
             services.AddScoped<ICreateBookingUseCase, CreateBookingCommandHandler>();
             services.AddScoped<ICancelBookingFacade, CancelBookingCommandHandler>();
             services.AddScoped<IMarkAsNoShowUseCase, MarkAsNoShowCommandHandler>();
             services.AddScoped<ICompleteBookingUseCase, CompleteBookingCommandHandler>();
             services.AddScoped<IMarkAsNoShowUseCase, MarkAsNoShowCommandHandler>();
 
-            // ─── Discount strategies ─────────────────────────────────────────
+            // Discount strategies
             // Each strategy is registered against the IDiscountStrategy interface
             // so DiscountService receives all of them via IEnumerable<IDiscountStrategy>.
             services.AddScoped<IDiscountStrategy, LoyaltyLevelNone>();
@@ -60,12 +60,12 @@ namespace BookRight.Application.DependencyInjection
             services.AddScoped<IDiscountStrategy, LoyaltyLevelGold>();
             services.AddScoped<IDiscountStrategy, BirthMonthDiscount>();
 
-            // ─── Services ────────────────────────────────────────────────────
+            //Services 
             services.AddScoped<IBookingConflictChecker, BookingConflictChecker>();
             services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<IPriceCalculator, PriceCalculator>();
 
-            // ─── Pricing preview facade ───────────────────────────────────────
+            // Pricing preview facade
             services.AddScoped<IBookingPricingFacade, BookingPricingFacadeHandler>();
 
             return services;
