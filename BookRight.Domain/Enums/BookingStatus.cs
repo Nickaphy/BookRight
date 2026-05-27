@@ -6,7 +6,8 @@ public enum BookingStatus
     Created,
     Completed,
     Cancelled,
-    NoShow
+    NoShow,
+    NotHandled
 
 }
-// Created, Completed, Cancelled, NoShow
+// Created, Completed, Cancelled, NoShow, NotHandled
