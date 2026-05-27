@@ -12,4 +12,7 @@ public interface IBookingQueries
         DateTime from,
         DateTime to,
         CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyList<BookingDto>> GetUnhandledPastBookingsAsync(
+    CancellationToken cancellationToken = default);
 }
