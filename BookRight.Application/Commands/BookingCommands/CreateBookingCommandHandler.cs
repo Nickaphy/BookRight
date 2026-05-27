@@ -41,10 +41,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase
         CreateBookingRequest request,
         CancellationToken cancellationToken = default)
     {
-        // ====================
+      
         // Load aggregates
-        // ====================
-
         var customer = await _customerRepository.GetCustomerByIdAsync(
             request.CustomerId,
             cancellationToken);
@@ -84,11 +82,9 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase
             throw new InvalidOperationException(
                 "Treatment type was not found.");
         }
-
-        // ====================
+        
         // Business rule validation
-        // ====================
-
+        
         // Verify that the practitioner is allowed
         // to perform the selected treatment.
         practitioner.HasAuthorizationForTreatment(
@@ -114,10 +110,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase
                 request.ClinicId,
                 timeRange,
                 cancellationToken);
-
-        // ====================
+        
         // Create aggregate
-        // ====================
 
         // Create a fresh Money instance rather than passing treatmentType.BasePrice
         // directly. EF Core tracks owned entities by instance — reusing the same
@@ -132,10 +126,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase
             request.TreatmentTypeId,
             timeRange,
             basePrice);
-
-        // ====================
+        
         // Build pricing context
-        // ====================
 
         // Determine whether the booking occurs
         // during the customer's birthday month.
@@ -165,10 +157,8 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase
             IsEveningOrWeekend = false,
             CampaignDiscountPercent = null
         };
-
-        // ====================
+        
         // Calculate final price
-        // ====================
 
         // PriceCalculator owns the pricing flow.
         // It calls DiscountService internally and returns
@@ -183,9 +173,7 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase
             finalPrice,
             winningDiscountType);
 
-        // ====================
         // Persist aggregate
-        // ====================
 
         await _bookingRepository.AddAsync(
             booking,
