@@ -160,6 +160,11 @@ public class Booking : AggregateRoot
             throw new InvalidOperationException(
                 "The booking is already marked as no-show.");
         }
+        if (Status == BookingStatus.NotHandled)
+        {
+            throw new InvalidOperationException(
+                "The booking is already marked as no-show.");
+        }
 
         Status = BookingStatus.NoShow;
     }
