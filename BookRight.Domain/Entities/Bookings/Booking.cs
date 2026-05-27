@@ -12,15 +12,6 @@
 // Booking is the main aggregate root
 // Responsible for managing appointment creation and validation
 
-// Will later contain:
-// - TimeRange
-// - Customer reference
-// - Practitioner reference
-// - Clinic reference
-// - BookingLines
-// - Price calculation
-// - Status
-
 using BookRight.Domain.Common;
 using BookRight.Domain.Entities.Treatments;
 using BookRight.Domain.Enums;
@@ -191,17 +182,4 @@ public class Booking : AggregateRoot
 
         AddDomainEvent(new BookingCompletedEvent(CustomerId, FinalPrice.Amount));
     }
-
-
-    // Future business rules:
-    //
-    // - Combined treatments
-    // - Team bookings
-    // - Booking pause workflow
-    // - Favorite practitioner support
-    // - Advanced cancellation policies
-    // - Rescheduling rules
-    //
-    // Cross-aggregate validation should remain
-    // outside the Booking aggregate.
 }

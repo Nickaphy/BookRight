@@ -10,9 +10,7 @@ namespace BookRight.Application.Repositories;
 
 public interface ICustomerRepository
 {
-    // -----
     // Search/fetching operations
-    // -----
 
     Task SaveAsync(CancellationToken cancellationToken = default);
     // Retrieves a single customer by their unique identifier.
@@ -22,10 +20,8 @@ public interface ICustomerRepository
     // Retrieves a single customer by their phone number.
     
 
-
-    // -----
+    
     // CRUD operations
-    // -----
 
     // Persists a brand-new Customer aggregate to the data store.
 
@@ -40,7 +36,6 @@ public interface ICustomerRepository
     Task UpdateCustomerAsync(Customer customer, CancellationToken cancellationToken = default);
 
     // Soft-deletes or hard - deletes a customer record.
-    //Jeg er ikke sikker på denne, da den foreslår at det skal være Customer customer i stedet for ID.
     //Skal dog matche med CustomerRepository.cs implementationen.
     Task DeleteCustomerAsync(Guid id, CancellationToken cancellationToken = default);
 

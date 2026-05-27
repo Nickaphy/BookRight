@@ -12,7 +12,7 @@ public class Clinic : AggregateRoot
     public string Zipcode { get; private set; }
     public int AmountTreatmentRooms { get; private set; }
 
-    private List<ClinicOpeningHour> _openingHours = new();                      //skrivebeskyttet liste over åbningstider, da det ikke skal være muligt at tilføje eller fjerne åbningstider direkte
+    private List<ClinicOpeningHour> _openingHours = new();             
     public IReadOnlyList<ClinicOpeningHour> OpeningHours => _openingHours.AsReadOnly();
 
     public int MaxSimultaneousBookings => AmountTreatmentRooms;
@@ -47,7 +47,7 @@ public class Clinic : AggregateRoot
     )
     {
         var clinic = new Clinic(name, amountTreatmentRooms, street, city, zipcode);
-        clinic.ReplaceOpeningHours(openingHours.ToList()); //tilføjer de angivne åbningstider til klinikken, gennem ReplaceOpeningHours metoden som også validerer åbningstiderne.
+        clinic.ReplaceOpeningHours(openingHours.ToList()); 
         return clinic;
     }
 
@@ -94,57 +94,4 @@ public class Clinic : AggregateRoot
         Validate();
         ReplaceOpeningHours(openingHours.ToList());
     }
-
-
-
-
-
-
-
-
-
-
-    /* //NICE TO HAVE
-    public void UpdateAmountTreatmentRooms(int amountTreatmentRooms)
-    {
-        if (amountTreatmentRooms <= 0)
-            throw new DomainException("A clinic must have at least one treatment room.");
-        AmountTreatmentRooms = amountTreatmentRooms;
-    }
-    public void UpdateAddress(string street, string city, string zipcode)
-    {
-        Street = street;
-        City = city;
-        Zipcode = zipcode;
-        Validate();
-    }
-
-    public void UpdateName(string name)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new DomainException("Clinic must have a name.");
-        Name = name;
-    }
-
-    
-
-    public void AddOpeningHour(ClinicOpeningHour openingHour)
-    {
-        bool weekDayAlreadyExists = OpeningHours.Any(oh => oh.WeekDay == openingHour.WeekDay);
-
-        if (weekDayAlreadyExists)
-            throw new DomainException($"Opening hours for {openingHour.WeekDay} already exist.");
-
-        OpeningHours.Add(openingHour);
-    }
-
-    public void RemoveOpeningHour(DayOfWeek dayOfWeek)
-    {
-        var openingHour = OpeningHours.FirstOrDefault(oh => oh.WeekDay == dayOfWeek);
-        if (openingHour == null)
-            throw new DomainException($"No opening hours found for {dayOfWeek}.");
-        OpeningHours.Remove(openingHour);
-    }
-    */
-
 }

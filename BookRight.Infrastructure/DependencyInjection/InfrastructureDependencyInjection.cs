@@ -35,7 +35,7 @@ namespace BookRight.Infrastructure.DependencyInjection
                 },
                 ServiceLifetime.Scoped);
 
-            // ─── Repositories ────────────────────────────────────────────────────
+            // Repositories
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IPractitionerRepository, PractitionerRepository>();
@@ -44,7 +44,7 @@ namespace BookRight.Infrastructure.DependencyInjection
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             services.AddScoped<ITreatmentTypeRepository, TreatmentTypeRepository>();
 
-            // ─── Queries ─────────────────────────────────────────────────────────
+            // Queries
             services.AddScoped<ICustomerQuerries, CustomerQuerries>();
             services.AddScoped<ITreatmentTypeQuerry, TreatmentTypeImpl>();
             services.AddScoped<IPractitionerQuerries, PractitionerImpl>();

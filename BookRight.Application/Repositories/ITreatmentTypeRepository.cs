@@ -4,9 +4,6 @@
 
 using BookRight.Domain.Entities.Treatments;
 
-
-// Eriks work
-
 namespace BookRight.Application.Repositories;
 
 public interface ITreatmentTypeRepository
