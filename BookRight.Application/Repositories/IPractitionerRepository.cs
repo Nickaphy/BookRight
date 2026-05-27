@@ -12,4 +12,6 @@ public interface IPractitionerRepository
     Task UpdateAsync(Practitioner practitioner, CancellationToken cancellationToken = default);
     Task DeleteAsync(Practitioner practitioner, CancellationToken cancellationToken = default);
     Task SaveAsync(Practitioner practitioner, CancellationToken cancellationToken = default);
+    Task<int> CountPractitionersByClinicAndDateAsync(Guid clinicId, DateTime date, CancellationToken cancellationToken = default);
+
 }

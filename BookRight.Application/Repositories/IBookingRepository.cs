@@ -43,4 +43,9 @@ public interface IBookingRepository
         int year,
         int birthMonth,
         CancellationToken cancellationToken = default);
+
+    Task<bool> HasOverlappingBookingForCustomerAsync(
+      Guid customerId,
+      TimeRange timeRange,
+      CancellationToken cancellationToken = default);
 }

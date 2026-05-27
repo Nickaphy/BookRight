@@ -100,7 +100,7 @@
                 <div class="br-detail-row">
                     <span class="br-detail-row__label">Pris</span>
                     <span class="br-detail-row__value">
-                        @_detailBooking.FinalPrice.ToString("N0") DKK
+                        @_detailBooking.FinalPrice.ToString("N2") DKK
                         @if (_detailBooking.DiscountType != "None")
                         {
                             <span class="br-discount-tag">@DiscountLabel(_detailBooking.DiscountType)</span>

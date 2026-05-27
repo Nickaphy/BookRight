@@ -48,10 +48,12 @@ public sealed class BookingRepository : IBookingRepository
         return await _dbContext.Bookings
             .AnyAsync(
                 booking =>
-                    booking.PractitionerId == practitionerId &&
-                    booking.TimeRange.Start < timeRange.End &&
-                    booking.TimeRange.End > timeRange.Start,
-                cancellationToken);
+                booking.PractitionerId == practitionerId &&
+                booking.TimeRange.Start < timeRange.End &&
+                booking.TimeRange.End > timeRange.Start &&
+                (booking.Status == BookingStatus.Created ||
+                 booking.Status == BookingStatus.Completed), // Lucas ændret..
+            cancellationToken);
     }
 
     // Checks whether the clinic has an overlapping booking.
@@ -137,4 +139,21 @@ public sealed class BookingRepository : IBookingRepository
                 booking.DiscountType == DiscountType.BirthdayMonth,
             cancellationToken);
     }
+
+    public async Task<bool> HasOverlappingBookingForCustomerAsync(
+      Guid customerId,
+      TimeRange timeRange,
+      CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Bookings
+            .AnyAsync(
+                booking =>
+                    booking.CustomerId == customerId &&
+                    booking.TimeRange.Start < timeRange.End &&
+                    booking.TimeRange.End > timeRange.Start &&
+                    (booking.Status == BookingStatus.Created ||
+                     booking.Status == BookingStatus.Completed),
+                cancellationToken);
+    }
+
 }

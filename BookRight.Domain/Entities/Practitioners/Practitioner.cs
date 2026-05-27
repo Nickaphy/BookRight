@@ -68,6 +68,7 @@ public class Practitioner : AggregateRoot
 
         if (clinicId == Guid.Empty)
             throw new DomainException("ClinicId cannot be empty.");
+
         bool alreadyAssigned = _clinicDays.Any(cd => cd.Date == date.Date && cd.ClinicId != clinicId);
 
         if (alreadyAssigned) 
