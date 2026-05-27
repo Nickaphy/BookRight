@@ -28,7 +28,7 @@ public class AppDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            @"Server=localhost,1433;Database=BookRight;User Id=sa;Password=Nickmal2;TrustServerCertificate=True;");
+            @"Server=.\SQLEXPRESS;Database=BookRightTest1;Trusted_Connection=True;TrustServerCertificate=True");
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

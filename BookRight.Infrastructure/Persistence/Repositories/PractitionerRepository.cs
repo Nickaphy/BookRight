@@ -50,4 +50,10 @@ public class PractitionerRepository : IPractitionerRepository
     {
             await _context.SaveChangesAsync(cancellationToken);
     }
+    public async Task<int> CountPractitionersByClinicAndDateAsync(Guid clinicId, DateTime date, CancellationToken cancellationToken = default)
+    {
+        return await _context.Practitioners
+            .Where(p => p.ClinicDays.Any(cd => cd.ClinicId == clinicId && cd.Date == date.Date))
+            .CountAsync(cancellationToken);
+    }
 }

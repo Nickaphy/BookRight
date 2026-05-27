@@ -19,4 +19,8 @@ public interface IBookingConflictChecker
         Guid clinicId,
         TimeRange timeRange,
         CancellationToken cancellationToken = default);
+    Task EnsureCustomerAvailabilityAsync(
+      Guid customerId,
+      TimeRange timeRange,
+      CancellationToken cancellationToken = default);
 }

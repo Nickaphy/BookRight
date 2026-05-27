@@ -88,7 +88,7 @@
                 @* Spending *@
                 <div class="spending-card">
                     <p class="spending-card__label">Forbrug seneste 12 måneder</p>
-                    <p class="spending-card__amount">@_detail.TotalSpentLastYear.ToString("N0") DKK</p>
+                    <p class="spending-card__amount">@_detail.TotalSpentLastYear.ToString("N2") DKK</p>
                     <p class="spending-card__thresholds">Bronze ≥ 1.000 · Sølv ≥ 5.000 · Guld ≥ 10.000</p>
                 </div>
 
@@ -176,7 +176,7 @@
                                 <p class="booking-item__time">@b.StartTime.ToString("HH:mm") – @b.EndTime.ToString("HH:mm")</p>
                                 <p class="booking-item__treatment">@b.TreatmentName</p>
                                 <p class="booking-item__meta">@b.PractitionerName · @b.ClinicName</p>
-                                <p class="booking-item__price">@b.FinalPrice.ToString("N0") DKK</p>
+                                <p class="booking-item__price">@b.FinalPrice.ToString("N2") DKK</p>
                                 <p class="booking-item__status status--active">@StatusLabel(b.Status)</p>
                             </div>
                         }
@@ -199,7 +199,7 @@
                                 <p class="booking-item__time">@b.StartTime.ToString("HH:mm") – @b.EndTime.ToString("HH:mm")</p>
                                 <p class="booking-item__treatment">@b.TreatmentName</p>
                                 <p class="booking-item__meta">@b.PractitionerName · @b.ClinicName</p>
-                                <p class="booking-item__price">@b.FinalPrice.ToString("N0") DKK</p>
+                                <p class="booking-item__price">@b.FinalPrice.ToString("N2") DKK</p>
                                 <p class="booking-item__status status--done">@StatusLabel(b.Status)</p>
                             </div>
                         }
@@ -245,7 +245,7 @@
                 </div>
                 <div class="br-detail-row">
                     <span class="br-detail-row__label">Pris</span>
-                    <span class="br-detail-row__value">@_popupBooking.FinalPrice.ToString("N0") DKK</span>
+                    <span class="br-detail-row__value">@_popupBooking.FinalPrice.ToString("N2") DKK</span>
                 </div>
                 <div class="br-detail-row">
                     <span class="br-detail-row__label">Status</span>
