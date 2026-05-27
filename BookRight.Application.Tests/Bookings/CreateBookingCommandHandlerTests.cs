@@ -11,8 +11,6 @@
 // CreateBookingCommandHandlerTests.cs
 // ? tester flow +repositories + services
 
-// Erik's work.
-
 using BookRight.Application.Commands.BookingCommands;
 using BookRight.Application.Repositories;
 using BookRight.Application.Services;

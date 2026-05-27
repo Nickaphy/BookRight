@@ -5,9 +5,6 @@
 
 using BookRight.Domain.Entities.Clinics;
 
-
-// Eriks work
-
 namespace BookRight.Application.Repositories;
 
 public interface IClinicRepository
