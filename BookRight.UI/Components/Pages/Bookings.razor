@@ -16,7 +16,23 @@
 <div class="bookings-page">
     <h1 class="bookings-heading">Bookinger</h1>
     <p class="bookings-period">@_periodLabel</p>
-
+    (_bookings is null)):
+    @if (_unhandledBookings is { Count: > 0 })
+    {
+        <div class="unhandled-section">
+            <h2 class="unhandled-heading">Ikke behandlede bookinger</h2>
+            @foreach (var booking in _unhandledBookings.OrderBy(b => b.StartTime))
+            {
+                <div class="booking-row booking-row--done"
+                     @onclick="() => OpenDetail(booking)">
+                    <span class="booking-row__time">@booking.StartTime.ToString("dd/MM HH:mm") – @booking.EndTime.ToString("HH:mm")</span>
+                    <span class="booking-row__customer">@booking.CustomerName</span>
+                    <span class="booking-row__treatment">@booking.TreatmentName</span>
+                    <span class="booking-row__status status--pending">Ikke behandlet</span>
+                </div>
+            }
+        </div>
+    }
     @if (_bookings is null)
     {
         <p class="loading-text">Henter bookinger...</p>
@@ -119,7 +135,7 @@
                Once a final status is set, no further changes are possible. *@
             @* Ongoing or past Created: receptionist can complete or mark no-show
                as soon as the appointment has started (StartTime < now). *@
-            @if (_detailBooking.Status == "Created" && _detailBooking.StartTime < _now)
+            @if ((_detailBooking.Status == "Created" || _detailBooking.Status == "NotHandled") && _detailBooking.StartTime < _now)
             {
                 <div class="br-popup__actions">
                     <button class="br-btn-complete" @onclick="CompleteAsync" disabled="@_isActing">Afslut booking</button>
@@ -158,6 +174,7 @@
 
 @code {
     private List<BookingDto>? _bookings;
+    private List<BookingDto>? _unhandledBookings;
     private string _periodLabel = string.Empty;
     private DateTime _now = DateTime.Now;
     private Timer? _timer;
@@ -171,6 +188,7 @@
         var to = from.AddDays(30);
         _periodLabel = $"{FormatDate(from)} \u2013 {FormatDate(to.AddDays(-1))}";
         _bookings = (await BookingQueries.GetBookingsForPeriodAsync(from, to)).ToList();
+        _unhandledBookings = (await BookingQueries.GetUnhandledPastBookingsAsync()).ToList();
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -245,10 +263,18 @@
 
     private void UpdateLocalStatus(Guid id, string newStatus)
     {
-        if (_bookings is null) return;
-        var idx = _bookings.FindIndex(b => b.Id == id);
-        if (idx >= 0)
-            _bookings[idx] = _bookings[idx] with { Status = newStatus };
+        if (_bookings is not null)
+        {
+            var idx = _bookings.FindIndex(b => b.Id == id);
+            if (idx >= 0)
+                _bookings[idx] = _bookings[idx] with { Status = newStatus };
+        }
+        if (_unhandledBookings is not null)
+        {
+            var idx = _unhandledBookings.FindIndex(b => b.Id == id);
+            if (idx >= 0)
+                _unhandledBookings[idx] = _unhandledBookings[idx] with { Status = newStatus };
+        }
     }
 
     private static string StatusLabel(string status, bool isPast) => status switch

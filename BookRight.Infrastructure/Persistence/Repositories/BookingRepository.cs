@@ -118,8 +118,7 @@ public sealed class BookingRepository : IBookingRepository
         return await _dbContext.Bookings
             .Where(b => b.CustomerId == customerId
                    && b.CreatedDate >= oneYearAgo
-                   && (b.Status == BookingStatus.Completed
-                   || b.Status == BookingStatus.Created))
+                   && (b.Status == BookingStatus.Completed))
             .SumAsync(b => b.FinalPrice.Amount, cancellationToken);
     }
 
