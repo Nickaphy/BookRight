@@ -98,7 +98,9 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                 .Where(b => b.PractitionerId == practitionerId
                          && b.ClinicId == clinicId
                          && b.TimeRange.Start >= weekStart
-                         && b.TimeRange.Start < weekEnd)
+                         && b.TimeRange.Start < weekEnd
+                         && (b.Status == Domain.Enums.BookingStatus.Created ||
+                             b.Status == Domain.Enums.BookingStatus.Completed))
                 .ToListAsync(cancellationToken);
 
             var slots = new List<PractitionerAvailableSlotDto>();

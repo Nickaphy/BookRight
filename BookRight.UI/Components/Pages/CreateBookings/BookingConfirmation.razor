@@ -74,20 +74,20 @@
                 {
                     <div class="price-row">
                         <span>Behandlingspris</span>
-                        <strong>@_pricePreview.BasePrice.ToString("N0") DKK</strong>
+                        <strong>@_pricePreview.BasePrice.ToString("N2") DKK</strong>
                     </div>
 
                     @if (_pricePreview.DiscountAmount > 0)
                     {
                         <div class="price-row price-row--discount">
                             <span>@_pricePreview.DiscountLabel</span>
-                            <span>–@_pricePreview.DiscountAmount.ToString("N0") DKK</span>
+                            <span>–@_pricePreview.DiscountAmount.ToString("N2") DKK</span>
                         </div>
                     }
 
                     <div class="price-row price-row--total">
                         <strong>Total</strong>
-                        <strong class="price-total-amount">@_pricePreview.FinalPrice.ToString("N0") DKK</strong>
+                        <strong class="price-total-amount">@_pricePreview.FinalPrice.ToString("N2") DKK</strong>
                     </div>
                 }
 

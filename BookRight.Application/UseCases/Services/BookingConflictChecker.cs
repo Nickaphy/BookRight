@@ -52,4 +52,22 @@ public sealed class BookingConflictChecker : IBookingConflictChecker
                 "The clinic has no available room in this time range.");
         }
     }
+    public async Task EnsureCustomerAvailabilityAsync(
+      Guid customerId,
+      TimeRange timeRange,
+      CancellationToken cancellationToken = default)
+    {
+        var hasOverlap =
+            await _bookingRepository
+                .HasOverlappingBookingForCustomerAsync(
+                    customerId,
+                    timeRange,
+                    cancellationToken);
+
+        if (hasOverlap)
+        {
+            throw new InvalidOperationException(
+                "Kunden har allerede en booking i dette tidsrum.");
+        }
+    }
 }
