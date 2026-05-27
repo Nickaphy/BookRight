@@ -106,6 +106,28 @@ public class Booking : AggregateRoot
             basePrice);
     }
 
+    // Rebuilds a Booking from existing persisted data without re-running
+    // business rules. Use only in DataSeeder and repositories.
+    public static Booking Reconstitute(
+        Guid customerId, Guid practitionerId, Guid clinicId,
+        Guid treatmentTypeId, TimeRange timeRange, Money basePrice,
+        BookingStatus status)
+    {
+        var b = new Booking();
+        b.CustomerId = customerId;
+        b.PractitionerId = practitionerId;
+        b.ClinicId = clinicId;
+        b.TreatmentTypeId = treatmentTypeId;
+        b.TimeRange = timeRange;
+        b.IsTeam = false;
+        b.AmountParticipants = 1;
+        b.BasePrice = basePrice;
+        b.FinalPrice = basePrice;
+        b.Status = status;
+        b.CreatedDate = timeRange.Start;
+        return b;
+    }
+
     public void Cancel()
     {
         if (Status == BookingStatus.Cancelled)

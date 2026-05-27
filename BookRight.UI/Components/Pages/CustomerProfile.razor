@@ -87,18 +87,16 @@
 
                 @* Spending *@
                 <div class="spending-card">
-                    <div class="spending-card__label">Forbrug seneste 12 måneder</div>
-                    <div class="spending-card__amount">@_detail.TotalSpentLastYear.ToString("N0") DKK</div>
-                    <div class="spending-card__thresholds">
-                        Bronze ≥ 1.000 · Sølv ≥ 5.000 · Guld ≥ 10.000
-                    </div>
+                    <p class="spending-card__label">Forbrug seneste 12 måneder</p>
+                    <p class="spending-card__amount">@_detail.TotalSpentLastYear.ToString("N0") DKK</p>
+                    <p class="spending-card__thresholds">Bronze ≥ 1.000 · Sølv ≥ 5.000 · Guld ≥ 10.000</p>
                 </div>
 
                 @* Edit form *@
                 @if (!string.IsNullOrWhiteSpace(_detail.Note))
                 {
                     <div class="note-card">
-                        <div class="note-card__label">Note</div>
+                        <p class="note-card__label">Note</p>
                         <p class="note-card__text">@_detail.Note</p>
                     </div>
                 }
@@ -174,12 +172,12 @@
                         @foreach (var b in _upcoming)
                         {
                             <div class="booking-item booking-item--upcoming" @onclick="() => OpenDetail(b)" style="cursor:pointer">
-                                <div class="booking-item__date">@FormatDate(b.StartTime)</div>
-                                <div class="booking-item__time">@b.StartTime.ToString("HH:mm") – @b.EndTime.ToString("HH:mm")</div>
-                                <div class="booking-item__treatment">@b.TreatmentName</div>
-                                <div class="booking-item__meta">@b.PractitionerName · @b.ClinicName</div>
-                                <div class="booking-item__price">@b.FinalPrice.ToString("N0") DKK</div>
-                                <div class="booking-item__status status--active">@StatusLabel(b.Status)</div>
+                                <p class="booking-item__date">@FormatDate(b.StartTime)</p>
+                                <p class="booking-item__time">@b.StartTime.ToString("HH:mm") – @b.EndTime.ToString("HH:mm")</p>
+                                <p class="booking-item__treatment">@b.TreatmentName</p>
+                                <p class="booking-item__meta">@b.PractitionerName · @b.ClinicName</p>
+                                <p class="booking-item__price">@b.FinalPrice.ToString("N0") DKK</p>
+                                <p class="booking-item__status status--active">@StatusLabel(b.Status)</p>
                             </div>
                         }
                     }
@@ -197,12 +195,12 @@
                         @foreach (var b in _past.OrderByDescending(b => b.StartTime))
                         {
                             <div class="booking-item booking-item--past" @onclick="() => OpenDetail(b)" style="cursor:pointer">
-                                <div class="booking-item__date">@FormatDate(b.StartTime)</div>
-                                <div class="booking-item__time">@b.StartTime.ToString("HH:mm") – @b.EndTime.ToString("HH:mm")</div>
-                                <div class="booking-item__treatment">@b.TreatmentName</div>
-                                <div class="booking-item__meta">@b.PractitionerName · @b.ClinicName</div>
-                                <div class="booking-item__price">@b.FinalPrice.ToString("N0") DKK</div>
-                                <div class="booking-item__status status--done">@StatusLabel(b.Status)</div>
+                                <p class="booking-item__date">@FormatDate(b.StartTime)</p>
+                                <p class="booking-item__time">@b.StartTime.ToString("HH:mm") – @b.EndTime.ToString("HH:mm")</p>
+                                <p class="booking-item__treatment">@b.TreatmentName</p>
+                                <p class="booking-item__meta">@b.PractitionerName · @b.ClinicName</p>
+                                <p class="booking-item__price">@b.FinalPrice.ToString("N0") DKK</p>
+                                <p class="booking-item__status status--done">@StatusLabel(b.Status)</p>
                             </div>
                         }
                     }
@@ -281,9 +279,9 @@
                 <p class="br-action-error">@_popupError</p>
             }
 
-            <div class="br-popup__footer">
+            <footer class="br-popup__footer">
                 <button class="br-btn-close" @onclick="CloseDetail">Luk</button>
-            </div>
+            </footer>
 
         </div>
     </div>
