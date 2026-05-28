@@ -22,6 +22,6 @@ public class CancelBookingCommandHandler : ICancelBookingFacade
         booking.Cancel(); // Kalder cancel metoden paa booking entiteten for at andre status til annulleret
 
         await _bookingRepo.UpdateAsync(booking); // Opdaterer bookingen i databasen
-        await _bookingRepo.SaveChangesAsync(); // Gemmer �ndringerne i databasen
+        await _bookingRepo.SaveChangesAsync(); // Gemmer ændringerne i databasen
     }
 }

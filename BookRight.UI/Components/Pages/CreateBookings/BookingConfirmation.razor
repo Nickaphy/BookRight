@@ -6,7 +6,7 @@
 
     @if (_bookingConfirmed)
     {
-        <div class="success-box">
+        <aside class="success-box">
             <span class="success-icon">✓</span>
             <div>
                 <strong>Booking bekræftet!</strong>
@@ -15,23 +15,23 @@
             <button type="button" class="btn-new" @onclick="OnNewBookingClicked">
                 Opret ny booking
             </button>
-        </div>
+        </aside>
     }
     else
     {
-        <div class="confirmation-layout">
+        <article class="confirmation-layout">
 
             @* ── Left: booking summary ── *@
-            <div class="summary-rows">
+            <article class="summary-rows">
 
-                <div class="summary-row">
+                <dl class="summary-row">
                     <span class="summary-row__icon">👤</span>
                     <div>
                         <div class="summary-row__label">Patient</div>
                         <strong>@Customer.Name</strong>
                         <div class="summary-row__sub">📞 @Customer.PhoneNumber</div>
                     </div>
-                </div>
+                </dl>
 
                 <div class="summary-row">
                     <span class="summary-row__icon">⚕️</span>
@@ -60,11 +60,11 @@
                     </div>
                 </div>
 
-            </div>
+            </article>
 
             @* ── Right: price breakdown + confirm button ── *@
-            <div class="price-box">
-                <div class="price-box__title">PRISOVERSIGT</div>
+            <aside class="price-box">
+                <h3 class="price-box__title">PRISOVERSIGT</h3>
 
                 @if (_isLoadingPrice)
                 {
@@ -72,23 +72,23 @@
                 }
                 else if (_pricePreview is not null)
                 {
-                    <div class="price-row">
+                    <dl class="price-row">
                         <span>Behandlingspris</span>
                         <strong>@_pricePreview.BasePrice.ToString("N2") DKK</strong>
-                    </div>
+                    </dl>
 
                     @if (_pricePreview.DiscountAmount > 0)
                     {
-                        <div class="price-row price-row--discount">
+                        <dl class="price-row price-row--discount">
                             <span>@_pricePreview.DiscountLabel</span>
                             <span>–@_pricePreview.DiscountAmount.ToString("N2") DKK</span>
-                        </div>
+                        </dl>
                     }
 
-                    <div class="price-row price-row--total">
+                    <dl class="price-row price-row--total">
                         <strong>Total</strong>
                         <strong class="price-total-amount">@_pricePreview.FinalPrice.ToString("N2") DKK</strong>
-                    </div>
+                    </dl>
                 }
 
                 @if (_errorMessage is not null)
@@ -102,8 +102,8 @@
                         disabled="@(_isSubmitting || _isLoadingPrice)">
                     @(_isSubmitting ? "Gemmer..." : "Bekræft Booking")
                 </button>
-            </div>
+            </aside>
 
-        </div>
+        </article>
     }
 </section>

@@ -13,7 +13,6 @@
 // Responsible for managing appointment creation and validation
 
 using BookRight.Domain.Common;
-using BookRight.Domain.Entities.Treatments;
 using BookRight.Domain.Enums;
 using BookRight.Domain.Exceptions;
 using BookRight.Domain.ValueObjects;
