@@ -110,7 +110,13 @@ public sealed class CreateBookingCommandHandler : ICreateBookingUseCase
                 request.ClinicId,
                 timeRange,
                 cancellationToken);
-        
+
+        await _bookingConflictChecker
+            .EnsureCustomerAvailabilityAsync(
+            request.PractitionerId,
+            timeRange,
+            cancellationToken);
+
         // Create aggregate
 
         // Create a fresh Money instance rather than passing treatmentType.BasePrice

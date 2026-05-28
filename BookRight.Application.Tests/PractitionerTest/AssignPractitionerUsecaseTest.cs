@@ -15,12 +15,14 @@ namespace BookRight.Application.Tests.PractitionerTest
     public class AssignPractitionerUsecaseTest
     {
         private readonly Mock<IPractitionerRepository> _mockRepository;
+        private readonly Mock<IClinicRepository> _mockClinicRepository; 
         private readonly AssignPractitionerToClinicHandler _handler;
 
         public AssignPractitionerUsecaseTest()
         {
             _mockRepository = new Mock<IPractitionerRepository>();
-            _handler = new AssignPractitionerToClinicHandler(_mockRepository.Object);
+            _mockClinicRepository = new Mock<IClinicRepository>(); 
+            _handler = new AssignPractitionerToClinicHandler(_mockRepository.Object, _mockClinicRepository.Object);
         }
 
         [Fact]
