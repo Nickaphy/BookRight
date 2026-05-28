@@ -7,14 +7,14 @@
     @if (_selectedCustomer is null)
     {
         <label for="customer-search">Søg på navn eller telefonnummer</label>
-        <div class="search-wrapper">
+        <search class="search-wrapper">
             <span class="search-icon">🔍</span>
             <input id="customer-search"
                    type="search"
                    value="@_searchTerm"
                    @oninput="OnSearchChanged"
                    placeholder="Søg..." />
-        </div>
+        </search>
 
         @if (_isSearching)
         {
