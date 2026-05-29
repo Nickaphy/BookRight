@@ -8,6 +8,7 @@ The project follows Clean Architecture with DDD, CQS, and a Facade layer separat
 
 - .NET 10 SDK
 - SQL Server or Docker with MSSQL
+- servername: (localdb)\MSSQLLocalDB
 
 ## Setup
 Set startup project the bookright ui
