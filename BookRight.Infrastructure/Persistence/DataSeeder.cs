@@ -294,6 +294,7 @@ namespace BookRight.Infrastructure.Persistence
                         bookings.Add(b);
                         running += treatment.BasePrice.Amount;
                     }
+                    customer.UpdateLoyaltyLevel(running);
                 }
 
                 // 2. Extra past bookings for realistic reports (last 6 months).
@@ -342,8 +343,10 @@ namespace BookRight.Infrastructure.Persistence
                     b.SetFinalPrice(new Money(treatment.BasePrice.Amount), DiscountType.None);
                     bookings.Add(b);
                 }
+                context.Customers.UpdateRange(customers);
+                context.SaveChanges();
 
-            context.Bookings.AddRange(bookings);
+                context.Bookings.AddRange(bookings);
                 context.SaveChanges();
             }
         }
