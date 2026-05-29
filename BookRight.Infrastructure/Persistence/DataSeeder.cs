@@ -42,21 +42,21 @@ namespace BookRight.Infrastructure.Persistence
                 Customer.Create("Camilla Holm",          "20110002", "camilla.holm@mail.dk",          LoyaltyLevel.None, new DateTime(1992, 2, 8),   null, "Parkvej 12",        "Kolding",    "6000"),
                 Customer.Create("Sebastian Koch",        "20110003", "sebastian.koch@mail.dk",        LoyaltyLevel.None, new DateTime(1988, 3, 27),  null, "Sønderbrogade 9",   "Odense",     "5000"),
                 Customer.Create("Julie Winther",         "20110004", "julie.winther@mail.dk",         LoyaltyLevel.None, new DateTime(1995, 4, 2),   null, "Skovbakken 2",      "Aarhus",     "8000"),
-                Customer.Create("Henrik Dahl",           "20110005", "henrik.dahl@mail.dk",           LoyaltyLevel.None, new DateTime(1979, 5, 18),  null, "Nørregade 21",      "Esbjerg",    "6700"),
+                Customer.Create("Henrik Dahl",           "20110005", "henrik.dahl@mail.dk",           LoyaltyLevel.None, new DateTime(1979, 6, 18),  null, "Nørregade 21",      "Esbjerg",    "6700"),
                 Customer.Create("Maria Iversen",         "20110006", "maria.iversen@mail.dk",         LoyaltyLevel.None, new DateTime(1990, 6, 11),  null, "Øster Alle 15",     "Fredericia", "7000"),
                 Customer.Create("Peter Broberg",         "20110007", "peter.broberg@mail.dk",         LoyaltyLevel.None, new DateTime(1981, 7, 6),   null, "Havnevej 8",        "Horsens",    "8700"),
                 Customer.Create("Katrine Lund",          "20110008", "katrine.lund@mail.dk",          LoyaltyLevel.None, new DateTime(1996, 8, 29),  null, "Engvej 18",         "Aalborg",    "9000"),
                 Customer.Create("Nicolai Bruun",         "20110009", "nicolai.bruun@mail.dk",         LoyaltyLevel.None, new DateTime(1987, 9, 4),   null, "Møllegade 5",       "Silkeborg",  "8600"),
-                Customer.Create("Sara Kjær",             "20110010", "sara.kjaer@mail.dk",            LoyaltyLevel.None, new DateTime(1993, 10, 14), null, "Bakkevej 17",       "Randers",    "8900"),
+                Customer.Create("Sara Kjær",             "20110010", "sara.kjaer@mail.dk",            LoyaltyLevel.None, new DateTime(1993, 6, 14), null, "Bakkevej 17",       "Randers",    "8900"),
 
                 Customer.Create("Emil Toft",             "20110011", "emil.toft@mail.dk",             LoyaltyLevel.None, new DateTime(1985, 11, 3),  null, "Vestergade 33",     "Vejle",      "7100"),
                 Customer.Create("Louise Birk",           "20110012", "louise.birk@mail.dk",           LoyaltyLevel.None, new DateTime(1991, 12, 25), null, "Kystvejen 1",       "Kolding",    "6000"),
                 Customer.Create("Rikke Mortensen",       "20110013", "rikke.mortensen@mail.dk",       LoyaltyLevel.None, new DateTime(1982, 1, 7),   null, "Åboulevarden 20",   "Aarhus",     "8000"),
-                Customer.Create("Mads Vestergaard",      "20110014", "mads.vestergaard@mail.dk",      LoyaltyLevel.None, new DateTime(1994, 2, 19),  null, "Lindevej 11",       "Odense",     "5000"),
+                Customer.Create("Mads Vestergaard",      "20110014", "mads.vestergaard@mail.dk",      LoyaltyLevel.None, new DateTime(1994, 6, 19),  null, "Lindevej 11",       "Odense",     "5000"),
                 Customer.Create("Trine Bach",            "20110015", "trine.bach@mail.dk",            LoyaltyLevel.None, new DateTime(1989, 3, 15),  null, "Skolegade 6",       "Esbjerg",    "6700"),
                 Customer.Create("Jakob Hviid",           "20110016", "jakob.hviid@mail.dk",           LoyaltyLevel.None, new DateTime(1977, 4, 21),  null, "Fælledvej 2",       "Fredericia", "7000"),
-                Customer.Create("Line Storm",            "20110017", "line.storm@mail.dk",            LoyaltyLevel.None, new DateTime(1998, 5, 13),  null, "Torvegade 14",      "Horsens",    "8700"),
-                Customer.Create("Casper Riis",           "20110018", "casper.riis@mail.dk",           LoyaltyLevel.None, new DateTime(1986, 6, 1),   null, "Stationsvej 9",     "Aalborg",    "9000"),
+                Customer.Create("Line Storm",            "20110017", "line.storm@mail.dk",            LoyaltyLevel.None, new DateTime(1998, 6, 13),  null, "Torvegade 14",      "Horsens",    "8700"),
+                Customer.Create("Casper Riis",           "20110018", "casper.riis@mail.dk",           LoyaltyLevel.None, new DateTime(1986, 5, 1),   null, "Stationsvej 9",     "Aalborg",    "9000"),
                 Customer.Create("Mille Bohn",            "20110019", "mille.bohn@mail.dk",            LoyaltyLevel.None, new DateTime(1990, 7, 9),   null, "Strandvej 44",      "Silkeborg",  "8600"),
                 Customer.Create("Andreas Nygaard",       "20110020", "andreas.nygaard@mail.dk",       LoyaltyLevel.None, new DateTime(1983, 8, 30),  null, "Granvej 19",        "Randers",    "8900"),
 
@@ -65,7 +65,7 @@ namespace BookRight.Infrastructure.Persistence
                 Customer.Create("Helene Gade",           "20110023", "helene.gade@mail.dk",           LoyaltyLevel.None, new DateTime(1991, 11, 5),  null, "Bredgade 8",        "Odense",     "5000"),
                 Customer.Create("Frederik Brandt",       "20110024", "frederik.brandt@mail.dk",       LoyaltyLevel.None, new DateTime(1980, 12, 28), null, "Skovvej 27",        "Aarhus",     "8000"),
                 Customer.Create("Josefine Lind",         "20110025", "josefine.lind@mail.dk",         LoyaltyLevel.None, new DateTime(1997, 1, 18),  null, "Højmarksvej 7",     "Esbjerg",    "6700"),
-                Customer.Create("Martin Quist",          "20110026", "martin.quist@mail.dk",          LoyaltyLevel.None, new DateTime(1984, 2, 2),   null, "Birkelunden 10",    "Fredericia", "7000"),
+                Customer.Create("Martin Quist",          "20110026", "martin.quist@mail.dk",          LoyaltyLevel.None, new DateTime(1984, 6, 2),   null, "Birkelunden 10",    "Fredericia", "7000"),
                 Customer.Create("Nanna Schou",           "20110027", "nanna.schou@mail.dk",           LoyaltyLevel.None, new DateTime(1992, 3, 24),  null, "Teglgårdsvej 5",    "Horsens",    "8700"),
                 Customer.Create("Tobias Munk",           "20110028", "tobias.munk@mail.dk",           LoyaltyLevel.None, new DateTime(1985, 4, 17),  null, "Lærkevej 13",       "Aalborg",    "9000"),
                 Customer.Create("Clara Foldager",        "20110029", "clara.foldager@mail.dk",        LoyaltyLevel.None, new DateTime(1993, 5, 26),  null, "Hedetoften 1",      "Silkeborg",  "8600"),
@@ -271,10 +271,10 @@ namespace BookRight.Infrastructure.Persistence
                     var customer = customers[i];
                     decimal target = (i % 4) switch
                     {
-                        0 => 10000m,
-                        1 => 5000m,
-                        2 => 1000m,
-                        _ => 0m
+                        0 => 26000m,  // Gold
+                        1 => 15000m,  // Silver
+                        2 => 5000m,   // Bronze
+                        _ => 0m       // None
                     };
                     decimal running = 0m;
                     int safety = 0;
@@ -343,7 +343,7 @@ namespace BookRight.Infrastructure.Persistence
                     bookings.Add(b);
                 }
 
-                context.Bookings.AddRange(bookings);
+            context.Bookings.AddRange(bookings);
                 context.SaveChanges();
             }
         }

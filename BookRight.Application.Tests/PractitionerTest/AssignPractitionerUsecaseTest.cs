@@ -1,9 +1,11 @@
 ﻿using BookRight.Application.Repositories;
 using BookRight.Application.UseCaseExceptions;
 using BookRight.Application.UseCases.PractitionerUseCases;
+using BookRight.Domain.Entities.Clinics;
 using BookRight.Domain.Entities.Practitioners;
 using BookRight.Domain.Enums;
 using BookRight.Domain.Exceptions;
+using BookRight.Domain.ValueObjects;
 using BookRight.Facade.Dtos.PractitionerCommand;
 using Moq;
 using System;
@@ -32,6 +34,7 @@ namespace BookRight.Application.Tests.PractitionerTest
             var practitionerId = Guid.NewGuid();
             var clinicId = Guid.NewGuid();
             var date = new DateTime(2026, 6, 1);
+            var command = new AssignPractitionerToClinicCommand(practitionerId, clinicId, date);
 
             var existingPractitioner = new Practitioner(
                 "Lene",
@@ -40,6 +43,12 @@ namespace BookRight.Application.Tests.PractitionerTest
                 "AUTH007",
                 AuthorizationType.Physiotherapist
             );
+
+            var existingClinic = Clinic.Create("Test Klinik", 3, "Testvej 1", "Vejle", "7100",
+                new[]
+                {
+        new ClinicOpeningHour(DayOfWeek.Monday, new TimeOnly(8, 0), new TimeOnly(17, 0))
+                });
 
             _mockRepository
                 .Setup(r => r.GetByIdAsync(practitionerId, It.IsAny<CancellationToken>()))
@@ -50,10 +59,16 @@ namespace BookRight.Application.Tests.PractitionerTest
                 .Returns(Task.CompletedTask);
 
             _mockRepository
-                .Setup(r => r.SaveAsync(It.IsAny<Practitioner>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.CompletedTask);
+                 .Setup(r => r.SaveAsync(It.IsAny<Practitioner>(), It.IsAny<CancellationToken>()))
+                 .Returns(Task.CompletedTask);
 
-            var command = new AssignPractitionerToClinicCommand(practitionerId, clinicId, date);
+            _mockClinicRepository
+                .Setup(r => r.GetByIdAsync(clinicId, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(existingClinic);
+
+            _mockRepository
+                .Setup(r => r.CountPractitionersByClinicAndDateAsync(clinicId, date, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(0);
 
             // Act
             await _handler.HandleAsync(command);
@@ -84,7 +99,20 @@ namespace BookRight.Application.Tests.PractitionerTest
                 "AUTH007",
                 AuthorizationType.Physiotherapist
             );
+            var existingClinic = Clinic.Create("Test Klinik", 3, "Testvej 1", "Vejle", "7100",
+                new[]
+                {
+                    new ClinicOpeningHour(DayOfWeek.Monday, new TimeOnly(8, 0), new TimeOnly(17, 0))
+                });
 
+            _mockClinicRepository
+                .Setup(r => r.GetByIdAsync(clinicId, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(existingClinic);
+
+            _mockRepository
+                .Setup(r => r.CountPractitionersByClinicAndDateAsync(clinicId, pastDate, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(0);
+            
             _mockRepository
                 .Setup(r => r.GetByIdAsync(practitionerId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(existingPractitioner);
@@ -95,7 +123,7 @@ namespace BookRight.Application.Tests.PractitionerTest
             var act = async () => await _handler.HandleAsync(command);
 
             // Assert
-            await Assert.ThrowsAsync<DomainException>(() => _handler.HandleAsync(command)
+            await Assert.ThrowsAsync<DomainException>((act)
             );
 
             _mockRepository.Verify(r => r.UpdateAsync(It.IsAny<Practitioner>(), It.IsAny<CancellationToken>()),
