@@ -71,9 +71,9 @@ namespace BookRight.Infrastructure.Persistence
                 // Mirror the thresholds from Customer.UpdateLoyaltyLevel
                 var level = total switch
                 {
-                    >= 10000m => CustomerLoyaltyLevel.Gold,
-                    >= 5000m => CustomerLoyaltyLevel.Silver,
-                    >= 1000m => CustomerLoyaltyLevel.Bronze,
+                    > 25000m => CustomerLoyaltyLevel.Gold,
+                    > 10000m => CustomerLoyaltyLevel.Silver,
+                    >= 3000m => CustomerLoyaltyLevel.Bronze,
                     _ => CustomerLoyaltyLevel.None
                 };
 
