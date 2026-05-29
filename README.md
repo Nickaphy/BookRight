@@ -10,7 +10,7 @@ The project follows Clean Architecture with DDD, CQS, and a Facade layer separat
 - SQL Server or Docker with MSSQL
 
 ## Setup
-
+Set startup project the bookright ui
 1. Update the connection string in `BookRight.Infrastructure/Persistence/AppDbContext.cs` to point at your database.
 
 2. Run migrations:
