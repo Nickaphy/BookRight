@@ -22,7 +22,7 @@ public class LoyaltyDiscountStrategyTests
             1000m);
 
         // Act
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert
         Assert.Equal(50m, discount);
@@ -39,7 +39,7 @@ public class LoyaltyDiscountStrategyTests
             1000m);
 
         // Act
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert
         Assert.Equal(100m, discount);
@@ -56,7 +56,7 @@ public class LoyaltyDiscountStrategyTests
             1000m);
 
         // Act
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert
         Assert.Equal(150m, discount);
@@ -73,7 +73,7 @@ public class LoyaltyDiscountStrategyTests
             1000m);
 
         // Act
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert
         Assert.Equal(0m, discount);
@@ -90,7 +90,7 @@ public class LoyaltyDiscountStrategyTests
             1000m);
 
         // Act
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert
         Assert.Equal(0m, discount);
@@ -107,7 +107,7 @@ public class LoyaltyDiscountStrategyTests
             1000m);
 
         // Act
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert
         Assert.Equal(0m, discount);
@@ -126,7 +126,8 @@ public class LoyaltyDiscountStrategyTests
             timeRange: new TimeRange(
                 DateTime.Today.AddDays(1).AddHours(10),
                 DateTime.Today.AddDays(1).AddHours(11)),
-            basePrice: new Money(basePrice));
+            basePrice: new Money(basePrice),
+            isTeam: false);
 
         var customer = Customer.Create(
             name: "Test Customer",

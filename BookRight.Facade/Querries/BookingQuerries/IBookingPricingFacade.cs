@@ -1,4 +1,4 @@
-﻿using BookRight.Facade.Dtos.BookingPreview;
+﻿using BookRight.Facade.Dtos.QuerryDto.BookingPricePreviewDto;
 
 namespace BookRight.Facade.Querries.BookingQuerries;
 

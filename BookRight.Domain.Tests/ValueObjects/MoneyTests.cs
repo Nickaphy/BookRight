@@ -1,6 +1,7 @@
 namespace BookRight.Domain.Tests.ValueObjects;
 
 using BookRight.Domain.ValueObjects;
+using BookRight.Domain.Exceptions;
 
 // Theory: being used to run multiple tests with different input data made possible by the inline data attribute.
 // Fact: a single test with single input data.
@@ -27,7 +28,7 @@ public class MoneyTests
     [Fact]
     public void Constructor_NegativeAmount_ThrowsArgumentException()
     {
-        Assert.Throws<ArgumentException>(() => new Money(-1m));
+        Assert.Throws<DomainException>(() => new Money(-1m));
     }
 
     // Two Money objects with the same amount should be considered equal

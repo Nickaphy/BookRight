@@ -27,8 +27,8 @@ public class AppDbContext : DbContext
     public DbSet<Booking> Bookings { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(
-            @"Server=(localdb)\MSSQLLocalDB;Database=BookRight;Trusted_Connection=True;TrustServerCertificate=True");
+        if (!optionsBuilder.IsConfigured)
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=BookRight;Trusted_Connection=True;TrustServerCertificate=True");
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -96,12 +96,13 @@ public class AppDbContext : DbContext
         // 3. Dispatch events EFTER data er gemt
         foreach (var aggregate in aggregates)
         {
-            foreach (var domainEvent in aggregate.DomainEvents)
+            var events = aggregate.DomainEvents.ToList(); // 1. kopiér
+            aggregate.ClearDomainEvents();                // 2. ryd FØR dispatch
+
+            foreach (var domainEvent in events)           // 3. dispatch fra kopien
             {
                 await _domainEventDispatcher.Dispatch(domainEvent, cancellationToken);
             }
-
-            aggregate.ClearDomainEvents();
         }
 
         return result;

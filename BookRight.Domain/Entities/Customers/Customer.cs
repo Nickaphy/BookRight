@@ -99,8 +99,8 @@ public class Customer : AggregateRoot
     {
         LoyaltyLevel = totalSpentLastYear switch
         {
-            > 25000 => LoyaltyLevel.Gold,
-            > 10000 => LoyaltyLevel.Silver,
+            >  25000 => LoyaltyLevel.Gold,
+            >= 10001 => LoyaltyLevel.Silver,
             >= 3000 => LoyaltyLevel.Bronze,
             _ => LoyaltyLevel.None
         };

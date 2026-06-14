@@ -3,7 +3,7 @@ using BookRight.Application.UseCaseExceptions;
 using BookRight.Application.UseCases.PractitionerUseCases;
 using BookRight.Domain.Entities.Practitioners;
 using BookRight.Domain.Enums;
-using BookRight.Facade.Dtos.PractitionerCommand;
+using BookRight.Facade.Dtos.CommandDto.PractitionerCommand;
 using Moq;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using BookRight.Facade.Dtos.TreatmentTypeDtos;
+﻿using BookRight.Facade.Dtos.QuerryDto.TreatmentTypeDtos;
 using BookRight.Facade.Querries.TreatmentTypeQuerries;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -31,7 +31,8 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                 t.Name,
                 t.DurationMinutes,
                 t.BasePrice.Amount,
-                t.NeedsAuthorisation.ToString()))
+                t.NeedsAuthorisation.ToString(),
+                t.MaxParticipants))
                 .ToList();
 
 

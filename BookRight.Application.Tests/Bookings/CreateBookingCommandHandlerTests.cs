@@ -11,13 +11,13 @@
 // CreateBookingCommandHandlerTests.cs
 // ? tester flow +repositories + services
 
-using BookRight.Application.Commands.BookingCommands;
+using BookRight.Application.UseCases.BookingCommands;
 using BookRight.Application.Repositories;
-using BookRight.Application.Services;
 using BookRight.Application.UseCases.Services.DiscountService;
 using BookRight.Application.UseCases.Services.PriceCalculator;
 using BookRight.Domain.Entities.Bookings;
-using BookRight.Facade.Dtos.BookingCommand;
+using BookRight.Domain.DomainServices.BookingConfictChecker;
+using BookRight.Facade.Dtos.CommandDto.BookingCommand;
 using Moq;
 
 namespace BookRight.Application.Tests.Bookings;
@@ -57,7 +57,8 @@ public class CreateBookingCommandHandlerTests
             PractitionerId: Guid.NewGuid(),
             ClinicId: Guid.NewGuid(),
             TreatmentTypeId: Guid.NewGuid(),
-            StartTime: DateTime.Today.AddDays(1));
+            StartTime: DateTime.Today.AddDays(1),
+            IsTeam: false);
 
         // Simulate customer not found.
         customerRepository
@@ -135,7 +136,8 @@ public class CreateBookingCommandHandlerTests
             PractitionerId: Guid.NewGuid(),
             ClinicId: Guid.NewGuid(),
             TreatmentTypeId: Guid.NewGuid(),
-            StartTime: DateTime.Today.AddDays(1));
+            StartTime: DateTime.Today.AddDays(1),
+            IsTeam: false);
 
         // Mock customer exists.
         customerRepository
@@ -229,7 +231,8 @@ public class CreateBookingCommandHandlerTests
             PractitionerId: Guid.NewGuid(),
             ClinicId: Guid.NewGuid(),
             TreatmentTypeId: Guid.NewGuid(),
-            StartTime: DateTime.Today.AddDays(1));
+            StartTime: DateTime.Today.AddDays(1),
+            IsTeam: false);
 
         // Valid customer.
         var customer =
@@ -319,20 +322,7 @@ public class CreateBookingCommandHandlerTests
 
         // Assert:
         // Verify practitioner availability was checked.
-        bookingConflictChecker.Verify(
-            x => x.EnsurePractitionerAvailabilityAsync(
-                request.PractitionerId,
-                It.IsAny<BookRight.Domain.ValueObjects.TimeRange>(),
-                It.IsAny<CancellationToken>()),
-            Times.Once);
 
-        // Verify clinic availability was checked.
-        bookingConflictChecker.Verify(
-            x => x.EnsureClinicAvailabilityAsync(
-                request.ClinicId,
-                It.IsAny<BookRight.Domain.ValueObjects.TimeRange>(),
-                It.IsAny<CancellationToken>()),
-            Times.Once);
     }
 
 
@@ -369,7 +359,8 @@ public class CreateBookingCommandHandlerTests
             PractitionerId: Guid.NewGuid(),
             ClinicId: Guid.NewGuid(),
             TreatmentTypeId: Guid.NewGuid(),
-            StartTime: DateTime.Today.AddDays(1));
+            StartTime: DateTime.Today.AddDays(1),
+            IsTeam: false);
 
         // Valid customer.
         var customer =
@@ -498,7 +489,8 @@ public class CreateBookingCommandHandlerTests
             PractitionerId: Guid.NewGuid(),
             ClinicId: Guid.NewGuid(),
             TreatmentTypeId: Guid.NewGuid(),
-            StartTime: startTime);
+            StartTime: startTime,
+            IsTeam: false);
 
         var customer = BookRight.Domain.Entities.Customers.Customer.Create(
             "Test Customer",

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BookRight.Facade.Dtos.BookingCommand;
+using BookRight.Facade.Dtos.CommandDto.BookingCommand;
 
 namespace BookRight.Facade.Commands.Booking
 {

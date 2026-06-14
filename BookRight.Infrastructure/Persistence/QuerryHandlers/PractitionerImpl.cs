@@ -1,4 +1,4 @@
-using BookRight.Facade.Dtos.PractitionerQuerry;
+using BookRight.Facade.Dtos.QuerryDto.PractitionerQuerry;
 using BookRight.Facade.Querries.PractitionerQuerries;
 using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -89,7 +89,7 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                 .Include(c => c.OpeningHours)
                 .FirstOrDefaultAsync(c => c.Id == clinicId, cancellationToken);
 
-            if (clinic is null)
+            if (clinic == null)
                 return [];
 
             // Existing bookings for this practitioner at this clinic in the week.
@@ -131,8 +131,13 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                         b.TimeRange.Start < slotEnd &&
                         b.TimeRange.End > slotStart);
 
-                    slots.Add(new PractitionerAvailableSlotDto(slotStart, slotEnd, !isBooked));
-                    slotStart = slotStart.AddMinutes(durationMinutes);
+                    var isTeam = bookings.Any(b =>
+                        b.TimeRange.Start <= slotStart &&
+                        b.TimeRange.End > slotStart &&
+                        b.IsTeam);
+
+                    slots.Add(new PractitionerAvailableSlotDto(slotStart, slotEnd, !isBooked, isTeam));
+                    slotStart = slotStart.AddMinutes(15);
                 }
             }
 

@@ -1,6 +1,6 @@
 ﻿using BookRight.Facade.Querries.PractitionerQuerries;
 using Microsoft.AspNetCore.Components;
-using BookRight.Facade.Dtos.PractitionerQuerry;
+using BookRight.Facade.Dtos.QuerryDto.PractitionerQuerry;
 
 namespace BookRight.UI.Components.Pages.CreateBookings
 {
@@ -69,9 +69,9 @@ namespace BookRight.UI.Components.Pages.CreateBookings
 
         private IEnumerable<DateOnly> GetWeekDays()
         {
-            var monday = _currentWeek.AddDays(-(int)_currentWeek.DayOfWeek + 1);
-            return Enumerable.Range(0, 5).Select(i => monday.AddDays(i));
+            return Enumerable.Range(0, 5).Select(i => _currentWeek.AddDays(i));
         }
+        private string TeamSlotHeight() => $"{DurationMinutes / 15 * 30 - 4}px";
 
         private IEnumerable<TimeOnly> GetTimeLabels()
         {
@@ -80,7 +80,7 @@ namespace BookRight.UI.Components.Pages.CreateBookings
             while (current < new TimeOnly(17, 0))
             {
                 times.Add(current);
-                current = current.AddMinutes(30);
+                current = current.AddMinutes(15);
             }
             return times;
         }

@@ -1,4 +1,4 @@
-using BookRight.Facade.Dtos.ClinicCommand;
+using BookRight.Facade.Dtos.CommandDto.ClinicCommand;
 using System;
 using System.Collections.Generic;
 using System.Text;

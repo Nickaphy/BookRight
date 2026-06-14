@@ -6,7 +6,7 @@ using BookRight.Domain.Entities.Practitioners;
 using BookRight.Domain.Enums;
 using BookRight.Domain.Exceptions;
 using BookRight.Domain.ValueObjects;
-using BookRight.Facade.Dtos.PractitionerCommand;
+using BookRight.Facade.Dtos.CommandDto.PractitionerCommand;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -33,7 +33,7 @@ namespace BookRight.Application.Tests.PractitionerTest
             // Arrange
             var practitionerId = Guid.NewGuid();
             var clinicId = Guid.NewGuid();
-            var date = new DateTime(2026, 6, 1);
+            var date = new DateTime(2026, 7, 1);
             var command = new AssignPractitionerToClinicCommand(practitionerId, clinicId, date);
 
             var existingPractitioner = new Practitioner(

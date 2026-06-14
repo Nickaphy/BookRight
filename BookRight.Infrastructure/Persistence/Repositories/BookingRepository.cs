@@ -154,5 +154,24 @@ public sealed class BookingRepository : IBookingRepository
                      booking.Status == BookingStatus.Completed),
                 cancellationToken);
     }
+    public async Task<IEnumerable<Booking>> GetBookingsByCustomerIdAsync(
+    Guid customerId,
+    CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Bookings
+            .Where(b => b.CustomerId == customerId && 
+            b.Status == BookingStatus.Created)
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<IEnumerable<Booking>> GetBookingsByPractitionerIdAsync(
+        Guid practitionerId,
+        CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Bookings
+            .Where(b => b.PractitionerId == practitionerId && 
+            b.Status == BookingStatus.Created)
+            .ToListAsync(cancellationToken);
+    }
 
 }

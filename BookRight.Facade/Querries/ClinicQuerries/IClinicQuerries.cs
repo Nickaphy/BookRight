@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using BookRight.Facade.Dtos.ClinicQuerry;
+using BookRight.Facade.Dtos.QuerryDto.ClinicQuerry;
 
 namespace BookRight.Facade.Querries.ClinicQuerries
 {

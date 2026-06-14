@@ -3,11 +3,11 @@ using BookRight.Application.UseCaseExceptions;
 using BookRight.Domain.Entities.Clinics;
 using BookRight.Domain.Entities.Practitioners;
 using BookRight.Facade.Commands.Clinic;
-using BookRight.Facade.Dtos.ClinicCommand;
 using BookRight.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using BookRight.Facade.Dtos.CommandDto.ClinicCommand;
 
 namespace BookRight.Application.UseCases.ClinicUseCases
 {

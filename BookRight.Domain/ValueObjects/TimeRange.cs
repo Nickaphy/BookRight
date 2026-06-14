@@ -2,22 +2,21 @@
 // Represents Start and End time
 // Used for overlap validation
 
+using BookRight.Domain.Common;
+
 namespace BookRight.Domain.ValueObjects;
 
-public sealed class TimeRange
+public sealed class TimeRange : ValueObject
 {
-    public DateTime Start { get; private set; }
-    public DateTime End { get; private set; }
-
+    public DateTime Start { get; init; }
+    public DateTime End { get; init; }
 
 
     public TimeSpan Duration => End - Start;
 
     private TimeRange()
-    {
-        // Her skal indsætte Linq-kode, der samarbejder med EF-core
-    }
-
+    {    }
+   
 
     // Her vælger vi IKKE at bruge "record" da det vil konflikte med vores "private set",
     // så i tilfældet her arbejder vi ud fra "code-first".
@@ -32,7 +31,11 @@ public sealed class TimeRange
         End = end;
 
     }
-
+    protected override IEnumerable<object> GetEqualityComponents()
+       {
+           yield return Start;
+           yield return End;
+       }
     //denne bool gør at der kan være "back-to-back" tider. - Den sørger for en tid ikke kan starte mens en tid er i gang.
     public bool Overlaps(TimeRange other)
     {

@@ -1,7 +1,7 @@
 ﻿using BookRight.Application.Repositories;
 using BookRight.Application.UseCases.ClinicUseCases;
 using BookRight.Domain.Entities.Clinics;
-using BookRight.Facade.Dtos.ClinicCommand;
+using BookRight.Facade.Dtos.CommandDto.ClinicCommand;
 using Moq;
 using System;
 using System.Collections.Generic;

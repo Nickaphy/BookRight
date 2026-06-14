@@ -24,7 +24,7 @@ namespace BookRight.Domain.ValueObjects
             yield return OpeningTime;
             yield return ClosingTime;
         }
-        public void ValidateOpeningHours()
+        private void ValidateOpeningHours()
         {
             if (OpeningTime >= ClosingTime)
             {

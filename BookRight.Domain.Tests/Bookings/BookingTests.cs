@@ -120,6 +120,7 @@ public class BookingTests
             timeRange: new TimeRange(
                 DateTime.Today.AddDays(1).AddHours(10),
                 DateTime.Today.AddDays(1).AddHours(11)),
-            basePrice: new Money(1000m));
+            basePrice: new Money(1000m),
+            isTeam: false);
     }
 }

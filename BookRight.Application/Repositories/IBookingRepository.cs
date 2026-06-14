@@ -48,4 +48,12 @@ public interface IBookingRepository
       Guid customerId,
       TimeRange timeRange,
       CancellationToken cancellationToken = default);
+
+    Task<IEnumerable<Booking>> GetBookingsByCustomerIdAsync(
+    Guid customerId,
+    CancellationToken cancellationToken = default);
+
+    Task<IEnumerable<Booking>> GetBookingsByPractitionerIdAsync(
+        Guid practitionerId,
+        CancellationToken cancellationToken = default);
 }

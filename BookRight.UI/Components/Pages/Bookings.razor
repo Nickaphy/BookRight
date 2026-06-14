@@ -1,7 +1,7 @@
 @using BookRight.Facade.Commands.Booking
-@using BookRight.Facade.Dtos.BookingCommand
-@using BookRight.Facade.Dtos.BookingQuery
-@using BookRight.Facade.Queries.BookingQueries
+@using BookRight.Facade.Dtos.CommandDto.BookingCommand
+@using BookRight.Facade.Dtos.QuerryDto.BookingQuery
+@using BookRight.Facade.Querries.BookingQuerries
 
 @rendermode InteractiveServer
 @page "/bookings"
@@ -16,6 +16,7 @@
 <div class="bookings-page">
     <h1 class="bookings-heading">Bookinger</h1>
     <p class="bookings-period">@_periodLabel</p>
+    
     @if (_unhandledBookings is { Count: > 0 })
     {
         <div class="unhandled-section">
@@ -186,7 +187,12 @@
         var from = DateTime.Today;
         var to = from.AddDays(30);
         _periodLabel = $"{FormatDate(from)} \u2013 {FormatDate(to.AddDays(-1))}";
-        _bookings = (await BookingQueries.GetBookingsForPeriodAsync(from, to)).ToList();
+
+        var allBookings = await BookingQueries.GetBookingsForPeriodAsync(from, to);
+        _bookings = allBookings
+            .Where(b => b.Status != "Completed")
+            .ToList();
+
         _unhandledBookings = (await BookingQueries.GetUnhandledPastBookingsAsync()).ToList();
     }
 

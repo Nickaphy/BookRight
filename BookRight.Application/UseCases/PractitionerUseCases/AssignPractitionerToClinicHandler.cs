@@ -2,7 +2,7 @@ using BookRight.Application.Repositories;
 using BookRight.Application.UseCaseExceptions;
 using BookRight.Domain.Entities.Clinics;
 using BookRight.Facade.Commands.Practitioner;
-using BookRight.Facade.Dtos.PractitionerCommand;
+using BookRight.Facade.Dtos.CommandDto.PractitionerCommand;
 
 namespace BookRight.Application.UseCases.PractitionerUseCases
 {

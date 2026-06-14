@@ -271,9 +271,9 @@ namespace BookRight.Infrastructure.Persistence
                     var customer = customers[i];
                     decimal target = (i % 4) switch
                     {
-                        0 => 26000m,  // Gold
-                        1 => 15000m,  // Silver
-                        2 => 5000m,   // Bronze
+                        0 => 25000m,  // Gold
+                        1 => 10001m,  // Silver
+                        2 => 3000m,   // Bronze
                         _ => 0m       // None
                     };
                     decimal running = 0m;
@@ -289,7 +289,7 @@ namespace BookRight.Infrastructure.Persistence
                         var b = Booking.Reconstitute(
                             customer.Id, practitioner.Id, clinic.Id, treatment.Id,
                             new TimeRange(slot.Value, slot.Value.AddMinutes(treatment.DurationMinutes)),
-                            new Money(treatment.BasePrice.Amount), BookingStatus.Completed);
+                            new Money(treatment.BasePrice.Amount), BookingStatus.Completed, false);
                         b.SetFinalPrice(new Money(treatment.BasePrice.Amount), DiscountType.None);
                         bookings.Add(b);
                         running += treatment.BasePrice.Amount;
@@ -316,7 +316,7 @@ namespace BookRight.Infrastructure.Persistence
                     var b = Booking.Reconstitute(
                         customer.Id, practitioner.Id, clinic.Id, treatment.Id,
                         new TimeRange(slot.Value, slot.Value.AddMinutes(treatment.DurationMinutes)),
-                        new Money(treatment.BasePrice.Amount), status);
+                        new Money(treatment.BasePrice.Amount), status, false);
                     b.SetFinalPrice(new Money(treatment.BasePrice.Amount), DiscountType.None);
                     bookings.Add(b);
                 }
@@ -339,7 +339,8 @@ namespace BookRight.Infrastructure.Persistence
                         clinicId: clinic.Id,
                         treatmentTypeId: treatment.Id,
                         timeRange: new TimeRange(slot.Value, slot.Value.AddMinutes(treatment.DurationMinutes)),
-                        basePrice: new Money(treatment.BasePrice.Amount));
+                        basePrice: new Money(treatment.BasePrice.Amount),
+                        false);
                     b.SetFinalPrice(new Money(treatment.BasePrice.Amount), DiscountType.None);
                     bookings.Add(b);
                 }

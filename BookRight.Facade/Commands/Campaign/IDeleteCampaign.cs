@@ -1,4 +1,4 @@
-using BookRight.Facade.Dtos.CampaignCommand;
+using BookRight.Facade.Dtos.CommandDto.CampaignCommand;
 
 namespace BookRight.Facade.Commands.Campaign;
 

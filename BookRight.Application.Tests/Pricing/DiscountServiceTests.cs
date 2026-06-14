@@ -23,8 +23,8 @@ public class DiscountServiceTests
             .Returns(DiscountType.Bronze);
 
         bronzeStrategy
-            .Setup(x => x.CalculateDiscountAsync(It.IsAny<BookingPricingContext>()))
-            .ReturnsAsync(50m);
+            .Setup(x => x.CalculateDiscount(It.IsAny<BookingPricingContext>()))
+            .Returns(50m);
 
         // Gold strategy returns 150.
         var goldStrategy = new Mock<IDiscountStrategy>();
@@ -34,8 +34,8 @@ public class DiscountServiceTests
             .Returns(DiscountType.Gold);
 
         goldStrategy
-            .Setup(x => x.CalculateDiscountAsync(It.IsAny<BookingPricingContext>()))
-            .ReturnsAsync(150m);
+            .Setup(x => x.CalculateDiscount(It.IsAny<BookingPricingContext>()))
+            .Returns(150m);
 
         var strategies = new List<IDiscountStrategy>
         {
@@ -72,8 +72,8 @@ public class DiscountServiceTests
             .Returns(DiscountType.None);
 
         strategy
-            .Setup(x => x.CalculateDiscountAsync(It.IsAny<BookingPricingContext>()))
-            .ReturnsAsync(0m);
+            .Setup(x => x.CalculateDiscount(It.IsAny<BookingPricingContext>()))
+            .Returns(0m);
 
         var service = new DiscountService(
             new List<IDiscountStrategy>
@@ -104,7 +104,8 @@ public class DiscountServiceTests
             timeRange: new TimeRange(
                 DateTime.Today.AddDays(1).AddHours(10),
                 DateTime.Today.AddDays(1).AddHours(11)),
-            basePrice: new Money(1000m));
+            basePrice: new Money(1000m),
+            isTeam: false);
 
         var customer = Customer.Create(
             name: "Test Customer",

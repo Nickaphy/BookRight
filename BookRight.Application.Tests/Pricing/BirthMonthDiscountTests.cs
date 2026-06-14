@@ -23,7 +23,7 @@ public class BirthMonthDiscountTests
             basePrice: 1000m);
 
         // Act: calculate discount amount.
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert: 25% of 1000 = 250.
         Assert.Equal(250m, discount);
@@ -41,7 +41,7 @@ public class BirthMonthDiscountTests
             basePrice: 1000m);
 
         // Act
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert
         Assert.Equal(0m, discount);
@@ -59,7 +59,7 @@ public class BirthMonthDiscountTests
             basePrice: 1000m);
 
         // Act
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert
         Assert.Equal(0m, discount);
@@ -85,7 +85,7 @@ public class BirthMonthDiscountTests
             basePrice: basePrice);
 
         // Act
-        var discount = await strategy.CalculateDiscountAsync(context);
+        var discount = strategy.CalculateDiscount(context);
 
         // Assert
         Assert.Equal(expectedDiscount, discount);
@@ -105,7 +105,8 @@ public class BirthMonthDiscountTests
             timeRange: new TimeRange(
                 DateTime.Today.AddDays(1).AddHours(10),
                 DateTime.Today.AddDays(1).AddHours(11)),
-            basePrice: new Money(basePrice));
+            basePrice: new Money(basePrice),
+            isTeam: false);
 
         var customer = Customer.Create(
             name: "Test Customer",

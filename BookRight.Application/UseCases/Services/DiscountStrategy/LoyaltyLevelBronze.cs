@@ -21,7 +21,7 @@ public sealed class LoyaltyLevelBronze : IDiscountStrategy
     public DiscountType DiscountType =>
         DiscountType.Bronze;
 
-    public Task<decimal> CalculateDiscountAsync(
+    public decimal CalculateDiscount(
         BookingPricingContext context)
     {
         if (context is null)
@@ -29,12 +29,12 @@ public sealed class LoyaltyLevelBronze : IDiscountStrategy
 
         // Discount only applies to Bronze customers.
         if (context.Customer.LoyaltyLevel != LoyaltyLevel.Bronze)
-            return Task.FromResult(0m);
+            return 0m;
 
         // Calculate discount amount.
-        var discount =
+        decimal discount =
             context.Booking.BasePrice.Amount * _percentage;
 
-        return Task.FromResult(discount);
+        return discount;
     }
 }

@@ -23,6 +23,6 @@ public interface IDiscountStrategy
     // Returns:
     // - 0 when discount does not apply
     // - discount amount in currency otherwise
-    Task<decimal> CalculateDiscountAsync(
+    decimal CalculateDiscount(
         BookingPricingContext context);
 }

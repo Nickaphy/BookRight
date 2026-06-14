@@ -1,4 +1,4 @@
-﻿using BookRight.Facade.Dtos.PractitionerQuerry;
+﻿using BookRight.Facade.Dtos.QuerryDto.PractitionerQuerry;
 using BookRight.Facade.Querries.PractitionerQuerries;
 using Microsoft.AspNetCore.Components;
 

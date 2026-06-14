@@ -1,4 +1,4 @@
-using BookRight.Facade.Dtos.PractitionerQuerry;
+using BookRight.Facade.Dtos.QuerryDto.PractitionerQuerry;
 using System;
 using System.Collections.Generic;
 using System.Text;

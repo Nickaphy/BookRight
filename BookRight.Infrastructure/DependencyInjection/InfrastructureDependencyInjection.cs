@@ -1,9 +1,6 @@
 ﻿using BookRight.Application.Repositories;
-using BookRight.Application.UseCases.Pricing;
 using BookRight.Domain.Common;
-using BookRight.Facade.Queries.BookingQueries;
 using BookRight.Facade.Querries.BookingQuerries;
-using BookRight.Facade.Queries.Reports;
 using BookRight.Facade.Querries.ClinicQuerries;
 using BookRight.Facade.Querries.CustomerQuerries;
 using BookRight.Facade.Querries.PractitionerQuerries;
@@ -14,6 +11,7 @@ using BookRight.Infrastructure.Persistence.QuerryHandlers;
 using BookRight.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using BookRight.Application.QuerryHandlers.Pricing;
 
 namespace BookRight.Infrastructure.DependencyInjection
 {
@@ -50,7 +48,6 @@ namespace BookRight.Infrastructure.DependencyInjection
             services.AddScoped<IPractitionerQuerries, PractitionerImpl>();
             services.AddScoped<IClinicQuerries, ClinicImpl>();
             services.AddScoped<IBookingQueries, BookingQueries>();
-            services.AddScoped<IBookingPricingFacade, BookingPricingFacadeHandler>();
             services.AddScoped<IClinicReportQueries, ClinicReportImpl>();
             return services;
         }

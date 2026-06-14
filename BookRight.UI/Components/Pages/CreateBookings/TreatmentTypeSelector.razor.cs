@@ -1,7 +1,7 @@
-﻿using BookRight.Facade.Dtos.TreatmentTypeDtos;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 using BookRight.Facade.Querries.TreatmentTypeQuerries;
+using BookRight.Facade.Dtos.QuerryDto.TreatmentTypeDtos;
 
 namespace BookRight.UI.Components.Pages.CreateBookings
 {

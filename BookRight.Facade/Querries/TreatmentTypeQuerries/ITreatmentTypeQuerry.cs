@@ -1,4 +1,4 @@
-﻿using BookRight.Facade.Dtos.TreatmentTypeDtos;
+﻿using BookRight.Facade.Dtos.QuerryDto.TreatmentTypeDtos;
 using System;
 using System.Collections.Generic;
 using System.Text;

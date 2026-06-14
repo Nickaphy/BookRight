@@ -31,10 +31,10 @@ public class DiscountService : IDiscountService
         // - Birthday discount
         // - Campaign discount
         var tasks = _strategies.Select(strategy =>
-        Task.Run(async () =>
+        Task.Run(() =>
         {
             ct.ThrowIfCancellationRequested();
-            var discount = await strategy.CalculateDiscountAsync(context);
+            var discount = strategy.CalculateDiscount(context);
             result.OfferDiscount(strategy.DiscountType, discount);
         }, ct));
 

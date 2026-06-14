@@ -1,10 +1,10 @@
 ﻿using BookRight.Facade.Commands.Booking;
-using BookRight.Facade.Dtos.BookingCommand;
-using BookRight.Facade.Dtos.BookingPreview;
-using BookRight.Facade.Dtos.ClinicQuerry;
-using BookRight.Facade.Dtos.CustomerDtos;
-using BookRight.Facade.Dtos.PractitionerQuerry;
-using BookRight.Facade.Dtos.TreatmentTypeDtos;
+using BookRight.Facade.Dtos.CommandDto.BookingCommand;
+using BookRight.Facade.Dtos.QuerryDto.BookingPricePreviewDto;
+using BookRight.Facade.Dtos.QuerryDto.ClinicQuerry;
+using BookRight.Facade.Dtos.QuerryDto.CustomerDtos;
+using BookRight.Facade.Dtos.QuerryDto.PractitionerQuerry;
+using BookRight.Facade.Dtos.QuerryDto.TreatmentTypeDtos;
 using BookRight.Facade.Querries.BookingQuerries;
 using Microsoft.AspNetCore.Components;
 using System.Globalization;
@@ -15,13 +15,13 @@ namespace BookRight.UI.Components.Pages.CreateBookings
     {
         [Inject] private IBookingPricingFacade PricingFacade { get; set; } = default!;
         [Inject] private ICreateBookingUseCase CreateBookingUseCase { get; set; } = default!;
-
         [Parameter] public CustomerDto Customer { get; set; } = default!;
         [Parameter] public TreatmentTypeDto TreatmentType { get; set; } = default!;
         [Parameter] public PractitionerDto Practitioner { get; set; } = default!;
         [Parameter] public ClinicDto Clinic { get; set; } = default!;
         [Parameter] public PractitionerAvailableSlotDto Slot { get; set; } = default!;
         [Parameter] public EventCallback OnNewBooking { get; set; }
+        
 
         private BookingPricePreviewDto? _pricePreview;
         private bool _isLoadingPrice = true;
@@ -67,7 +67,8 @@ namespace BookRight.UI.Components.Pages.CreateBookings
                     PractitionerId: Practitioner.id,
                     ClinicId: Clinic.Id,
                     TreatmentTypeId: TreatmentType.Id,
-                    StartTime: Slot.Start));
+                    StartTime: Slot.Start,
+                    IsTeam: TreatmentType.MaxParticipants > 1));
 
                 _bookingConfirmed = true;
             }

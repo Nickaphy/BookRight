@@ -1,11 +1,11 @@
 using BookRight.Application.Repositories;
 using BookRight.Application.UseCaseExceptions;
 using BookRight.Facade.Commands.Practitioner;
-using BookRight.Facade.Dtos.PractitionerCommand;
 using BookRight.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using BookRight.Facade.Dtos.CommandDto.PractitionerCommand;
 
 namespace BookRight.Application.UseCases.PractitionerUseCases
 {

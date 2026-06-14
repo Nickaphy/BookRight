@@ -1,5 +1,5 @@
 ﻿using BookRight.Facade.Commands.CustomerCommands;
-using BookRight.Facade.Dtos.CustomerCommands;
+using BookRight.Facade.Dtos.CommandDto.CustomerCommands;
 using Microsoft.AspNetCore.Components;
 
 namespace BookRight.UI.Components.Pages.CreateCustomers;

@@ -1,14 +1,15 @@
-﻿using BookRight.Application.Commands.BookingCommands;
-using BookRight.Application.Commands.CustomerCommands;
-using BookRight.Application.Services;
+﻿using BookRight.Application.QuerryHandlers.Pricing;
+using BookRight.Application.UseCases.BookingCommands;
 using BookRight.Application.UseCases.CampaignUseCases;
 using BookRight.Application.UseCases.ClinicUseCases;
-using BookRight.Application.UseCases.Pricing;
+using BookRight.Application.UseCases.CustomerCommands;
 using BookRight.Application.UseCases.PractitionerUseCases;
-using BookRight.Application.UseCases.Services;
 using BookRight.Application.UseCases.Services.DiscountService;
 using BookRight.Application.UseCases.Services.DiscountStrategy;
 using BookRight.Application.UseCases.Services.PriceCalculator;
+using BookRight.Domain.Common;
+using BookRight.Domain.DomainServices.BookingConfictChecker;
+using BookRight.Domain.Entities.Bookings;
 using BookRight.Facade.Commands.Booking;
 using BookRight.Facade.Commands.Campaign;
 using BookRight.Facade.Commands.Clinic;
@@ -67,6 +68,9 @@ namespace BookRight.Application.DependencyInjection
 
             // Pricing preview facade
             services.AddScoped<IBookingPricingFacade, BookingPricingFacadeHandler>();
+
+
+            services.AddScoped<IDomainEventHandler<BookingCompletedEvent>, UpdateCustomerLoyaltyLevelHandler>();
 
             return services;
         }

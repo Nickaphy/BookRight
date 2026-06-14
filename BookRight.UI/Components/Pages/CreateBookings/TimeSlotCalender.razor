@@ -1,5 +1,5 @@
 ﻿@namespace BookRight.UI.Components.Pages.CreateBookings
-
+@rendermode InteractiveServer
 <section>
     <h2>4. Vælg dato og tid</h2>
 
@@ -34,17 +34,40 @@
                             s.Start.Date == day.ToDateTime(TimeOnly.MinValue).Date &&
                             TimeOnly.FromDateTime(s.Start) == time);
 
-                        <td>
-                            @if (slot is not null)
-                            {
-                                <button type="button"
-                                        class="slot @(slot.IsAvailable ? "slot--available" : "slot--booked") @(_selectedSlot?.Start == slot.Start ? "slot--selected" : "")"
-                                        disabled="@(!slot.IsAvailable)"
-                                        @onclick="() => SelectSlot(slot)">
-                                    @(slot.IsAvailable ? "Ledig" : "Optaget")
-                                </button>
-                            }
-                        </td>
+                        var prevSlot = _slots.FirstOrDefault(s =>
+                            s.Start.Date == day.ToDateTime(TimeOnly.MinValue).Date &&
+                            TimeOnly.FromDateTime(s.Start) == time.Add(TimeSpan.FromMinutes(-15)));
+
+                        @if (slot != null && slot.IsTeam && prevSlot?.IsTeam == true)
+                        {
+                            @* Dækkes af rowspan fra første holdslot *@
+                        }
+                        else
+                        {
+                            <td rowspan="@(slot != null && slot.IsTeam ? DurationMinutes / 15 : 1)">
+                                @if (slot != null)
+                                {
+                                    @if (slot.IsTeam)
+                                    {
+                                        <button type="button"
+                                                class="slot slot--team @(_selectedSlot?.Start == slot.Start ? "slot--selected" : "")"
+                                                style="height: @TeamSlotHeight();"
+                                                @onclick="() => SelectSlot(slot)">
+                                            Hold
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button"
+                                                class="slot @(slot.IsAvailable ? "slot--available" : "slot--booked") @(_selectedSlot?.Start == slot.Start ? "slot--selected" : "")"
+                                                disabled="@(!slot.IsAvailable)"
+                                                @onclick="() => SelectSlot(slot)">
+                                            @(slot.IsAvailable ? "Ledig" : "Optaget")
+                                        </button>
+                                    }
+                                }
+                            </td>
+                        }
                     }
                 </tr>
             }

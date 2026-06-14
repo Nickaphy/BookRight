@@ -9,4 +9,5 @@
   <Project Path="BookRight.Facade/BookRight.Facade.csproj" />
   <Project Path="BookRight.Infrastructure/BookRight.Infrastructure.csproj" />
   <Project Path="BookRight.UI/BookRight.UI.csproj" Id="de369589-5641-4800-9ece-ea58387fa18d" />
+  <Project Path="EndToEndTesting/EndToEndTesting.csproj" Id="efe3e0a4-a0e5-4e27-b03c-ee88e52f0832" />
 </Solution>

@@ -1,7 +1,7 @@
 ﻿using BookRight.Application.Repositories;
 using BookRight.Application.UseCases.CampaignUseCases;
 using BookRight.Domain.Entities.Campaigns;
-using BookRight.Facade.Dtos.CampaignCommand;
+using BookRight.Facade.Dtos.CommandDto.CampaignCommand;
 using Moq;
 using System;
 using System.Collections.Generic;

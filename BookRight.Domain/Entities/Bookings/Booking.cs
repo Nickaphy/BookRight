@@ -13,10 +13,10 @@
 // Responsible for managing appointment creation and validation
 
 using BookRight.Domain.Common;
+using BookRight.Domain.Entities.Treatments;
 using BookRight.Domain.Enums;
 using BookRight.Domain.Exceptions;
 using BookRight.Domain.ValueObjects;
-
 namespace BookRight.Domain.Entities.Bookings;
 
 public class Booking : AggregateRoot
@@ -31,13 +31,14 @@ public class Booking : AggregateRoot
     public BookingStatus Status { get; private set; }
     public DateTime CreatedDate { get; private set; }
     public TimeRange TimeRange { get; private set; }
-    public bool IsTeam { get; private set; }
-    public int AmountParticipants { get; private set; }
     public Guid CustomerId { get; private set; }
     public Guid PractitionerId { get; private set; }
     public Guid ClinicId { get; private set; }
     public Guid TreatmentTypeId { get; private set; }
     public string? AppliedDiscount { get; private set; }
+    public bool IsTeam { get; private set; }
+
+
 
     private Booking()
     {
@@ -50,16 +51,14 @@ public class Booking : AggregateRoot
         Guid clinicId,
         Guid treatmentTypeId,
         TimeRange timeRange,
-        bool isTeam,
-        int amountParticipants,
-        Money basePrice)
+        Money basePrice,
+        bool isTeam)
     {
         if (timeRange is null)
             throw new ArgumentNullException(nameof(timeRange));
 
 
-        if (amountParticipants < 1)
-            throw new ArgumentException("Amount of participants must be at least 1.", nameof(amountParticipants));
+        
         if (timeRange.Start < DateTime.Now)
             throw new DomainException("A booking cannot be placed in the past.");
 
@@ -68,10 +67,8 @@ public class Booking : AggregateRoot
         ClinicId = clinicId;
         TreatmentTypeId = treatmentTypeId;
         TimeRange = timeRange;
-        IsTeam = isTeam;
-        AmountParticipants = amountParticipants;
         BasePrice = basePrice;
-
+        IsTeam = isTeam;
 
         Status = BookingStatus.Created;
         CreatedDate = DateTime.UtcNow;
@@ -83,17 +80,18 @@ public class Booking : AggregateRoot
         Guid clinicId,
         Guid treatmentTypeId,
         TimeRange timeRange,
-        Money basePrice)
+        Money basePrice,
+        bool isTeam)
     {
-        return new Booking(
+        var booking = new Booking(
             customerId,
             practitionerId,
             clinicId,
             treatmentTypeId,
             timeRange,
-            isTeam: false,
-            amountParticipants: 1,
-            basePrice);
+            basePrice,
+            isTeam);
+        return booking;
     }
 
     // Rebuilds a Booking from existing persisted data without re-running
@@ -101,7 +99,8 @@ public class Booking : AggregateRoot
     public static Booking Reconstitute(
         Guid customerId, Guid practitionerId, Guid clinicId,
         Guid treatmentTypeId, TimeRange timeRange, Money basePrice,
-        BookingStatus status)
+        BookingStatus status,
+        bool isTeam)
     {
         var b = new Booking();
         b.CustomerId = customerId;
@@ -109,12 +108,11 @@ public class Booking : AggregateRoot
         b.ClinicId = clinicId;
         b.TreatmentTypeId = treatmentTypeId;
         b.TimeRange = timeRange;
-        b.IsTeam = false;
-        b.AmountParticipants = 1;
         b.BasePrice = basePrice;
         b.FinalPrice = basePrice;
         b.Status = status;
         b.CreatedDate = timeRange.Start;
+        b.IsTeam = isTeam;
         return b;
     }
 
@@ -178,12 +176,18 @@ public class Booking : AggregateRoot
 
         if (Status == BookingStatus.NoShow)
             throw new DomainException("A no-show booking cannot be completed.");
+        
+        if (FinalPrice == null)
+            throw new DomainException("Cannot complete a booking before a final price has been set.");
 
         Status = BookingStatus.Completed;
 
-        if (FinalPrice is null)
-            throw new DomainException("Cannot complete a booking before a final price has been set.");
+        
 
         AddDomainEvent(new BookingCompletedEvent(CustomerId, FinalPrice.Amount));
     }
+
+
+   
+
 }

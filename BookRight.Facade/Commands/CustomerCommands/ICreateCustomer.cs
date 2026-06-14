@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using BookRight.Facade.Dtos.CustomerCommands;
+using BookRight.Facade.Dtos.CommandDto.CustomerCommands;
 
 namespace BookRight.Facade.Commands.CustomerCommands
 {

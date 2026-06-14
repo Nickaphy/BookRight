@@ -1,7 +1,7 @@
 using BookRight.Application.Repositories;
 using BookRight.Application.UseCaseExceptions;
 using BookRight.Facade.Commands.Practitioner;
-using BookRight.Facade.Dtos.PractitionerCommand;
+using BookRight.Facade.Dtos.CommandDto.PractitionerCommand;
 using System;
 using System.Collections.Generic;
 using System.Text;

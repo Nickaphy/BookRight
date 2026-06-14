@@ -1,5 +1,5 @@
 using BookRight.Facade.Dtos;
-using BookRight.Facade.Dtos.BookingCommand;
+using BookRight.Facade.Dtos.CommandDto.BookingCommand;
 using global::BookRight.Facade.Dtos;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using BookRight.Facade.Dtos.CustomerDtos;
+﻿using BookRight.Facade.Dtos.QuerryDto.CustomerDtos;
 
 namespace BookRight.Facade.Querries.CustomerQuerries
 {

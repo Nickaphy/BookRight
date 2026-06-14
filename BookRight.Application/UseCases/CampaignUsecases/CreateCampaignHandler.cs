@@ -1,7 +1,7 @@
 using BookRight.Application.Repositories;
 using BookRight.Domain.Entities.Campaigns;
 using BookRight.Facade.Commands.Campaign;
-using BookRight.Facade.Dtos.CampaignCommand;
+using BookRight.Facade.Dtos.CommandDto.CampaignCommand;
 
 namespace BookRight.Application.UseCases.CampaignUseCases;
 

@@ -1,4 +1,4 @@
-using BookRight.Facade.Dtos.PractitionerCommand;
+using BookRight.Facade.Dtos.CommandDto.PractitionerCommand;
 using System;
 using System.Collections.Generic;
 using System.Text;

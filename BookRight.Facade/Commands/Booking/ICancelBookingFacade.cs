@@ -1,4 +1,4 @@
-using BookRight.Facade.Dtos.BookingCommand;
+using BookRight.Facade.Dtos.CommandDto.BookingCommand;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,6 +1,6 @@
 ﻿using BookRight.Domain.Enums;
-using BookRight.Facade.Dtos.Reports;
-using BookRight.Facade.Queries.Reports;
+using BookRight.Facade.Dtos.QuerryDto.ClinicReportDtos;
+using BookRight.Facade.Querries.ClinicQuerries;
 using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿using BookRight.Facade.Dtos.ClinicQuerry;
+﻿using BookRight.Facade.Dtos.QuerryDto.ClinicQuerry;
 using BookRight.Facade.Querries.ClinicQuerries;
 using BookRight.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;

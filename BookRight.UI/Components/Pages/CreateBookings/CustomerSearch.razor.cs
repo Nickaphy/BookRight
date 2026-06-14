@@ -1,5 +1,5 @@
 ﻿using BookRight.Application;
-using BookRight.Facade.Dtos.CustomerDtos;
+using BookRight.Facade.Dtos.QuerryDto.CustomerDtos;
 using BookRight.Facade.Querries.CustomerQuerries;
 using Microsoft.AspNetCore.Components;
 

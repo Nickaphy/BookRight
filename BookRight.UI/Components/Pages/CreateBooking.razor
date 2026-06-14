@@ -1,7 +1,7 @@
-﻿@using BookRight.Facade.Dtos.CustomerDtos;
-@using BookRight.Facade.Dtos.TreatmentTypeDtos;
-@using BookRight.Facade.Dtos.PractitionerQuerry;
-@using BookRight.Facade.Dtos.ClinicQuerry;
+﻿@using BookRight.Facade.Dtos.QuerryDto.CustomerDtos;
+@using BookRight.Facade.Dtos.QuerryDto.TreatmentTypeDtos;
+@using BookRight.Facade.Dtos.QuerryDto.PractitionerQuerry;
+@using BookRight.Facade.Dtos.QuerryDto.ClinicQuerry;
 @using BookRight.UI.Components.Pages.CreateBookings;
 
 @rendermode InteractiveServer
@@ -16,13 +16,13 @@
                 OnCleared="OnCustomerCleared" />
 
 @* Step 2 — Vælg behandlingstype (only shown once customer is selected) *@
-@if (_selectedCustomer is not null)
+@if (_selectedCustomer != null)
 {
     <TreatmentTypeSelector OnTreatmentTypeSelected="OnTreatmentTypeSelected" />
 }
 
 @* Step 3 — Vælg terapeut (only shown once treatment is selected) *@
-@if (_selectedTreatmentType is not null)
+@if (_selectedTreatmentType != null)
 {
     <PractitionerSelector AuthorizationType="@_selectedTreatmentType.AuthorizationType"
                           OnPractitionerSelected="OnPractitionerSelected"
@@ -30,7 +30,7 @@
 }
 
 @* Step 4 — Vælg klinik (only shown once practitioner is selected) *@
-@if (_selectedPractitioner is not null)
+@if (_selectedPractitioner != null)
 {
     <ClinicSelector PractitionerId="@_selectedPractitioner.id"
                     OnClinicSelected="OnClinicSelected"
@@ -38,7 +38,7 @@
 }
 
 @* Step 5 — Calendar (only shown once clinic is selected) *@
-@if (_selectedClinic is not null)
+@if (_selectedClinic != null)
 {
     <TimeSlotCalender PractitionerId="@_selectedPractitioner!.id"
                       ClinicId="@_selectedClinic.Id"
@@ -47,7 +47,7 @@
 }
 
 @* Step 6 — Confirmation (only shown once a slot is selected) *@
-@if (_selectedSlot is not null)
+@if (_selectedSlot != null)
 {
     <BookingConfirmation Customer="@(_selectedCustomer!)"
                          TreatmentType="@(_selectedTreatmentType!)"
@@ -63,6 +63,8 @@
     private PractitionerDto? _selectedPractitioner;
     private ClinicDto? _selectedClinic;
     private PractitionerAvailableSlotDto? _selectedSlot;
+    private bool _selectedIsTeam = false;
+	private int _selectedAmountParticipants = 1;
 
     // Incrementing this key forces Blazor to destroy and recreate CustomerSearch,
     // clearing its internal state (the selected customer card) on full reset.

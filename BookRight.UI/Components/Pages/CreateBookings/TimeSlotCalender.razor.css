@@ -42,11 +42,8 @@ h2 {
     border-collapse: collapse;
 }
 
-    .calendar-grid th {
-        text-align: center;
-        padding: 8px;
-        border-bottom: 1px solid #e5e7eb;
-    }
+    
+    
 
 .day-name {
     display: block;
@@ -106,3 +103,16 @@ h2 {
     background-color: #1e3a5f;
     color: white;
 }
+
+.slot--team {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+    .slot--team:hover {
+        background-color: #bfdbfe;
+    }
+
+
+
+    

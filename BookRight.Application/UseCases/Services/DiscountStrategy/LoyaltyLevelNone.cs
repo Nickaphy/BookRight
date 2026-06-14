@@ -15,13 +15,13 @@ public sealed class LoyaltyLevelNone : IDiscountStrategy
     public DiscountType DiscountType =>
         DiscountType.None;
 
-    public Task<decimal> CalculateDiscountAsync(
+    public decimal CalculateDiscount(
         BookingPricingContext context)
     {
         if (context is null)
             throw new ArgumentNullException(nameof(context));
 
         // No discount is given for LoyaltyLevel.None.
-        return Task.FromResult(0m);
+        return 0m;
     }
 }
