@@ -41,6 +41,8 @@ namespace BookRight.Infrastructure.DependencyInjection
             services.AddScoped<ICampaignRepository, CampaignRepository>();
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             services.AddScoped<ITreatmentTypeRepository, TreatmentTypeRepository>();
+            services.AddScoped<IPractitionerClinicDayRepository, PractitionerClinicDayRepository>();
+
 
             // Queries
             services.AddScoped<ICustomerQuerries, CustomerQuerries>();

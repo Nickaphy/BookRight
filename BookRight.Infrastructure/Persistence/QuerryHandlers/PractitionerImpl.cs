@@ -8,10 +8,12 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
     public class PractitionerImpl : IPractitionerQuerries
     {
         private readonly IDbContextFactory<AppDbContext> _factory;
+        private readonly IPractitionerAvailabilitySlotsQuerries _availabilitySlots;
 
-        public PractitionerImpl(IDbContextFactory<AppDbContext> factory)
+        public PractitionerImpl(IDbContextFactory<AppDbContext> factory, IPractitionerAvailabilitySlotsQuerries availabilitySlots)
         {
             _factory = factory;
+            _availabilitySlots = availabilitySlots;
         }
 
         public async Task<PractitionerDto?> GetByIdAsync(Guid id)
@@ -63,85 +65,6 @@ namespace BookRight.Infrastructure.Persistence.QuerryHandlers
                 .ToList();
         }
 
-        public async Task<IReadOnlyList<PractitionerAvailableSlotDto>> GetAvailableSlotsAsync(
-            Guid practitionerId,
-            Guid clinicId,
-            DateOnly week,
-            int durationMinutes,
-            CancellationToken cancellationToken = default)
-        {
-            using var context = _factory.CreateDbContext();
-
-            var weekStart = week.ToDateTime(TimeOnly.MinValue);
-            var weekEnd = weekStart.AddDays(7);
-
-            // Only look at days where this practitioner is at the chosen clinic.
-            var clinicDays = await context.PractitionerClinicDays
-                .AsNoTracking()
-                .Where(pc => pc.PractitionerId == practitionerId
-                          && pc.ClinicId == clinicId
-                          && pc.Date >= weekStart
-                          && pc.Date < weekEnd)
-                .ToListAsync(cancellationToken);
-
-            var clinic = await context.Clinics
-                .AsNoTracking()
-                .Include(c => c.OpeningHours)
-                .FirstOrDefaultAsync(c => c.Id == clinicId, cancellationToken);
-
-            if (clinic == null)
-                return [];
-
-            // Existing bookings for this practitioner at this clinic in the week.
-            var bookings = await context.Bookings
-                .AsNoTracking()
-                .Where(b => b.PractitionerId == practitionerId
-                         && b.ClinicId == clinicId
-                         && b.TimeRange.Start >= weekStart
-                         && b.TimeRange.Start < weekEnd
-                         && (b.Status == Domain.Enums.BookingStatus.Created ||
-                             b.Status == Domain.Enums.BookingStatus.Completed))
-                .ToListAsync(cancellationToken);
-
-            var slots = new List<PractitionerAvailableSlotDto>();
-
-            foreach (var clinicDay in clinicDays)
-            {
-                var dayOfWeek = clinicDay.Date.DayOfWeek;
-                var openingHour = clinic.OpeningHours.FirstOrDefault(oh => oh.WeekDay == dayOfWeek);
-                if (openingHour is null) continue;
-
-                var slotStart = clinicDay.Date.Date + openingHour.OpeningTime.ToTimeSpan();
-                var closingTime = clinicDay.Date.Date + openingHour.ClosingTime.ToTimeSpan();
-
-                var now = DateTime.Now;
-
-                while (slotStart.AddMinutes(durationMinutes) <= closingTime)
-                {
-                    var slotEnd = slotStart.AddMinutes(durationMinutes);
-
-                    // Skip slots that are already in the past.
-                    if (slotStart < now)
-                    {
-                        slotStart = slotStart.AddMinutes(durationMinutes);
-                        continue;
-                    }
-
-                    var isBooked = bookings.Any(b =>
-                        b.TimeRange.Start < slotEnd &&
-                        b.TimeRange.End > slotStart);
-
-                    var isTeam = bookings.Any(b =>
-                        b.TimeRange.Start <= slotStart &&
-                        b.TimeRange.End > slotStart &&
-                        b.IsTeam);
-
-                    slots.Add(new PractitionerAvailableSlotDto(slotStart, slotEnd, !isBooked, isTeam));
-                    slotStart = slotStart.AddMinutes(15);
-                }
-            }
-
-            return slots.OrderBy(s => s.Start).ToList();
-        }
+        
     }
 }

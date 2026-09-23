@@ -7,7 +7,7 @@ namespace BookRight.UI.Components.Pages.CreateBookings
     public partial class TimeSlotCalender : ComponentBase
     {
         [Inject]
-        private IPractitionerQuerries PractitionerQueries { get; set; } = default!;
+        private IPractitionerAvailabilitySlotsQuerries AvailabilitySlots { get; set; } = default!;
 
         [Parameter]
         public Guid PractitionerId { get; set; }
@@ -36,7 +36,7 @@ namespace BookRight.UI.Components.Pages.CreateBookings
         {
             if (PractitionerId != Guid.Empty && ClinicId != Guid.Empty)
             {
-                _slots = await PractitionerQueries.GetAvailableSlotsAsync(
+                _slots = await AvailabilitySlots.GetAvailableSlotsAsync(
                     PractitionerId,
                     ClinicId,
                     _currentWeek,
@@ -83,6 +83,20 @@ namespace BookRight.UI.Components.Pages.CreateBookings
                 current = current.AddMinutes(15);
             }
             return times;
+        }
+
+        private int TeamSlotRowSpan(PractitionerAvailableSlotDto slot, IReadOnlyList<PractitionerAvailableSlotDto> daySlots)
+        {
+            // Tæl konsekutive IsTeam-slots der starter samme sted som det rigtige hold,
+            // i stedet for at bruge DurationMinutes fra den booking man er ved at oprette.
+            var count = 0;
+            var current = slot.Start;
+            while (daySlots.Any(s => s.Start == current && s.TeamBookingId == slot.TeamBookingId))
+            {
+                count++;
+                current = current.AddMinutes(15);
+            }
+            return count;
         }
     }
 }

@@ -174,4 +174,22 @@ public sealed class BookingRepository : IBookingRepository
             .ToListAsync(cancellationToken);
     }
 
+    public async Task<IReadOnlyList<Booking>> GetForPractitionerAndClinicInRangeAsync(
+    Guid practitionerId,
+    Guid clinicId,
+    DateTime rangeStart,
+    DateTime rangeEnd,
+    CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Bookings
+            .AsNoTracking()
+            .Where(b => b.PractitionerId == practitionerId
+                     && b.ClinicId == clinicId
+                     && b.TimeRange.Start >= rangeStart
+                     && b.TimeRange.Start < rangeEnd
+                     && (b.Status == BookingStatus.Created ||
+                         b.Status == BookingStatus.Completed))
+            .ToListAsync(cancellationToken);
+    }
+
 }

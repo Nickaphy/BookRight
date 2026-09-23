@@ -1,4 +1,6 @@
-﻿using BookRight.Application.QuerryHandlers.Pricing;
+﻿using BookRight.Application.QuerryHandlers;
+using BookRight.Application.QuerryHandlers.Pricing;
+using BookRight.Application.Repositories;
 using BookRight.Application.UseCases.BookingCommands;
 using BookRight.Application.UseCases.CampaignUseCases;
 using BookRight.Application.UseCases.ClinicUseCases;
@@ -16,6 +18,7 @@ using BookRight.Facade.Commands.Clinic;
 using BookRight.Facade.Commands.CustomerCommands;
 using BookRight.Facade.Commands.Practitioner;
 using BookRight.Facade.Querries.BookingQuerries;
+using BookRight.Facade.Querries.PractitionerQuerries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookRight.Application.DependencyInjection
@@ -34,11 +37,14 @@ namespace BookRight.Application.DependencyInjection
             services.AddScoped<IUpdatePractitioner, UpdatePractitionerHandler>();
             services.AddScoped<IDeletePractitioner, DeletePractitionerHandler>();
             services.AddScoped<IAssignPractitionerToClinic, AssignPractitionerToClinicHandler>();
+            services.AddScoped<IPractitionerAvailabilitySlotsQuerries, PractitionerAvailabilitySlotsHandler>();
+
 
             // Clinic
             services.AddScoped<ICreateClinic, CreateClinicHandler>();
             services.AddScoped<IUpdateClinic, UpdateClinicHandler>();
             services.AddScoped<IDeleteClinic, DeleteClinicHandler>();
+           
 
             // Campaign
             services.AddScoped<ICreateCampaign, CreateCampaignHandler>();
@@ -70,7 +76,10 @@ namespace BookRight.Application.DependencyInjection
             services.AddScoped<IBookingPricingFacade, BookingPricingFacadeHandler>();
 
 
-            services.AddScoped<IDomainEventHandler<BookingCompletedEvent>, UpdateCustomerLoyaltyLevelHandler>();
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(UpdateCustomerLoyaltyLevelHandler).Assembly);
+            });
 
             return services;
         }

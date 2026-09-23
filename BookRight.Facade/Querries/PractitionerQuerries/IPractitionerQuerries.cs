@@ -11,12 +11,6 @@ namespace BookRight.Facade.Querries.PractitionerQuerries
         Task<IReadOnlyList<PractitionerDto>> GetAllAsync();
         Task<IReadOnlyList<PractitionerDto>> GetByAuthorizationType(string authorizationType);
 
-        // ClinicId filters slots to only that clinic's opening hours.
-        Task<IReadOnlyList<PractitionerAvailableSlotDto>> GetAvailableSlotsAsync(
-            Guid practitionerId,
-            Guid clinicId,
-            DateOnly week,
-            int durationMinutes,
-            CancellationToken cancellationToken = default);
+        
     }
 }

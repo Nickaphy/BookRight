@@ -56,4 +56,12 @@ public interface IBookingRepository
     Task<IEnumerable<Booking>> GetBookingsByPractitionerIdAsync(
         Guid practitionerId,
         CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyList<Booking>> GetForPractitionerAndClinicInRangeAsync(
+    Guid practitionerId,
+    Guid clinicId,
+    DateTime rangeStart,
+    DateTime rangeEnd,
+    CancellationToken cancellationToken = default);
+    
 }

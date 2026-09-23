@@ -1,13 +1,14 @@
 using BookRight.Application.Repositories;
+using BookRight.Domain.Common;
+using BookRight.Domain.Entities.Bookings;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using BookRight.Domain.Common;
-using BookRight.Domain.Entities.Bookings;
 
 namespace BookRight.Application.UseCases.CustomerCommands
 {
-    public class UpdateCustomerLoyaltyLevelHandler : IDomainEventHandler<BookingCompletedEvent>
+    public class UpdateCustomerLoyaltyLevelHandler : INotificationHandler<BookingCompletedEvent>
     {
         private readonly IBookingRepository _bookingRepository;
         private readonly ICustomerRepository _customerRepository;

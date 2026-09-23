@@ -4,6 +4,7 @@
 // Keeps database access separated from Application and Domain
 using BookRight.Application.Repositories;
 using BookRight.Domain.Entities.Clinics;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookRight.Infrastructure.Persistence.Repositories;
 
@@ -43,6 +44,14 @@ public class ClinicRepository : IClinicRepository
     public async Task SaveAsync(Clinic clinic, CancellationToken cancellationToken = default)
     {
         await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<Clinic?> GetWithOpeningHoursAsync(Guid clinicId, CancellationToken cancellationToken = default)
+    {
+        return await _context.Clinics
+            .AsNoTracking()
+            .Include(c => c.OpeningHours)
+            .FirstOrDefaultAsync(c => c.Id == clinicId, cancellationToken);
     }
 
 }

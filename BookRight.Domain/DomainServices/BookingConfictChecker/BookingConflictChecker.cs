@@ -23,8 +23,9 @@ namespace BookRight.Domain.DomainServices.BookingConfictChecker
             if (overlappingCount >= maxParticipants)
                 throw new DomainException("This time slot is fully booked.");
 
-            if (existingForCustomer.Any(p => p.Status == BookingStatus.Created && p.Status == BookingStatus.Completed && p.TimeRange.Overlaps(timeRange)))
+            if (existingForCustomer.Any(p =>(p.Status == BookingStatus.Created || p.Status == BookingStatus.Completed) && p.TimeRange.Overlaps(timeRange)))
                 throw new DomainException("Customer is already booked for this time slot.");
+           
 
 
         }

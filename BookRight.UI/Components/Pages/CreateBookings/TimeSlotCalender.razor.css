@@ -42,76 +42,75 @@ h2 {
     border-collapse: collapse;
 }
 
-    
-    
 
-.day-name {
-    display: block;
-    font-size: 0.75rem;
-    color: #6b7280;
-    font-weight: 600;
-}
 
-.day-number {
-    display: block;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #111827;
-}
-
-.day-month {
-    display: block;
-    font-size: 0.75rem;
-    color: #6b7280;
-}
-
-.time-label {
-    font-size: 0.75rem;
-    color: #6b7280;
-    padding: 4px 8px;
-    white-space: nowrap;
-    width: 50px;
-}
-
-.slot {
-    width: 100%;
-    padding: 6px 4px;
-    border-radius: 6px;
-    border: none;
-    font-size: 0.75rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin: 2px 0;
-}
-
-.slot--available {
-    background-color: #dcfce7;
-    color: #166534;
-}
-
-    .slot--available:hover {
-        background-color: #bbf7d0;
+    .day-name {
+        display: block;
+        font-size: 0.75rem;
+        color: #6b7280;
+        font-weight: 600;
     }
 
-.slot--booked {
-    background-color: #f3f4f6;
-    color: #9ca3af;
-    cursor: not-allowed;
-}
-
-.slot--selected {
-    background-color: #1e3a5f;
-    color: white;
-}
-
-.slot--team {
-    background-color: #dbeafe;
-    color: #1e40af;
-}
-
-    .slot--team:hover {
-        background-color: #bfdbfe;
+    .day-number {
+        display: block;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #111827;
     }
+
+    .day-month {
+        display: block;
+        font-size: 0.75rem;
+        color: #6b7280;
+    }
+
+    .time-label {
+        font-size: 0.75rem;
+        color: #6b7280;
+        padding: 4px 8px;
+        white-space: nowrap;
+        width: 50px;
+    }
+
+    .slot {
+        width: 100%;
+        padding: 6px 4px;
+        border-radius: 6px;
+        border: none;
+        font-size: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        margin: 2px 0;
+    }
+
+    .slot--available {
+        background-color: #dcfce7;
+        color: #166534;
+    }
+
+        .slot--available:hover {
+            background-color: #bbf7d0;
+        }
+
+    .slot--booked {
+        background-color: #f3f4f6;
+        color: #9ca3af;
+        cursor: not-allowed;
+    }
+
+    .slot--selected {
+        background-color: #1e3a5f;
+        color: white;
+    }
+
+    .slot--team {
+        background-color: #dbeafe;
+        color: #1e40af;
+    }
+
+        .slot--team:hover {
+            background-color: #bfdbfe;
+        }
 
 
 

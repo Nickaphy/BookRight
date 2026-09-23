@@ -21,4 +21,9 @@ public interface IClinicRepository
     Task DeleteAsync(Clinic clinic, CancellationToken cancellationToken = default);
 
     Task SaveAsync(Clinic clinic, CancellationToken cancellationToken = default);
+
+    Task<Clinic?> GetWithOpeningHoursAsync(Guid clinicId,
+        CancellationToken cancellationToken = default);
+
+
 }

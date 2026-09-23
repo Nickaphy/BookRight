@@ -38,13 +38,13 @@
                             s.Start.Date == day.ToDateTime(TimeOnly.MinValue).Date &&
                             TimeOnly.FromDateTime(s.Start) == time.Add(TimeSpan.FromMinutes(-15)));
 
-                        @if (slot != null && slot.IsTeam && prevSlot?.IsTeam == true)
+                        @if (slot != null && slot.IsTeam && prevSlot?.TeamBookingId == slot.TeamBookingId)
                         {
                             @* Dækkes af rowspan fra første holdslot *@
                         }
                         else
                         {
-                            <td rowspan="@(slot != null && slot.IsTeam ? DurationMinutes / 15 : 1)">
+                            <td rowspan="@(slot != null && slot.IsTeam ? TeamSlotRowSpan(slot, _slots) : 1)">
                                 @if (slot != null)
                                 {
                                     @if (slot.IsTeam)

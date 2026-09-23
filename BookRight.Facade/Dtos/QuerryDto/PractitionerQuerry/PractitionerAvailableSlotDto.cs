@@ -7,5 +7,6 @@ namespace BookRight.Facade.Dtos.QuerryDto.PractitionerQuerry
     public record PractitionerAvailableSlotDto(DateTime Start,
                                    DateTime End,
                                    bool IsAvailable,
-                                   bool IsTeam);
+                                   bool IsTeam,
+                                   Guid? TeamBookingId = null);
 }

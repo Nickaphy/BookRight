@@ -29,7 +29,11 @@ namespace EndToEndTesting.BookingEnd2EndTest
             options.UseInMemoryDatabase("E2ETest_" + Guid.NewGuid()));
 
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
-            services.AddScoped<IDomainEventHandler<BookingCompletedEvent>, UpdateCustomerLoyaltyLevelHandler>();
+            services.AddLogging();
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(UpdateCustomerLoyaltyLevelHandler).Assembly);
+            });
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
@@ -66,10 +70,10 @@ namespace EndToEndTesting.BookingEnd2EndTest
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 timeRange,
-                new Money(3000m),
+                new Money(4000m),
                 false);
 
-            booking.SetFinalPrice(new Money(3000m), DiscountType.None);
+            booking.SetFinalPrice(new Money(4000m), DiscountType.None);
 
             await db.Bookings.AddAsync(booking);
             await db.SaveChangesAsync();
